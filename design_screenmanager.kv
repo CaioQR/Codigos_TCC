@@ -1,0 +1,625 @@
+#:import utils kivy.utils
+#:import Factory kivy.factory.Factory
+
+### azul da maua
+#background_color: (0/255,71/255,133/255,1)
+#background_color: utils.get_color_from_hex('#004785')
+###  azul da bayer
+#background_color: (0/255,188/255,255/255,1)
+### verde da bayer
+#background_color: (137/255,211/255,41/255,1)
+
+######################################################################################################################
+######################################################## DEFINIÇÕES ##################################################
+######################################################################################################################
+
+<MyPopup@Popup>
+	auto_dismiss: False
+	title: "This is a popup box"
+	Button:
+		text: "Close me!"
+		font_size:24
+		on_release: root.dismiss()
+
+<ImageFrame@Image>
+	canvas:
+        Color:
+            rgba: 1, 1, 1, 0
+        Rectangle:
+            pos: self.pos
+            size: self.size
+	background_normal:''
+	source: "Assets/frame.png"
+	size_hint: (1,0.95)
+	allow_stretch:True
+	keep_ratio:False
+
+<ImageRegistro@Image>
+	canvas:
+        Color:
+            rgba: 1, 1, 1, 0
+        Rectangle:
+            pos: self.pos
+            size: self.size
+	background_normal:''
+	source: "Assets/registro_board.png"
+	pos_hint: {'x':0.675, 'y':0.43}
+	size_hint: (0.3,0.485)
+	allow_stretch:True
+	keep_ratio:False
+
+<MyButton@Button>
+	font_size: 32
+	size_hint: (0.1, 0.2)
+	background_normal: ''
+	background_color: (0/255,71/255,133/255,1)
+	color: (1,1,1,1)
+	bold:True
+	pos_hint: {'x':0, "y": 1}
+
+<Label>
+	font_size: 28
+	background_color: (1,1,1,1)
+	color: (0,0,0,1)
+	spacing:0
+	padding:(0,0)
+	bold: True
+	canvas.before:
+		Color:
+			rgba: self.background_color
+		Rectangle:
+			size: self.size
+			pos: self.pos
+
+<TextInput>
+	font_size: 20
+	size_hint: (0.2, 0.05)
+	padding: 0
+	background_color: utils.get_color_from_hex('#004785')
+	cursor_color: (1,1,1,1)
+	foreground_color: (1,1,1,1)
+	valign: "middle"
+	multiline: True
+
+<LabelRegistro@Label>
+	text: "Registro de atividades e erros"
+	font_size: 24
+	size_hint: (0.15, 0.05)
+	pos_hint: {'x': 0.75, 'top': 0.68}
+	background_color: (177/255,188/255,197/255,1)
+
+
+<ImageBoard@Image>
+	canvas:
+        Color:
+            rgba: 1, 1, 1, 0.5
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    source: "Assets/leaf_board.png"
+    pos_hint: {'x':0.045, 'y':0.05}
+    size_hint: 0.62,0.67
+    allow_stretch: True
+    keep_ratio: False
+
+<LabelID@Label>
+	text: "ID do ensaio:"
+	font_size: 20
+	size_hint: (0.15, 0.05)
+	pos_hint: {'x': 0.02, 'top': 0.91}
+
+<TextInputID@TextInput>
+	id:id_ensaio
+	multiline: False
+	pos_hint: {'x': 0.15, 'top': 0.91}
+
+<LabelTecnico@Label>:
+	text: "Técnico:"
+	font_size: 20
+	size_hint: (0.15, 0.05)
+	pos_hint: {'x': 0.035, 'top': 0.85}
+<TextInputTecnico@TextInput>:
+	id:tecnico
+	multiline: False
+	pos_hint: {'x': 0.15, 'top': 0.85}
+
+<LabelInicio@Label>:
+	text: "Início:"
+	font_size: 20
+	size_hint: (0.15, 0.05)
+	pos_hint: {'x': 0.044, 'top': 0.79}
+<TextInputInicio@TextInput>:
+	id:data
+	multiline: False
+	pos_hint: {'x': 0.15, 'top': 0.79}
+
+<LabelTermino@Label>
+	text: "Término:"
+	font_size: 20
+	size_hint: (0.15, 0.05)
+	pos_hint: {'x': 0.35, 'top': 0.79}
+
+<TextInputTermino@TextInput>:
+	id:data
+	multiline: False
+	#size_hint: (0.17, 0.05)
+	pos_hint: {'x': 0.463, 'top': 0.79}
+
+<RoundedButton@MyButton>
+	background_color: (0,0,0,0)
+	color: (1,1,1,1)
+	background_normal: ''
+	canvas.before:
+		Color:
+			rgba: (0/255,71/255,133/255,1)
+		RoundedRectangle:
+			size: self.size
+			pos: self.pos
+			radius: [10]
+
+<ButtonPreencherDados@Button>
+	text: "Preencher dados"
+	font_size: 20
+	size_hint: (0.17, 0.06)
+	pos_hint: {'x': 0.495, 'top': 0.91}
+	background_color: (0,0,0,0)
+	color: (1,1,1,1)
+	background_normal: ''
+	canvas.before:
+		Color:
+			rgba: (137/255,211/255,41/255,1)
+		RoundedRectangle:
+			size: self.size
+			pos: self.pos
+			radius: [10]
+
+<TabsButton@Button>
+	font_size: 26
+	size_hint: (0.12, 0.055)
+	background_normal: ''
+	background_color: (0/255,71/255,133/255,1)
+	color: (1,1,1,1)
+	bold:True
+
+<LeafImage@Image>:
+	source:"Assets/Espécie_frame.png"
+	size_hint: (0.18, 0.18)
+
+<Spinner>
+	font_size: 22
+	text: "Espécie"
+	values:"Algodão", "Milho", "Soja"
+	auto_width: False
+	size_hint: (0.12, 0.035)
+	pos_hint: {'x': 0.06, 'y': 0.47}
+	background_normal: ''
+	background_color: (0,71/255,133/255)
+	color: (1,1,1,1)
+
+<TextInputComentarios@TextInput>
+	size_hint: (0.12, 0.035)
+	hint_text:" Comentários..."
+
+
+<MyGridLayout>
+	canvas.before:
+		Color:
+			rgba: (1,1,1,1)
+		Rectangle:
+			pos: self.pos
+			size: self.size
+
+
+
+WindowManager:
+	HomeWindow:
+	Etapa1Window:
+	RealizaEnsaioCompletoWindow:
+	Etapa2Window:
+	HistoricoWindow:
+
+######################################################################################################################
+########################################################## HOME ######################################################
+######################################################################################################################
+
+<HomeWindow>
+	name:"Home"
+	ImageFrame:
+		size_hint: (1,1)
+	GridLayout:
+		cols:1
+		size: root.width, root.height
+		spacing: 50
+		padding: 50
+		
+######################### IMAGENS ##########################
+		GridLayout:
+			cols:2
+			Image:
+				source: 'Assets/Logo_Bayer.png'
+				allow_stretch: True
+				keep_ratio: True
+			Image:
+				source: 'Assets/logo_maua_redondo.png'
+
+		GridLayout:
+			cols:1
+			Label:
+				text: "DESENVOLVIMENTO DE SISTEMAS AUTOMATIZADOS\nPARA COLETA E ANÁLISE DE AMOSTRAS DE TECIDO FOLIAR"
+				font_size: 32
+				halign: "center"
+
+###################### BOTÕES DE NAVEGAÇÃO ####################
+		GridLayout:
+			cols:3
+			padding: 50
+			spacing: 100
+			RoundedButton:
+				text: "1ª Etapa"
+				id: etapa1_button
+				on_release:
+					app.root.current = "1ª Etapa"
+					root.manager.transition.direction = "left"
+				#on_press: self.background_color = (0, 1, 0, 1)
+
+			RoundedButton:
+				text: '2ª Etapa'
+				width: 20
+				height: 20
+				padding: (50, 10)
+				spacing: 50
+				size_hint: (0.1, 0.2)
+				border: (0,0,0,1)
+				on_release:
+					app.root.current = "2ª Etapa"
+					root.manager.transition.direction = "left"
+
+			RoundedButton:
+				text: 'Histórico'
+				on_release:
+					app.root.current = "Histórico"
+					root.manager.transition.direction = "left"
+					#Factory.MyPopup().open()
+			
+
+	
+
+######################################################################################################################
+######################################################## 1a ETAPA ####################################################
+######################################################################################################################
+<Etapa1Window>
+	name:"1ª Etapa"
+	id_ensaio:id_ensaio
+	tecnico:tecnico
+	ImageFrame:
+	ImageRegistro:
+	ImageBoard:
+
+
+##################### COMENTÁRIOS ###################
+	LeafImage:
+		id: Image_A
+		pos_hint: {'x': 0.03, 'y': 0.51}
+	Spinner:
+		id: Spinner_A
+		pos_hint: {'x': 0.06, 'y': 0.47}
+		on_text:
+			Image_A.source= 'Assets/'+Spinner_A.text+'_frame.png'
+	TextInputComentarios:
+		id: Comentarios_A
+		pos_hint: {'x': 0.06, 'y': 0.41}
+################################
+	LeafImage:
+		id: Image_B
+		pos_hint: {'x': 0.19, 'y': 0.51}
+	Spinner:
+		id: Spinner_B
+		pos_hint: {'x': 0.217, 'y': 0.47}
+		on_text:
+			Image_B.source= 'Assets/'+Spinner_B.text+'_frame.png'
+	TextInputComentarios:
+		id: Comentarios_B
+		pos_hint: {'x': 0.217, 'y': 0.41}
+################################
+	LeafImage:
+		id: Image_C
+		pos_hint: {'x': 0.345, 'y': 0.51}
+	Spinner:
+		id: Spinner_C
+		pos_hint: {'x': 0.373, 'y': 0.47}
+		on_text:
+			Image_C.source= 'Assets/'+Spinner_C.text+'_frame.png'
+	TextInputComentarios:
+		id: Comentarios_C
+		pos_hint: {'x': 0.373, 'y': 0.41}
+################################
+	LeafImage:
+		id: Image_D
+		pos_hint: {'x': 0.5, 'y': 0.51}
+	Spinner:
+		id: Spinner_D
+		pos_hint: {'x': 0.529, 'y': 0.47}
+		on_text:
+			Image_D.source= 'Assets/'+Spinner_D.text+'_frame.png'
+	TextInputComentarios:
+		id: Comentarios_D
+		pos_hint: {'x': 0.529, 'y': 0.41}
+################################
+	LeafImage:
+		id: Image_E
+		pos_hint: {'x': 0.03, 'y': 0.18}
+	Spinner:
+		id: Spinner_E
+		pos_hint: {'x': 0.06, 'y': 0.14}
+		on_text:
+			Image_E.source= 'Assets/'+Spinner_E.text+'_frame.png'
+	TextInputComentarios:
+		id: Comentarios_E
+		pos_hint: {'x': 0.06, 'y': 0.08}
+################################
+	LeafImage:
+		id: Image_F
+		pos_hint: {'x': 0.19, 'y': 0.18}
+	Spinner:
+		id: Spinner_F
+		pos_hint: {'x': 0.217, 'y': 0.14}
+		on_text:
+			Image_F.source= 'Assets/'+Spinner_F.text+'_frame.png'
+	TextInputComentarios:
+		id: Comentarios_F
+		pos_hint: {'x': 0.217, 'y': 0.08}
+################################
+	LeafImage:
+		id: Image_G
+		pos_hint: {'x': 0.345, 'y': 0.18}
+	Spinner:
+		id: Spinner_G
+		pos_hint: {'x': 0.373, 'y': 0.14}
+		on_text:
+			Image_G.source= 'Assets/'+Spinner_G.text+'_frame.png'
+	TextInputComentarios:
+		id: Comentarios_G
+		pos_hint: {'x': 0.373, 'y': 0.08}
+################################
+	LeafImage:
+		id: Image_H
+		pos_hint: {'x': 0.5, 'y': 0.18}
+	Spinner:
+		id: Spinner_H
+		pos_hint: {'x': 0.529, 'y': 0.14}
+		on_text:
+			Image_H.source= 'Assets/'+Spinner_H.text+'_frame.png'
+	TextInputComentarios:
+		id: Comentarios_H
+		pos_hint: {'x': 0.529, 'y': 0.08}
+################################
+
+
+
+
+
+####################### TABS ########################
+
+	TabsButton:
+		text: "Home"
+		pos_hint: {'x': 0.0045, 'y': 0.942}
+		on_release:
+			root.Clear_Data()
+			app.root.current = "Home"
+			root.manager.transition.direction = "right"
+
+	TabsButton:
+		text: "1ª Etapa"
+		pos_hint: {'x': 0.1261, 'y': 0.942}
+		background_color: (0/255,188/255,255/255,1)
+
+	TabsButton:
+		text: "2ª Etapa"
+		pos_hint: {'x': 0.2478, 'y': 0.942}
+		on_release:
+			root.Clear_Data()
+			app.root.current = "2ª Etapa"
+			root.manager.transition.direction = "left"
+	TabsButton:
+		text: "Histórico"
+		pos_hint: {'x': 0.369, 'y': 0.942}
+		on_release:
+			root.Clear_Data()
+			app.root.current = "Histórico"
+			root.manager.transition.direction = "left"
+####################### CADASTRO ####################		
+	LabelID:
+	Label:
+		id: id_ensaio
+		text: root.ensaio
+		multiline: False
+		font_size: 20
+		size_hint: (0.15, 0.05)
+		pos_hint: {'x': 0.15, 'top': 0.91}
+	LabelTecnico:
+	TextInputTecnico:
+		id:tecnico
+	LabelInicio:
+	Label:
+		id: current_date
+		text: root.current_datetime
+		font_size: 20
+		size_hint: (0.15, 0.05)
+		pos_hint: {'x': 0.15, 'top': 0.79}
+	Button:
+		text: "Gerar ID"
+		font_size: 20
+		size_hint: (0.07, 0.05)
+		pos_hint: {'x': 0.36, 'top': 0.91}
+		background_color: (0,0,0,0)
+		color: (1,1,1,1)
+		background_normal: ''
+		canvas.before:
+			Color:
+				rgba: (137/255,211/255,41/255,1)
+			RoundedRectangle:
+				size: self.size
+				pos: self.pos
+				radius: [10]
+		on_release:
+			root.Gera_ID()
+
+###################### 3 BOTÕES ####################
+	RoundedButton:
+		text: "Criar Ensaio"
+		font_size: 24
+		size_hint: (0.1, 0.075)
+		pos_hint: {'x': 0.78, 'y': 0.3}
+		on_release:
+			root.save_data()
+
+	RoundedButton:
+		text: "Botão 2"
+		font_size: 24
+		size_hint: (0.1, 0.075)
+		pos_hint: {'x': 0.78, 'y': 0.2}
+	RoundedButton:
+		text: "Botão 3"
+		font_size: 24
+		size_hint: (0.1, 0.075)
+		pos_hint: {'x': 0.78, 'y': 0.1}
+
+
+######################################################################################################################
+############################################### Realiza Ensaio Completo ##############################################
+######################################################################################################################
+<RealizaEnsaioCompletoWindow>
+
+
+######################################################################################################################
+######################################################## 2a ETAPA ####################################################
+######################################################################################################################
+<Etapa2Window>
+	name:"2ª Etapa"
+	id: my_widget
+	ImageFrame:
+	ImageRegistro:
+	LabelRegistro:
+	ImageBoard:
+####################### TABS ########################
+	TabsButton:
+		text: "Home"
+		pos_hint: {'x': 0.0045, 'y': 0.942}
+		on_release:
+			app.root.current = "Home"
+			root.manager.transition.direction = "right"
+	TabsButton:
+		text: "1ª Etapa"
+		pos_hint: {'x': 0.1261, 'y': 0.942}
+		on_release:
+			app.root.current = "1ª Etapa"
+			root.manager.transition.direction = "right"
+	TabsButton:
+		text: "2ª Etapa"
+		pos_hint: {'x': 0.2478, 'y': 0.942}
+		background_color: (0/255,188/255,255/255,1)
+	TabsButton:
+		text: "Histórico"
+		pos_hint: {'x': 0.369, 'y': 0.942}
+		on_release:
+			app.root.current = "Histórico"
+			root.manager.transition.direction = "left"
+
+####################### CADASTRO ####################		
+	LabelID:
+	TextInputID:
+		id:id_ensaio
+	LabelTecnico:
+	TextInputTecnico:
+		id:tecnico
+	LabelInicio:
+	TextInputInicio:
+		id:data
+	ButtonPreencherDados:
+	LabelTermino:
+	TextInputTermino:
+
+##################### COMENTÁRIOS ###################
+
+
+
+###################### 3 BOTÕES ####################
+	RoundedButton:
+		text: "Botão 1"
+		font_size: 24
+		size_hint: (0.1, 0.075)
+		pos_hint: {'x': 0.78, 'y': 0.3}
+	RoundedButton:
+		text: "Botão 2"
+		font_size: 24
+		size_hint: (0.1, 0.075)
+		pos_hint: {'x': 0.78, 'y': 0.2}
+	RoundedButton:
+		text: "Botão 3"
+		font_size: 24
+		size_hint: (0.1, 0.075)
+		pos_hint: {'x': 0.78, 'y': 0.1}
+
+######################################################################################################################
+######################################################## HISTÓRICO ###################################################
+######################################################################################################################
+<HistoricoWindow>
+	name:"Histórico"
+	ImageFrame:
+	ImageBoard:
+####################### TABS ########################
+	TabsButton:
+		text: "Home"
+		pos_hint: {'x': 0.0045, 'y': 0.942}
+		on_release:
+			app.root.current = "Home"
+			root.manager.transition.direction = "right"
+
+	TabsButton:
+		text: "1ª Etapa"
+		pos_hint: {'x': 0.1261, 'y': 0.942}
+		on_release:
+			app.root.current = "1ª Etapa"
+			root.manager.transition.direction = "right"
+
+	TabsButton:
+		text: "2ª Etapa"
+		pos_hint: {'x': 0.2478, 'y': 0.942}
+		on_release:
+			app.root.current = "1ª Etapa"
+			root.manager.transition.direction = "right"
+		
+	TabsButton:
+		text: "Histórico"
+		pos_hint: {'x': 0.369, 'y': 0.942}
+		background_color: (0/255,188/255,255/255,1)
+
+####################### CADASTRO ####################		
+	LabelID:
+	TextInputID:
+		id:id_ensaio
+	LabelTecnico:
+	TextInputTecnico:
+		id:tecnico
+	LabelInicio:
+	TextInputInicio:
+		id:data
+	ButtonPreencherDados:
+	LabelTermino:
+	TextInputTermino:
+
+##################### COMENTÁRIOS ###################
+
+
+		
+###################### 3 BOTÕES ####################
+	RoundedButton:
+		text: "Botão 1"
+		font_size: 24
+		size_hint: (0.1, 0.075)
+		pos_hint: {'x': 0.73, 'y': 0.1}
+	RoundedButton:
+		text: "Botão 2"
+		font_size: 24
+		size_hint: (0.1, 0.075)
+		pos_hint: {'x': 0.85, 'y': 0.1}

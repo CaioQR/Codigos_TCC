@@ -1,0 +1,20 @@
+TELA HOME:
+ - ok?
+
+TELA ETAPA 1:
+ - Melhorar o PopUp (aviso de dados faltando)
+ - Inserir PopUp para avisar que criou o ensaio
+ - Definir função para criar ID único
+ - Ajustar botões
+ - Decidir em que tela será executada a automação/comunicação com a máquina
+
+TELA ETAPA 2:
+ - Criar função para ler o TextInput do ID e buscar se o ensaio existe
+ - Criar função para ler CSV e Exibir dados nas Labels da Tela
+ - Implementar função do clock para data final
+ - Ajustar botões
+
+TELA HISTÓRICO:
+ - Criar função para ler o TextInput do ID e buscar se o ensaio existe
+ - Criar função para ler CSV e Exibir dados nas Labels da Tela
+ - Criar função para gerar gráfico/tabela de resultados
