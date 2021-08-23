@@ -1,9 +1,19 @@
+# HSV slider para detectar a lagarta
+
 import cv2
 import numpy as np
 
-''' para vídeo:
+'''
+para vídeo:
 substituir cap = cv2.VideoCapture(0)
 e frame no lugar de cap
+
+L-H = 0
+L-S = 31
+L-V = 163
+U-H = 179
+U-S = 255
+U-V = 255
 '''
 
 def nothing(x):
