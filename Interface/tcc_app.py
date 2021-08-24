@@ -38,6 +38,7 @@ class Etapa1Window(Screen):
     ensaio = ''
     tecnico = ''
     current_datetime = '00:00   00/00/0000'
+    lista_culturas = []
     lista_especies = []
     lista_comentarios = []
     
@@ -59,7 +60,7 @@ class Etapa1Window(Screen):
             exec(comand)
             comand = "self.ids.Spinner_Especie_"+chr(c)+".text = 'Espécie'"
             exec(comand)
-            comand = 'self.ids.TextIput_Comentarios_'+chr(c)+'.text = ""'
+            comand = 'self.ids.TextInput_Comentarios_'+chr(c)+'.text = ""'
             exec(comand)
 
     #Função para atualizar a data    
@@ -93,17 +94,20 @@ class Etapa1Window(Screen):
         self.ensaio = self.ids.id_ensaio.text
         self.tecnico = self.ids.tecnico.text
         for c in range(ord('A'), ord('I')):
-            comand = 'self.lista_especies.append(self.ids.Spinner_'+chr(c)+'.text)'
+            comand = 'self.lista_culturas.append(self.ids.Spinner_Cultura_'+chr(c)+'.text)'
             exec(comand)
-        for c in range(ord('A'), ord('I')):
-            comand = 'self.lista_comentarios.append(self.ids.Comentarios_'+chr(c)+'.text)'
+            comand = 'self.lista_especies.append(self.ids.Spinner_Especie_'+chr(c)+'.text)'
             exec(comand)
+            comand = 'self.lista_comentarios.append(self.ids.TextInput_Comentarios_'+chr(c)+'.text)'
+            exec(comand)
+
 
         #Verifica dados Nulos
         verifica_dados = []
         verifica_dados.append(self.ensaio)
         verifica_dados.append(self.tecnico)
         verifica_dados.append(self.datetime)
+        verifica_dados.append(self.lista_culturas)
         verifica_dados.append(self.lista_especies)
         verifica_dados.append(self.lista_comentarios)
         FaltamDados = False
@@ -128,12 +132,14 @@ class Etapa1Window(Screen):
     def Cria_Ensaio_CSV(self):
         #Trata os dados
         coluna_celula = []
+        coluna_cultura = []
         coluna_especie = []
         coluna_comentarios = []
         j = 0
         for c in range(ord('A'), ord('I')):
             for i in range(1,17):
                 coluna_celula.append(chr(c)+str(i))
+                coluna_cultura.append(self.lista_culturas[j])
                 coluna_especie.append(self.lista_especies[j])
                 coluna_comentarios.append(self.lista_comentarios[j])
             j += 1
@@ -144,6 +150,7 @@ class Etapa1Window(Screen):
         df['ID_Ensaio'] = self.ensaio
         df['Tecnico'] = self.tecnico
         df['Inicio'] = self.datetime
+        df['Cultura'] = coluna_cultura
         df['Especie'] = coluna_especie
         df['Comentarios'] = coluna_comentarios
         df['Celula'] = coluna_celula
