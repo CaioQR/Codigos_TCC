@@ -75,13 +75,12 @@ class Etapa1Window(Screen):
     def Gera_ID (self):
         #Verifica se o ID já foi gerado (caso o botão seja pressionado novamente)
         if (self.ensaio!=''):
-            print('já gerei id')
+            #ID Existente
             pass
         #Cria um ID único
         else:
             #https://www.codegrepper.com/code-examples/python/get+list+of+folders+in+directory+python
             #epochtime+id bandeja
-            print('gerei id')
             self.ensaio = '1234'
             self.ids.id_ensaio.text = self.ensaio
 
@@ -100,7 +99,6 @@ class Etapa1Window(Screen):
             exec(comand)
             comand = 'self.lista_comentarios.append(self.ids.TextInput_Comentarios_'+chr(c)+'.text)'
             exec(comand)
-
 
         #Verifica dados Nulos
         verifica_dados = []
@@ -180,7 +178,7 @@ class Etapa1Window(Screen):
 
     
 
-class RealizaEnsaioCompletoWindow(Screen):
+class RealizaEnsaioWindow(Screen):
     pass
 
 class Etapa2Window(Screen):
