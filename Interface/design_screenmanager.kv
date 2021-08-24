@@ -181,20 +181,31 @@
 	color: (1,1,1,1)
 	bold:True
 
-<LeafImage@Image>:
-	source:"Assets/Espécie_frame.png"
-	size_hint: (0.18, 0.18)
-
 <Spinner>
 	font_size: 22
-	text: "Espécie"
-	values:"Algodão", "Milho", "Soja"
 	auto_width: False
 	size_hint: (0.12, 0.035)
 	pos_hint: {'x': 0.06, 'y': 0.47}
 	background_normal: ''
 	background_color: (0,71/255,133/255)
 	color: (1,1,1,1)
+
+
+<LeafImage@Image>:
+	source:"Assets/Cultura_frame.png"
+	size_hint: (0.18, 0.18)
+
+<EspecieImage@Image>:
+	source:"Assets/Espécie_frame.png"
+	size_hint: (0.08, 0.08)
+
+<SpinnerCultura@Spinner>
+	text: "Cultura"
+	values:"Algodão", "Milho", "Soja"
+
+<SpinnerEspecie@Spinner>
+	text: "Espécie"
+	values:"Inseto 1", "Inseto 2", "Inseto 3"
 
 <TextInputComentarios@TextInput>
 	size_hint: (0.12, 0.035)
@@ -298,16 +309,24 @@ WindowManager:
 
 ##################### COMENTÁRIOS ###################
 	LeafImage:
-		id: Image_A
-		pos_hint: {'x': 0.03, 'y': 0.51}
-	Spinner:
-		id: Spinner_A
-		pos_hint: {'x': 0.06, 'y': 0.47}
+		id: Image_Leaf_A
+		pos_hint: {'x': 0.03, 'y': 0.55}
+	EspecieImage:
+		id: Image_Especie_A
+		pos_hint: {'x': 0.12, 'y': 0.54}
+	SpinnerCultura:
+		id: Spinner_Cultura_A
+		pos_hint: {'x': 0.06, 'y': 0.50}
 		on_text:
-			Image_A.source= 'Assets/'+Spinner_A.text+'_frame.png'
+			Image_Leaf_A.source= 'Assets/'+Spinner_Cultura_A.text+'_frame.png'
+	SpinnerEspecie:
+		id: Spinner_Especie_A
+		pos_hint: {'x': 0.06, 'y': 0.45}
+		on_text:
+			Image_Especie_A.source= 'Assets/'+Spinner_Especie_A.text+'_frame.png'
 	TextInputComentarios:
-		id: Comentarios_A
-		pos_hint: {'x': 0.06, 'y': 0.41}
+		id: TextInput_Comentarios_A
+		pos_hint: {'x': 0.06, 'y': 0.40}
 ################################
 	LeafImage:
 		id: Image_B
@@ -586,7 +605,7 @@ WindowManager:
 		text: "2ª Etapa"
 		pos_hint: {'x': 0.2478, 'y': 0.942}
 		on_release:
-			app.root.current = "1ª Etapa"
+			app.root.current = "2ª Etapa"
 			root.manager.transition.direction = "right"
 		
 	TabsButton:

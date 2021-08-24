@@ -47,6 +47,7 @@ class Etapa1Window(Screen):
         #Limpa as variáveis
         self.tecnico = ''
         self.ensaio = ''
+        self.lista_culturas = []
         self.lista_especies = []
         self.lista_comentarios = []
         
@@ -54,12 +55,12 @@ class Etapa1Window(Screen):
         self.ids.id_ensaio.text = ''
         self.ids.tecnico.text = ''
         for c in range(ord('A'), ord('I')):
-            comand = "self.ids.Spinner_"+chr(c)+".text = 'Espécie'"
+            comand = "self.ids.Spinner_Cultura_"+chr(c)+".text = 'Cultura'"
             exec(comand)
-        for c in range(ord('A'), ord('I')):
-            comand = 'self.ids.Comentarios_'+chr(c)+'.text = ""'
+            comand = "self.ids.Spinner_Especie_"+chr(c)+".text = 'Espécie'"
             exec(comand)
-        
+            comand = 'self.ids.TextIput_Comentarios_'+chr(c)+'.text = ""'
+            exec(comand)
 
     #Função para atualizar a data    
     def atualiza(self, dt):
