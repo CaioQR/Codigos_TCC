@@ -19,7 +19,7 @@ U-V = 255
 def nothing(x):
     pass
 
-cap = cv2.imread("H:\Caio Quaglierini\Documents\TCC\Codigos_TCC\Analise\Fotos\WIN_20210617_15_41_47_Pro.jpg")
+cap = cv2.imread("H:\Caio Quaglierini\Documents\TCC\Codigos_TCC\Analise\Fotos\lagarta_1_300.jpg")
 cv2.namedWindow("Trackbars")
 
 cv2.createTrackbar("L - H", "Trackbars", 0, 179, nothing)
