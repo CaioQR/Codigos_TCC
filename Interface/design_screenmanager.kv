@@ -181,6 +181,29 @@
 	color: (1,1,1,1)
 	bold:True
 
+
+
+
+<CustomDropdown@DropDown>:
+    max_height: 150
+    bar_width: 5
+    bar_color: 0, 1, 0, 1   # green
+    bar_inactive_color: 1, 0, 0, 1  # red        
+    effect_cls: 'ScrollEffect'
+    scroll_type: ['bars', 'content']
+
+
+
+<MySpinnerOption@SpinnerOption>:
+	font_size: 20
+	auto_width: False
+	#background_normal: ''
+    background_color:  (0,71/255,133/255)
+    color: (1,1,1,1)
+	height: 30
+
+ 
+
 <Spinner>
 	font_size: 22
 	auto_width: False
@@ -189,7 +212,8 @@
 	background_normal: ''
 	background_color: (0,71/255,133/255)
 	color: (1,1,1,1)
-
+    option_cls: Factory.get("MySpinnerOption")
+    dropdown_cls: Factory.CustomDropdown
 
 
 <CulturaImage@Image>:
@@ -206,7 +230,7 @@
 
 <SpinnerEspecie@Spinner>
 	text: "Espécie"
-	values:"Inseto 1", "Inseto 2", "Inseto 3"
+	values:"Inseto 1", "Inseto 2", "Inseto 3", "Inseto 1", "Inseto 2", "Inseto 3"
 
 <TextInputComentarios@TextInput>
 	size_hint: (0.12, 0.035)
