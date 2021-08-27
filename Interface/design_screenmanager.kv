@@ -193,8 +193,18 @@
     effect_cls: 'ScrollEffect'
     scroll_type: ['bars', 'content']
 	
-<MySpinnerOption@SpinnerOption>:
+<SpinnerOptionsCultura@SpinnerOption>:
+	italic: 0
 	font_size: 20
+	auto_width: False
+	#background_normal: ''
+    background_color:  (0,71/255,133/255)
+    color: (1,1,1,1)
+	height: 30
+
+<SpinnerOptionsEspecie@SpinnerOption>:
+	italic: 1 
+	font_size: 14
 	auto_width: False
 	#background_normal: ''
     background_color:  (0,71/255,133/255)
@@ -209,7 +219,6 @@
 	background_normal: ''
 	background_color: (0,71/255,133/255)
 	color: (1,1,1,1)
-    option_cls: Factory.get("MySpinnerOption")
     dropdown_cls: Factory.CustomDropdown
 
 
@@ -224,10 +233,15 @@
 <SpinnerCultura@Spinner>
 	text: "Cultura"
 	values:"Algodão", "Milho", "Soja"
+    option_cls: Factory.get("SpinnerOptionsCultura")
 
 <SpinnerEspecie@Spinner>
 	text: "Espécie"
-	values:"Inseto 1", "Inseto 2", "Inseto 3", "Inseto 1", "Inseto 2", "Inseto 3"
+	values:"Anticarsia gemmatalis", "Chrysodeixis includens", "Spodoptera frugiperda", "Spodoptera cosmioides", "Spodoptera eridania", "Helicoverpa zea", "Helicoverpa armigera", "Elasmopalpus lignosellus"
+    option_cls: Factory.get("SpinnerOptionsEspecie")
+	on_text:
+		font_size: 14
+		italic: 1
 
 <TextInputComentarios@TextInput>
 	size_hint: (0.12, 0.035)
