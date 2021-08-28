@@ -18,6 +18,7 @@ from kivy.uix.popup import Popup
 from IPython.display import display
 import pandas as pd
 
+
 # Definir telas
 class WindowManager(ScreenManager):
     pass

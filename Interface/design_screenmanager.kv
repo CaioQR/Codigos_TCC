@@ -14,14 +14,68 @@
 ######################################################## DEFINIÇÕES ##################################################
 ######################################################################################################################
 
-<MyPopup@Popup>
-	auto_dismiss: False
-	title: "This is a popup box"
-	Button:
-		text: "Close me!"
-		font_size:24
-		on_release: root.dismiss()
+######################################## Widgtes Principais 
+<Label>
+	font_size: 28
+	background_color: (1,1,1,1)
+	color: (0,0,0,1)
+	spacing:0
+	padding:(0,0)
+	bold: True
+	canvas.before:
+		Color:
+			rgba: self.background_color
+		Rectangle:
+			size: self.size
+			pos: self.pos
 
+<TextInput>
+	font_size: 20
+	size_hint: (0.2, 0.05)
+	padding: 0
+	background_color: utils.get_color_from_hex('#004785')
+	cursor_color: (1,1,1,1)
+	foreground_color: (1,1,1,1)
+	valign: "middle"
+	multiline: True
+
+<CustomDropdown@DropDown>:
+    max_height: 150
+    bar_width: 5
+    bar_color: 0, 1, 0, 1   # green
+    bar_inactive_color: 1, 0, 0, 1  # red        
+    effect_cls: 'ScrollEffect'
+    scroll_type: ['bars', 'content']
+	
+<SpinnerOptionsCultura@SpinnerOption>:
+	italic: 0
+	font_size: 20
+	auto_width: False
+	#background_normal: ''
+    background_color:  (0,71/255,133/255)
+    color: (1,1,1,1)
+	height: 30
+
+<SpinnerOptionsEspecie@SpinnerOption>:
+	italic: 1 
+	font_size: 14
+	auto_width: False
+	#background_normal: ''
+    background_color:  (0,71/255,133/255)
+    color: (1,1,1,1)
+	height: 30
+
+<Spinner>
+	font_size: 22
+	auto_width: False
+	size_hint: (0.12, 0.035)
+	pos_hint: {'x': 0.06, 'y': 0.47}
+	background_normal: ''
+	background_color: (0,71/255,133/255)
+	color: (1,1,1,1)
+    dropdown_cls: Factory.CustomDropdown
+
+######################################## Widgtes Background
 <ImageFrame@Image>
 	canvas:
         Color:
@@ -49,47 +103,6 @@
 	allow_stretch:True
 	keep_ratio:False
 
-<MyButton@Button>
-	font_size: 32
-	size_hint: (0.1, 0.2)
-	background_normal: ''
-	background_color: (0/255,71/255,133/255,1)
-	color: (1,1,1,1)
-	bold:True
-	pos_hint: {'x':0, "y": 1}
-
-<Label>
-	font_size: 28
-	background_color: (1,1,1,1)
-	color: (0,0,0,1)
-	spacing:0
-	padding:(0,0)
-	bold: True
-	canvas.before:
-		Color:
-			rgba: self.background_color
-		Rectangle:
-			size: self.size
-			pos: self.pos
-
-<TextInput>
-	font_size: 20
-	size_hint: (0.2, 0.05)
-	padding: 0
-	background_color: utils.get_color_from_hex('#004785')
-	cursor_color: (1,1,1,1)
-	foreground_color: (1,1,1,1)
-	valign: "middle"
-	multiline: True
-
-<LabelRegistro@Label>
-	text: "Registro de atividades e erros"
-	font_size: 24
-	size_hint: (0.15, 0.05)
-	pos_hint: {'x': 0.75, 'top': 0.68}
-	background_color: (177/255,188/255,197/255,1)
-
-
 <ImageBoard@Image>
 	canvas:
         Color:
@@ -103,12 +116,26 @@
     allow_stretch: True
     keep_ratio: False
 
+######################################## Widgtes Cabeçalho
 <LabelID@Label>
 	text: "ID do ensaio:"
 	font_size: 20
 	size_hint: (0.15, 0.05)
 	pos_hint: {'x': 0.02, 'top': 0.91}
 
+<LabelID_Numero@Label>
+	text: "ID do ensaio:"
+	font_size: 20
+	size_hint: (0.15, 0.05)
+	pos_hint: {'x': 0.02, 'top': 0.91}
+	canvas.before:
+		Color:
+			rgba: (137/255,211/255,41/255,1)
+		RoundedRectangle:
+			size: self.size
+			pos: self.pos
+			radius: [10]
+	
 <TextInputID@TextInput>
 	id:id_ensaio
 	multiline: False
@@ -124,15 +151,16 @@
 	multiline: False
 	pos_hint: {'x': 0.15, 'top': 0.85}
 
-<LabelInicio@Label>:
-	text: "Início:"
+<LabelTime@Label>:
 	font_size: 20
 	size_hint: (0.15, 0.05)
-	pos_hint: {'x': 0.044, 'top': 0.79}
-<TextInputInicio@TextInput>:
-	id:data
-	multiline: False
-	pos_hint: {'x': 0.15, 'top': 0.79}
+	canvas.before:
+		Color:
+			rgba: (137/255,211/255,41/255,1)
+		RoundedRectangle:
+			size: self.size
+			pos: self.pos
+			radius: [10]
 
 <LabelTermino@Label>
 	text: "Término:"
@@ -145,6 +173,38 @@
 	multiline: False
 	#size_hint: (0.17, 0.05)
 	pos_hint: {'x': 0.463, 'top': 0.79}
+
+
+
+
+
+<MyPopup@Popup>
+	auto_dismiss: False
+	title: "This is a popup box"
+	Button:
+		text: "Close me!"
+		font_size:24
+		on_release: root.dismiss()
+
+<MyButton@Button>
+	font_size: 32
+	size_hint: (0.1, 0.2)
+	background_normal: ''
+	background_color: (0/255,71/255,133/255,1)
+	color: (1,1,1,1)
+	bold:True
+	pos_hint: {'x':0, "y": 1}
+
+
+
+<LabelRegistro@Label>
+	text: "Registro de atividades e erros"
+	font_size: 24
+	size_hint: (0.15, 0.05)
+	pos_hint: {'x': 0.75, 'top': 0.68}
+	background_color: (177/255,188/255,197/255,1)
+
+
 
 <RoundedButton@MyButton>
 	background_color: (0,0,0,0)
@@ -185,41 +245,6 @@
 
 
 
-<CustomDropdown@DropDown>:
-    max_height: 150
-    bar_width: 5
-    bar_color: 0, 1, 0, 1   # green
-    bar_inactive_color: 1, 0, 0, 1  # red        
-    effect_cls: 'ScrollEffect'
-    scroll_type: ['bars', 'content']
-	
-<SpinnerOptionsCultura@SpinnerOption>:
-	italic: 0
-	font_size: 20
-	auto_width: False
-	#background_normal: ''
-    background_color:  (0,71/255,133/255)
-    color: (1,1,1,1)
-	height: 30
-
-<SpinnerOptionsEspecie@SpinnerOption>:
-	italic: 1 
-	font_size: 14
-	auto_width: False
-	#background_normal: ''
-    background_color:  (0,71/255,133/255)
-    color: (1,1,1,1)
-	height: 30
-
-<Spinner>
-	font_size: 22
-	auto_width: False
-	size_hint: (0.12, 0.035)
-	pos_hint: {'x': 0.06, 'y': 0.47}
-	background_normal: ''
-	background_color: (0,71/255,133/255)
-	color: (1,1,1,1)
-    dropdown_cls: Factory.CustomDropdown
 
 
 <CulturaImage@Image>:
@@ -239,9 +264,8 @@
 	text: "Espécie"
 	values:"Anticarsia gemmatalis", "Chrysodeixis includens", "Spodoptera frugiperda", "Spodoptera cosmioides", "Spodoptera eridania", "Helicoverpa zea", "Helicoverpa armigera", "Elasmopalpus lignosellus"
     option_cls: Factory.get("SpinnerOptionsEspecie")
-	on_text:
-		font_size: 14
-		italic: 1
+	font_size: 14
+	italic: 1
 
 <TextInputComentarios@TextInput>
 	size_hint: (0.12, 0.035)
@@ -341,6 +365,74 @@ WindowManager:
 	ImageFrame:
 	ImageRegistro:
 	ImageBoard:
+
+####################### TABS ########################
+
+	TabsButton:
+		text: "Home"
+		pos_hint: {'x': 0.0045, 'y': 0.942}
+		on_release:
+			root.Clear_Data()
+			app.root.current = "Home"
+			root.manager.transition.direction = "right"
+
+	TabsButton:
+		text: "1ª Etapa"
+		pos_hint: {'x': 0.1261, 'y': 0.942}
+		background_color: (0/255,188/255,255/255,1)
+
+	TabsButton:
+		text: "2ª Etapa"
+		pos_hint: {'x': 0.2478, 'y': 0.942}
+		on_release:
+			root.Clear_Data()
+			app.root.current = "2ª Etapa"
+			root.manager.transition.direction = "left"
+	TabsButton:
+		text: "Histórico"
+		pos_hint: {'x': 0.369, 'y': 0.942}
+		on_release:
+			root.Clear_Data()
+			app.root.current = "Histórico"
+			root.manager.transition.direction = "left"
+####################### CADASTRO ####################		
+	LabelID:
+	LabelID_Numero:
+		id: id_ensaio
+		text: root.ensaio
+		pos_hint: {'x': 0.15, 'top': 0.91}
+		
+	LabelTecnico:
+	TextInputTecnico:
+		id:tecnico
+	LabelTime:
+		text: "Início:"
+		pos_hint: {'x': 0.044, 'top': 0.79}
+	Label:
+		id: current_date
+		text: root.current_datetime
+		font_size: 20
+		size_hint: (0.15, 0.05)
+		pos_hint: {'x': 0.15, 'top': 0.79}
+	Button:
+		text: "Gerar ID"
+		font_size: 20
+		size_hint: (0.07, 0.05)
+		pos_hint: {'x': 0.36, 'top': 0.91}
+		background_color: (0,0,0,0)
+		color: (1,1,1,1)
+		background_normal: ''
+		canvas.before:
+			Color:
+				rgba: (137/255,211/255,41/255,1)
+			RoundedRectangle:
+				size: self.size
+				pos: self.pos
+				radius: [10]
+		on_release:
+			root.Gera_ID()
+
+
 
 
 ##################### COMENTÁRIOS ###################
@@ -507,74 +599,6 @@ WindowManager:
 
 
 
-
-
-####################### TABS ########################
-
-	TabsButton:
-		text: "Home"
-		pos_hint: {'x': 0.0045, 'y': 0.942}
-		on_release:
-			root.Clear_Data()
-			app.root.current = "Home"
-			root.manager.transition.direction = "right"
-
-	TabsButton:
-		text: "1ª Etapa"
-		pos_hint: {'x': 0.1261, 'y': 0.942}
-		background_color: (0/255,188/255,255/255,1)
-
-	TabsButton:
-		text: "2ª Etapa"
-		pos_hint: {'x': 0.2478, 'y': 0.942}
-		on_release:
-			root.Clear_Data()
-			app.root.current = "2ª Etapa"
-			root.manager.transition.direction = "left"
-	TabsButton:
-		text: "Histórico"
-		pos_hint: {'x': 0.369, 'y': 0.942}
-		on_release:
-			root.Clear_Data()
-			app.root.current = "Histórico"
-			root.manager.transition.direction = "left"
-####################### CADASTRO ####################		
-	LabelID:
-	Label:
-		id: id_ensaio
-		text: root.ensaio
-		multiline: False
-		font_size: 20
-		size_hint: (0.15, 0.05)
-		pos_hint: {'x': 0.15, 'top': 0.91}
-	LabelTecnico:
-	TextInputTecnico:
-		id:tecnico
-	LabelInicio:
-	Label:
-		id: current_date
-		text: root.current_datetime
-		font_size: 20
-		size_hint: (0.15, 0.05)
-		pos_hint: {'x': 0.15, 'top': 0.79}
-	Button:
-		text: "Gerar ID"
-		font_size: 20
-		size_hint: (0.07, 0.05)
-		pos_hint: {'x': 0.36, 'top': 0.91}
-		background_color: (0,0,0,0)
-		color: (1,1,1,1)
-		background_normal: ''
-		canvas.before:
-			Color:
-				rgba: (137/255,211/255,41/255,1)
-			RoundedRectangle:
-				size: self.size
-				pos: self.pos
-				radius: [10]
-		on_release:
-			root.Gera_ID()
-
 ###################### 3 BOTÕES ####################
 	RoundedButton:
 		text: "Criar Ensaio"
@@ -583,18 +607,6 @@ WindowManager:
 		pos_hint: {'x': 0.78, 'y': 0.3}
 		on_release:
 			root.save_data()
-
-	RoundedButton:
-		text: "Botão 2"
-		font_size: 24
-		size_hint: (0.1, 0.075)
-		pos_hint: {'x': 0.78, 'y': 0.2}
-	RoundedButton:
-		text: "Botão 3"
-		font_size: 24
-		size_hint: (0.1, 0.075)
-		pos_hint: {'x': 0.78, 'y': 0.1}
-
 
 ######################################################################################################################
 ################################################### Realiza Ensaio ###################################################
@@ -643,9 +655,10 @@ WindowManager:
 	LabelTecnico:
 	TextInputTecnico:
 		id:tecnico
-	LabelInicio:
-	TextInputInicio:
-		id:data
+	LabelTime:
+		text: "Início:"
+		pos_hint: {'x': 0.044, 'top': 0.79}
+	
 	ButtonPreencherDados:
 	LabelTermino:
 	TextInputTermino:
@@ -712,9 +725,9 @@ WindowManager:
 	LabelTecnico:
 	TextInputTecnico:
 		id:tecnico
-	LabelInicio:
-	TextInputInicio:
-		id:data
+	LabelTime:
+		text: "Início:"
+		pos_hint: {'x': 0.044, 'top': 0.79}
 	ButtonPreencherDados:
 	LabelTermino:
 	TextInputTermino:
