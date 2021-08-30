@@ -17,6 +17,7 @@ from kivy.clock import Clock
 from kivy.uix.popup import Popup
 from IPython.display import display
 import pandas as pd
+import os
 
 
 # Definir telas
@@ -158,14 +159,17 @@ class Etapa1Window(Screen):
         df['Comentarios'] = coluna_comentarios
         df['Celula'] = coluna_celula
 
-        #Cria o diretório
+        #Cria os diretórios
+        path = os.getcwd()+'/SistemaBayer/'
+        os.makedirs(path+'Ensaio_'+str(self.ensaio))
+        os.makedirs(path+'Ensaio_'+str(self.ensaio)+'/Fotos')
+        os.makedirs(path+'Ensaio_'+str(self.ensaio)+'/FotosTemporarias')
 
 
         #Converte o data frame para o formato desejado e salva no diretório criado
         #https://stackoverflow.com/questions/27758126/exchanging-variables-between-screens-in-kivy-python
-        #https://www.geeksforgeeks.org/create-a-directory-in-python/
         #df.to_excel("Ensaio_"+str(self.ensaio)+".xlsx")
-        df.to_csv("Ensaio_"+str(self.ensaio)+".csv", index=False)
+        df.to_csv(path+'Ensaio_'+str(self.ensaio)+"/Resultados_Ensaio_"+str(self.ensaio)+".csv", index=False)
         print(df)
         display(df)
         df.style
