@@ -37,7 +37,7 @@
 	cursor_color: (1,1,1,1)
 	foreground_color: (1,1,1,1)
 	valign: "middle"
-	multiline: True
+	multiline: False
 
 <CustomDropdown@DropDown>:
     max_height: 150
@@ -124,21 +124,19 @@
 	pos_hint: {'x': 0.02, 'top': 0.91}
 
 <LabelID_Numero@Label>
-	text: "ID do ensaio:"
 	font_size: 20
-	size_hint: (0.15, 0.05)
-	pos_hint: {'x': 0.02, 'top': 0.91}
+	size_hint: (0.2, 0.05)
+	pos_hint: {'x': 0.15, 'top': 0.91}
+	color: (1,1,1,1)
 	canvas.before:
 		Color:
-			rgba: (137/255,211/255,41/255,1)
-		RoundedRectangle:
+			rgba: (0/255,71/255,133/255,1)
+		Rectangle:
 			size: self.size
 			pos: self.pos
-			radius: [10]
-	
+
 <TextInputID@TextInput>
 	id:id_ensaio
-	multiline: False
 	pos_hint: {'x': 0.15, 'top': 0.91}
 
 <LabelTecnico@Label>:
@@ -146,14 +144,47 @@
 	font_size: 20
 	size_hint: (0.15, 0.05)
 	pos_hint: {'x': 0.035, 'top': 0.85}
+
+<LabelTecnico_Nome@Label>
+	font_size: 20
+	size_hint: (0.2, 0.05)
+	pos_hint: {'x': 0.15, 'top': 0.85}
+	color: (1,1,1,1)
+	canvas.before:
+		Color:
+			rgba: (0/255,71/255,133/255,1)
+		Rectangle:
+			size: self.size
+			pos: self.pos
+
 <TextInputTecnico@TextInput>:
 	id:tecnico
-	multiline: False
 	pos_hint: {'x': 0.15, 'top': 0.85}
 
 <LabelTime@Label>:
 	font_size: 20
 	size_hint: (0.15, 0.05)
+	pos_hint: {'x': 0.044, 'top': 0.79}
+
+<LabelTime_Numero@Label>
+	font_size: 20
+	size_hint: (0.2, 0.05)
+	pos_hint: {'x': 0.15, 'top': 0.79}
+	color: (1,1,1,1)
+	canvas.before:
+		Color:
+			rgba: (0/255,71/255,133/255,1)
+		Rectangle:
+			size: self.size
+			pos: self.pos
+
+<BotaoID@Button>:
+	font_size: 20
+	size_hint: (0.07, 0.05)
+	pos_hint: {'x': 0.36, 'top': 0.91}
+	background_color: (0,0,0,0)
+	color: (1,1,1,1)
+	background_normal: ''
 	canvas.before:
 		Color:
 			rgba: (137/255,211/255,41/255,1)
@@ -161,18 +192,6 @@
 			size: self.size
 			pos: self.pos
 			radius: [10]
-
-<LabelTermino@Label>
-	text: "Término:"
-	font_size: 20
-	size_hint: (0.15, 0.05)
-	pos_hint: {'x': 0.35, 'top': 0.79}
-
-<TextInputTermino@TextInput>:
-	id:data
-	multiline: False
-	#size_hint: (0.17, 0.05)
-	pos_hint: {'x': 0.463, 'top': 0.79}
 
 
 
@@ -218,21 +237,7 @@
 			pos: self.pos
 			radius: [10]
 
-<ButtonPreencherDados@Button>
-	text: "Preencher dados"
-	font_size: 20
-	size_hint: (0.17, 0.06)
-	pos_hint: {'x': 0.495, 'top': 0.91}
-	background_color: (0,0,0,0)
-	color: (1,1,1,1)
-	background_normal: ''
-	canvas.before:
-		Color:
-			rgba: (137/255,211/255,41/255,1)
-		RoundedRectangle:
-			size: self.size
-			pos: self.pos
-			radius: [10]
+
 
 <TabsButton@Button>
 	font_size: 26
@@ -270,6 +275,7 @@
 <TextInputComentarios@TextInput>
 	size_hint: (0.12, 0.035)
 	hint_text:" Comentários..."
+	multiline: True
 
 
 <MyGridLayout>
@@ -366,8 +372,8 @@ WindowManager:
 	ImageRegistro:
 	ImageBoard:
 
-####################### TABS ########################
 
+####################### TABS ########################
 	TabsButton:
 		text: "Home"
 		pos_hint: {'x': 0.0045, 'y': 0.942}
@@ -395,44 +401,29 @@ WindowManager:
 			root.Clear_Data()
 			app.root.current = "Histórico"
 			root.manager.transition.direction = "left"
+
+
 ####################### CADASTRO ####################		
 	LabelID:
 	LabelID_Numero:
 		id: id_ensaio
 		text: root.ensaio
-		pos_hint: {'x': 0.15, 'top': 0.91}
 		
 	LabelTecnico:
 	TextInputTecnico:
 		id:tecnico
+
 	LabelTime:
 		text: "Início:"
-		pos_hint: {'x': 0.044, 'top': 0.79}
-	Label:
+	LabelTime_Numero:
 		id: current_date
 		text: root.current_datetime
-		font_size: 20
-		size_hint: (0.15, 0.05)
-		pos_hint: {'x': 0.15, 'top': 0.79}
-	Button:
+
+	BotaoID:
 		text: "Gerar ID"
-		font_size: 20
-		size_hint: (0.07, 0.05)
 		pos_hint: {'x': 0.36, 'top': 0.91}
-		background_color: (0,0,0,0)
-		color: (1,1,1,1)
-		background_normal: ''
-		canvas.before:
-			Color:
-				rgba: (137/255,211/255,41/255,1)
-			RoundedRectangle:
-				size: self.size
-				pos: self.pos
-				radius: [10]
 		on_release:
 			root.Gera_ID()
-
-
 
 
 ##################### COMENTÁRIOS ###################
@@ -598,7 +589,6 @@ WindowManager:
 ################################
 
 
-
 ###################### 3 BOTÕES ####################
 	RoundedButton:
 		text: "Criar Ensaio"
@@ -624,6 +614,7 @@ WindowManager:
 	ImageRegistro:
 	LabelRegistro:
 	ImageBoard:
+
 ####################### TABS ########################
 	TabsButton:
 		text: "Home"
@@ -648,20 +639,37 @@ WindowManager:
 			app.root.current = "Histórico"
 			root.manager.transition.direction = "left"
 
+
 ####################### CADASTRO ####################		
 	LabelID:
 	TextInputID:
 		id:id_ensaio
+
 	LabelTecnico:
-	TextInputTecnico:
+	LabelTecnico_Nome:
 		id:tecnico
+		text: ''
+
 	LabelTime:
 		text: "Início:"
-		pos_hint: {'x': 0.044, 'top': 0.79}
-	
-	ButtonPreencherDados:
-	LabelTermino:
-	TextInputTermino:
+	LabelTime_Numero:
+		id: inicio_date
+	LabelTime:
+		text: "Término:"
+		size_hint: (0.08, 0.05)
+		pos_hint: {'x': 0.36, 'top': 0.79}
+	LabelTime_Numero:
+		id: termino_date
+		#text: root.current_datetime
+		pos_hint: {'x': 0.44, 'top': 0.79}
+
+	BotaoID:
+		text: "Preencher Dados"
+		size_hint: (0.13, 0.05)
+		pos_hint: {'x': 0.36, 'top': 0.91}
+		on_release:
+			#root.Gera_ID()
+
 
 ##################### COMENTÁRIOS ###################
 
@@ -728,9 +736,9 @@ WindowManager:
 	LabelTime:
 		text: "Início:"
 		pos_hint: {'x': 0.044, 'top': 0.79}
-	ButtonPreencherDados:
-	LabelTermino:
-	TextInputTermino:
+	# ButtonPreencherDados:
+	# LabelTermino:
+	# TextInputTermino:
 
 ##################### COMENTÁRIOS ###################
 

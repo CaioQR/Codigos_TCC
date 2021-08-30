@@ -68,8 +68,8 @@ class Etapa1Window(Screen):
     def atualiza(self, dt):
         #Coleta a data e hora atual
         self.current_datetime = datetime.now()
-        #Exibe os dados coletados na tela
-        self.ids.current_date.text = self.current_datetime.strftime("%H:%M:%S   %d/%m/%Y")
+        #Exibe os dados coletados na tela 
+        self.ids.current_date.text = self.current_datetime.strftime("%d/%m/%Y     %H:%M:%S")
 
 
     #Função para gerar um ID único para cada ensaio
@@ -90,7 +90,7 @@ class Etapa1Window(Screen):
     def save_data(self):
         #Atualiza as informações
         agora = datetime.now()
-        self.datetime = agora.strftime("%H:%M %d/%m/%Y")
+        self.datetime = agora.strftime("%d/%m/%Y %H:%M")
         self.ensaio = self.ids.id_ensaio.text
         self.tecnico = self.ids.tecnico.text
         for c in range(ord('A'), ord('I')):
@@ -125,6 +125,10 @@ class Etapa1Window(Screen):
         else:
             #Função Criar Ensaio CSV
             self.Cria_Ensaio_CSV()
+            #Limpa os campos
+            self.Clear_Data()
+            #Altera a página
+
 
 
     #Função para criar arquivo CSV com os dados preenchidos
@@ -154,7 +158,10 @@ class Etapa1Window(Screen):
         df['Comentarios'] = coluna_comentarios
         df['Celula'] = coluna_celula
 
-        #Converte o data frame para o formato desejado
+        #Cria o diretório
+
+
+        #Converte o data frame para o formato desejado e salva no diretório criado
         #https://stackoverflow.com/questions/27758126/exchanging-variables-between-screens-in-kivy-python
         #https://www.geeksforgeeks.org/create-a-directory-in-python/
         #df.to_excel("Ensaio_"+str(self.ensaio)+".xlsx")
@@ -172,10 +179,7 @@ class Etapa1Window(Screen):
         box.add_widget(botao)
         popup.open()
 
-        #Limpa os campos
-        self.Clear_Data()
-
-        #Altera a página
+        
 
     
 
