@@ -68,7 +68,7 @@
 <Spinner>
 	font_size: 22
 	auto_width: False
-	size_hint: (0.12, 0.035)
+	size_hint: (0.2, 0.035)
 	pos_hint: {'x': 0.06, 'y': 0.47}
 	background_normal: ''
 	background_color: (0,71/255,133/255)
@@ -89,32 +89,7 @@
 	allow_stretch:True
 	keep_ratio:False
 
-<ImageRegistro@Image>
-	canvas:
-        Color:
-            rgba: 1, 1, 1, 0
-        Rectangle:
-            pos: self.pos
-            size: self.size
-	background_normal:''
-	source: "Assets/registro_board.png"
-	pos_hint: {'x':0.675, 'y':0.43}
-	size_hint: (0.3,0.485)
-	allow_stretch:True
-	keep_ratio:False
 
-<ImageBoard@Image>
-	canvas:
-        Color:
-            rgba: 1, 1, 1, 0.5
-        Rectangle:
-            pos: self.pos
-            size: self.size
-    source: "Assets/leaf_board.png"
-    pos_hint: {'x':0.045, 'y':0.05}
-    size_hint: 0.62,0.67
-    allow_stretch: True
-    keep_ratio: False
 
 ######################################## Widgtes Cabeçalho
 <LabelID@Label>
@@ -216,15 +191,6 @@
 
 
 
-<LabelRegistro@Label>
-	text: "Registro de atividades e erros"
-	font_size: 24
-	size_hint: (0.15, 0.05)
-	pos_hint: {'x': 0.75, 'top': 0.68}
-	background_color: (177/255,188/255,197/255,1)
-
-
-
 <RoundedButton@MyButton>
 	background_color: (0,0,0,0)
 	color: (1,1,1,1)
@@ -255,10 +221,6 @@
 <CulturaImage@Image>:
 	source:"Assets/Cultura_frame.png"
 	size_hint: (0.18, 0.18)	
-
-<EspecieImage@Image>:
-	source:"Assets/Espécie_frame.png"
-	size_hint: (0.08, 0.08)
 
 <SpinnerCultura@Spinner>
 	text: "Cultura"
@@ -369,8 +331,6 @@ WindowManager:
 	id_ensaio:id_ensaio
 	tecnico:tecnico
 	ImageFrame:
-	ImageRegistro:
-	ImageBoard:
 
 
 ####################### TABS ########################
@@ -430,9 +390,6 @@ WindowManager:
 	CulturaImage:
 		id: Image_Cultura_A
 		pos_hint: {'x': 0.03, 'y': 0.55}
-	EspecieImage:
-		id: Image_Especie_A
-		pos_hint: {'x': 0.12, 'y': 0.54}
 	SpinnerCultura:
 		id: Spinner_Cultura_A
 		pos_hint: {'x': 0.06, 'y': 0.50}
@@ -441,8 +398,6 @@ WindowManager:
 	SpinnerEspecie:
 		id: Spinner_Especie_A
 		pos_hint: {'x': 0.06, 'y': 0.45}
-		on_text:
-			Image_Especie_A.source= 'Assets/'+Spinner_Especie_A.text+'_frame.png'
 	TextInputComentarios:
 		id: TextInput_Comentarios_A
 		pos_hint: {'x': 0.06, 'y': 0.40}
@@ -450,9 +405,6 @@ WindowManager:
 	CulturaImage:
 		id: Image_Cultura_B
 		pos_hint: {'x': 0.19, 'y': 0.55}
-	EspecieImage:
-		id: Image_Especie_B
-		pos_hint: {'x': 0.28, 'y': 0.54}
 	SpinnerCultura:
 		id: Spinner_Cultura_B
 		pos_hint: {'x': 0.217, 'y': 0.50}
@@ -461,8 +413,6 @@ WindowManager:
 	SpinnerEspecie:
 		id: Spinner_Especie_B
 		pos_hint: {'x': 0.217, 'y': 0.45}
-		on_text:
-			Image_Especie_B.source= 'Assets/'+Spinner_Especie_B.text+'_frame.png'
 	TextInputComentarios:
 		id: TextInput_Comentarios_B
 		pos_hint: {'x': 0.217, 'y': 0.40}
@@ -470,9 +420,6 @@ WindowManager:
 	CulturaImage:
 		id: Image_Cultura_C
 		pos_hint: {'x': 0.345, 'y': 0.55}
-	EspecieImage:
-		id: Image_Especie_C
-		pos_hint: {'x': 0.435, 'y': 0.54}
 	SpinnerCultura:
 		id: Spinner_Cultura_C
 		pos_hint: {'x': 0.373, 'y': 0.50}
@@ -481,8 +428,6 @@ WindowManager:
 	SpinnerEspecie:
 		id: Spinner_Especie_C
 		pos_hint: {'x': 0.373, 'y': 0.45}
-		on_text:
-			Image_Especie_C.source= 'Assets/'+Spinner_Especie_C.text+'_frame.png'
 	TextInputComentarios:
 		id: TextInput_Comentarios_C
 		pos_hint: {'x': 0.373, 'y': 0.40}
@@ -490,9 +435,6 @@ WindowManager:
 	CulturaImage:
 		id: Image_Cultura_D
 		pos_hint: {'x': 0.5, 'y': 0.55}
-	EspecieImage:
-		id: Image_Especie_D
-		pos_hint: {'x': 0.59, 'y': 0.54}
 	SpinnerCultura:
 		id: Spinner_Cultura_D
 		pos_hint: {'x': 0.529, 'y': 0.50}
@@ -501,8 +443,6 @@ WindowManager:
 	SpinnerEspecie:
 		id: Spinner_Especie_D
 		pos_hint: {'x': 0.529, 'y': 0.45}
-		on_text:
-			Image_Especie_D.source= 'Assets/'+Spinner_Especie_D.text+'_frame.png'
 	TextInputComentarios:
 		id: TextInput_Comentarios_D
 		pos_hint: {'x': 0.529, 'y': 0.40}
@@ -510,9 +450,6 @@ WindowManager:
 	CulturaImage:
 		id: Image_Cultura_E
 		pos_hint: {'x': 0.03, 'y': 0.20}
-	EspecieImage:
-		id: Image_Especie_E
-		pos_hint: {'x': 0.12, 'y': 0.19}
 	SpinnerCultura:
 		id: Spinner_Cultura_E
 		pos_hint: {'x': 0.06, 'y': 0.15}
@@ -521,8 +458,6 @@ WindowManager:
 	SpinnerEspecie:
 		id: Spinner_Especie_E
 		pos_hint: {'x': 0.06, 'y': 0.10}
-		on_text:
-			Image_Especie_E.source= 'Assets/'+Spinner_Especie_E.text+'_frame.png'
 	TextInputComentarios:
 		id: TextInput_Comentarios_E
 		pos_hint: {'x': 0.06, 'y': 0.05}
@@ -530,9 +465,6 @@ WindowManager:
 	CulturaImage:
 		id: Image_Cultura_F
 		pos_hint: {'x': 0.19, 'y': 0.20}
-	EspecieImage:
-		id: Image_Especie_F
-		pos_hint: {'x': 0.28, 'y': 0.19}
 	SpinnerCultura:
 		id: Spinner_Cultura_F
 		pos_hint: {'x': 0.217, 'y': 0.15}
@@ -541,8 +473,6 @@ WindowManager:
 	SpinnerEspecie:
 		id: Spinner_Especie_F
 		pos_hint: {'x': 0.217, 'y': 0.10}
-		on_text:
-			Image_Especie_F.source= 'Assets/'+Spinner_Especie_F.text+'_frame.png'
 	TextInputComentarios:
 		id: TextInput_Comentarios_F
 		pos_hint: {'x': 0.217, 'y': 0.05}
@@ -550,9 +480,6 @@ WindowManager:
 	CulturaImage:
 		id: Image_Cultura_G
 		pos_hint: {'x': 0.345, 'y': 0.20}
-	EspecieImage:
-		id: Image_Especie_G
-		pos_hint: {'x': 0.435, 'y': 0.19}
 	SpinnerCultura:
 		id: Spinner_Cultura_G
 		pos_hint: {'x': 0.373, 'y': 0.15}
@@ -561,8 +488,6 @@ WindowManager:
 	SpinnerEspecie:
 		id: Spinner_Especie_G
 		pos_hint: {'x': 0.373, 'y': 0.10}
-		on_text:
-			Image_Especie_G.source= 'Assets/'+Spinner_Especie_G.text+'_frame.png'
 	TextInputComentarios:
 		id: TextInput_Comentarios_G
 		pos_hint: {'x': 0.373, 'y': 0.05}
@@ -570,9 +495,6 @@ WindowManager:
 	CulturaImage:
 		id: Image_Cultura_H
 		pos_hint: {'x': 0.5, 'y': 0.20}
-	EspecieImage:
-		id: Image_Especie_H
-		pos_hint: {'x': 0.59, 'y': 0.19}
 	SpinnerCultura:
 		id: Spinner_Cultura_H
 		pos_hint: {'x': 0.529, 'y': 0.15}
@@ -581,8 +503,6 @@ WindowManager:
 	SpinnerEspecie:
 		id: Spinner_Especie_H
 		pos_hint: {'x': 0.529, 'y': 0.10}
-		on_text:
-			Image_Especie_H.source= 'Assets/'+Spinner_Especie_H.text+'_frame.png'
 	TextInputComentarios:
 		id: TextInput_Comentarios_H
 		pos_hint: {'x': 0.529, 'y': 0.05}
@@ -611,9 +531,6 @@ WindowManager:
 	name:"2ª Etapa"
 	id: my_widget
 	ImageFrame:
-	ImageRegistro:
-	LabelRegistro:
-	ImageBoard:
 
 ####################### TABS ########################
 	TabsButton:
@@ -671,7 +588,128 @@ WindowManager:
 			#root.Gera_ID()
 
 
+
 ##################### COMENTÁRIOS ###################
+	CulturaImage:
+		id: Image_Cultura_A
+		pos_hint: {'x': 0.03, 'y': 0.55}
+	SpinnerCultura:
+		id: Spinner_Cultura_A
+		pos_hint: {'x': 0.06, 'y': 0.50}
+		on_text:
+			Image_Cultura_A.source= 'Assets/'+Spinner_Cultura_A.text+'_frame.png'
+	SpinnerEspecie:
+		id: Spinner_Especie_A
+		pos_hint: {'x': 0.06, 'y': 0.45}
+	TextInputComentarios:
+		id: TextInput_Comentarios_A
+		pos_hint: {'x': 0.06, 'y': 0.40}
+################################
+	CulturaImage:
+		id: Image_Cultura_B
+		pos_hint: {'x': 0.19, 'y': 0.55}
+	SpinnerCultura:
+		id: Spinner_Cultura_B
+		pos_hint: {'x': 0.217, 'y': 0.50}
+		on_text:
+			Image_Cultura_B.source= 'Assets/'+Spinner_Cultura_B.text+'_frame.png'
+	SpinnerEspecie:
+		id: Spinner_Especie_B
+		pos_hint: {'x': 0.217, 'y': 0.45}
+	TextInputComentarios:
+		id: TextInput_Comentarios_B
+		pos_hint: {'x': 0.217, 'y': 0.40}
+################################
+	CulturaImage:
+		id: Image_Cultura_C
+		pos_hint: {'x': 0.345, 'y': 0.55}
+	SpinnerCultura:
+		id: Spinner_Cultura_C
+		pos_hint: {'x': 0.373, 'y': 0.50}
+		on_text:
+			Image_Cultura_C.source= 'Assets/'+Spinner_Cultura_C.text+'_frame.png'
+	SpinnerEspecie:
+		id: Spinner_Especie_C
+		pos_hint: {'x': 0.373, 'y': 0.45}
+	TextInputComentarios:
+		id: TextInput_Comentarios_C
+		pos_hint: {'x': 0.373, 'y': 0.40}
+################################
+	CulturaImage:
+		id: Image_Cultura_D
+		pos_hint: {'x': 0.5, 'y': 0.55}
+	SpinnerCultura:
+		id: Spinner_Cultura_D
+		pos_hint: {'x': 0.529, 'y': 0.50}
+		on_text:
+			Image_Cultura_D.source= 'Assets/'+Spinner_Cultura_D.text+'_frame.png'
+	SpinnerEspecie:
+		id: Spinner_Especie_D
+		pos_hint: {'x': 0.529, 'y': 0.45}
+	TextInputComentarios:
+		id: TextInput_Comentarios_D
+		pos_hint: {'x': 0.529, 'y': 0.40}
+################################
+	CulturaImage:
+		id: Image_Cultura_E
+		pos_hint: {'x': 0.03, 'y': 0.20}
+	SpinnerCultura:
+		id: Spinner_Cultura_E
+		pos_hint: {'x': 0.06, 'y': 0.15}
+		on_text:
+			Image_Cultura_E.source= 'Assets/'+Spinner_Cultura_E.text+'_frame.png'
+	SpinnerEspecie:
+		id: Spinner_Especie_E
+		pos_hint: {'x': 0.06, 'y': 0.10}
+	TextInputComentarios:
+		id: TextInput_Comentarios_E
+		pos_hint: {'x': 0.06, 'y': 0.05}
+################################
+	CulturaImage:
+		id: Image_Cultura_F
+		pos_hint: {'x': 0.19, 'y': 0.20}
+	SpinnerCultura:
+		id: Spinner_Cultura_F
+		pos_hint: {'x': 0.217, 'y': 0.15}
+		on_text:
+			Image_Cultura_F.source= 'Assets/'+Spinner_Cultura_F.text+'_frame.png'
+	SpinnerEspecie:
+		id: Spinner_Especie_F
+		pos_hint: {'x': 0.217, 'y': 0.10}
+	TextInputComentarios:
+		id: TextInput_Comentarios_F
+		pos_hint: {'x': 0.217, 'y': 0.05}
+################################
+	CulturaImage:
+		id: Image_Cultura_G
+		pos_hint: {'x': 0.345, 'y': 0.20}
+	SpinnerCultura:
+		id: Spinner_Cultura_G
+		pos_hint: {'x': 0.373, 'y': 0.15}
+		on_text:
+			Image_Cultura_G.source= 'Assets/'+Spinner_Cultura_G.text+'_frame.png'
+	SpinnerEspecie:
+		id: Spinner_Especie_G
+		pos_hint: {'x': 0.373, 'y': 0.10}
+	TextInputComentarios:
+		id: TextInput_Comentarios_G
+		pos_hint: {'x': 0.373, 'y': 0.05}
+################################
+	CulturaImage:
+		id: Image_Cultura_H
+		pos_hint: {'x': 0.5, 'y': 0.20}
+	SpinnerCultura:
+		id: Spinner_Cultura_H
+		pos_hint: {'x': 0.529, 'y': 0.15}
+		on_text:
+			Image_Cultura_H.source= 'Assets/'+Spinner_Cultura_H.text+'_frame.png'
+	SpinnerEspecie:
+		id: Spinner_Especie_H
+		pos_hint: {'x': 0.529, 'y': 0.10}
+	TextInputComentarios:
+		id: TextInput_Comentarios_H
+		pos_hint: {'x': 0.529, 'y': 0.05}
+################################
 
 
 
@@ -698,7 +736,6 @@ WindowManager:
 <HistoricoWindow>
 	name:"Histórico"
 	ImageFrame:
-	ImageBoard:
 ####################### TABS ########################
 	TabsButton:
 		text: "Home"
