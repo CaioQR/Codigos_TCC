@@ -15,7 +15,6 @@ from kivy.uix.spinner import Spinner
 from datetime import datetime
 from kivy.clock import Clock
 from kivy.uix.popup import Popup
-from IPython.display import display
 import pandas as pd
 import os
 
@@ -170,9 +169,6 @@ class Etapa1Window(Screen):
         #https://stackoverflow.com/questions/27758126/exchanging-variables-between-screens-in-kivy-python
         #df.to_excel("Ensaio_"+str(self.ensaio)+".xlsx")
         df.to_csv(path+'Ensaio_'+str(self.ensaio)+"/Resultados_Ensaio_"+str(self.ensaio)+".csv", index=False)
-        print(df)
-        display(df)
-        df.style
 
         #Exibe PopUp avisando que o ensaio foi criado
         box = BoxLayout(orientation='vertical',padding=10,spacing=10)
