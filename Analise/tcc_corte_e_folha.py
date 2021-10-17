@@ -12,13 +12,28 @@ from skimage.color import label2rgb, rgb2gray
 from skimage.filters import threshold_otsu
 from skimage.segmentation import clear_border
 
-################################################ IMAGEM ##############################################
-# PATH
-ImgFile = '/content/drive/MyDrive/Mauá/TCC/Códigos/Imagens/larvas_bandeja_2.jpg'
+########################################## VARIÁVEIS DO ENSAIO #####################################
+path = 'H:\Caio Quaglierini\Documents\TCC\'
+bioassay = 9895
+lagarta_lista = []
+folha_lista = []
+horario_atual = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
+scale = 0.6
+condicao = 'Controle'
+operador = 'João'
+planta = 'Soja'
+lagarta = 'Chrysodeixis includens'
 
-# IMAGEM
-src1 = cv.imread(ImgFile,1)                             #Colorida
-src0 = cv.imread(ImgFile,0)                             #grayscale
+################################################ IMAGEM ##############################################
+#Define os grupos
+group_list = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']
+#Percorre os paths de fotos dos grupos
+for group in group_list:
+  group_path = path+str(bioassay)+'/Fotos_Originais/'+str(bioassay)+'_Grupo_'+group
+  ImgFile = group_path
+  # IMAGEM
+  src1 = cv.imread(ImgFile,1) #Colorida
+  src0 = cv.imread(ImgFile,0) #grayscale
 
 ########################################## IDENTIFICAR CÍRCULOS ######################################
 # QUADRANTE
@@ -92,40 +107,28 @@ for index, row in df.iterrows():
 #    a.axis('off')
 #fig.tight_layout()
 
-########################################## VARIÁVEIS DO ENSAIO #####################################
-bioassay = 9895
-path = '/Bayer/Resultados_Bioassay/'
-lagarta_lista = []
-folha_lista = []
-horario_atual = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
-scale = 0.6
-condicao = 'Controle'
-operador = 'João'
-planta = 'Soja'
-lagarta = 'Chrysodeixis includens'
-
 ################################################# MAIN #############################################
 def main(cell):
- for i in range(1, 17):
-  cell = 'A'+str(i)
-  file_path = '/content/drive/MyDrive/Mauá/TCC/Códigos/Imagens/Imagens cortadas/'
-  arquivo = file_path + cell + ".jpg"
-  image = cv.imread(arquivo,1)
-  image_gray = cv.imread(arquivo,0)
-  # Threshold
-  threshold = threshold_otsu(image_gray)
-  thresholded_img = image < threshold
-  # Labels
-  label_image = measure.label(thresholded_img,
-                              connectivity = image.ndim)
-  all_props = measure.regionprops(label_image, image)
-  for j in all_props:
-    props_folha = measure.regionprops_table(label_image, image, 
-                          properties=['label', 'area'])
-  props_folha
-  
-  props_folha['Célula_ID'] = i
-  folha_lista.append(props_folha)
+  #Percorre os paths de fotos dos grupos
+  for group in group_list:
+    #Percorre os paths de fotos das folhas cortadas
+    for i in range(1,17):
+      img_path = path+str(bioassay)+'/Fotos_Cortadas/'+str(bioassay)+'_Foto_'+group+str(i)
+      arquivo = img_path + ".jpg"
+      image = cv.imread(arquivo,1)
+      image_gray = cv.imread(arquivo,0)
+      # Threshold
+      threshold = threshold_otsu(image_gray)
+      thresholded_img = image < threshold
+      # Labels
+      label_image = measure.label(thresholded_img,
+                                  connectivity = image.ndim)
+      all_props = measure.regionprops(label_image, image)
+      for j in all_props:
+        props_folha = measure.regionprops_table(label_image, image, 
+                              properties=['label', 'area'])
+      props_folha['Célula_ID'] = i
+      folha_lista.append(props_folha)
   return folha_lista
 
 ################################################## CSV #############################################
@@ -178,16 +181,11 @@ def csv_inicial():
   df['Status da lagarta'] = ''
   df = df[['Data início', 'Data final', 'Técnico', 'Planta', 'Lagarta', 'Condição', 'Grupo_ID', 'Célula_ID',
           'A0_Folha', "A'_Lagarta", 'Redução (%)', 'A0_Lagarta', "A'_Lagarta", 'Aumento (%)', 'Status da lagarta']]
-  #db_inicial["Groupo_ID"] =  cells[0][0]
-  #db_inicial['Cell_ID'] = list(range(1,17))
-  #cols = db_inicial.columns.tolist()
-  #cols = cols[-8:] + cols[:-8]
-  #db_inicial = db_inicial[cols]
-  df.to_csv('/content/drive/MyDrive/Mauá/TCC/Códigos/CSV/' + str(bioassay) + '.csv')
-csv_inicial()
+  df.to_csv(path + str(bioassay) +str(bioassay) + '.csv')
+  return df
 
 def csv_final():
-  db_final = pd.read_csv('/content/drive/MyDrive/Mauá/TCC/Códigos/CSV/' + str(bioassay) + '.csv')
+  db_final = pd.read_csv(path + str(bioassay) +str(bioassay) + '.csv')
   db_final['Área final da planta'] = teste # teste depois apagar
   db_final['Redução (%)'] = round((db_final['Área inicial da planta'] - db_final['Área final da planta']) / db_final['Área inicial da planta'] *100, 2)
   db_final['Data final'] = hora_atual
@@ -203,20 +201,8 @@ def csv_final():
   values1 = [10, 9, 8, 7, 6, 5, 4, 3, 2, 1]
   db_final['Nível de redução'] = np.select(conditions1, values1)
   db_final.drop(db_final.columns[0], axis=1, inplace=True)
-  db_final.to_csv('/content/drive/MyDrive/Mauá/TCC/Códigos/CSV/' + str(bioassay) + '.csv')
-csv_final()
-
-############################################### LAÇOS DE REPETIÇÃO ###########################################
-#Define os grupos
-group_list = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']
-#Percorre os paths de fotos dos grupos
-for group in group_list:
-  group_path = path+str(bioassay)+'/Fotos_Originais/'+str(bioassay)+'_Grupo_'+group
-
-#Percorre os paths de fotos das folhas cortadas
-for group in group_list:
-  for i in range(1,17):
-    img_path = path+str(bioassay)+'/Fotos_Cortadas/'+str(bioassay)+'_Foto_'+group+str(i)
+  db_final.to_csv(path + str(bioassay) +str(bioassay) + '.csv')
+  return db_final
 
 ############################################### REALIZAR TESTE #############################################
 def Cortar_Imagens(group_path):
@@ -224,12 +210,6 @@ def Cortar_Imagens(group_path):
   
 def Analisar_Imagens(img_path):
   return True
-
-#Valores para edição
-bioassay = 9895
-path = '/Bayer/Resultados_Bioassay/'
-#Define os grupos
-group_list = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']
 
 #Execução da Função de Corte das Imagens
 for group in group_list:
