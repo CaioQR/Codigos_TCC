@@ -121,19 +121,7 @@ def Analisar_Imagens(img_path):
   return folha_lista
 
 ################################################## CSV #############################################
-lista=[]
-cells=[]
-for i in range(1,17):
-  leaf_index=group+str(i)
-  area = main(leaf_index)
-  lista.append(area)
-  cells.append(leaf_index)
 
-teste =[]
-n= 0
-for i in range(len(lista)):
-  teste.append(lista[i]*(0.1+n))
-  n += 0.05
 ################ 1a ETAPA ###############
 def csv_inicial():
   df_inicial = pd.DataFrame()
@@ -160,7 +148,7 @@ def csv_inicial():
   df_inicial['Condição'] = condicao
   df_inicial['Planta'] = planta
   df_inicial['Lagarta'] = lagarta
-  df_inicial['Técnico'] = operador
+  df_inicial['Técnic o'] = operador
   df_inicial["Área final da folha"] = ''
   df_inicial["Área final da lagarta"] = ''
   df_inicial['Redução (%)'] = ''
