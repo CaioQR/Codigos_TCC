@@ -30,7 +30,7 @@
 			pos: self.pos
 
 <TextInput>
-	font_size: 20
+	font_size: 18
 	size_hint: (0.2, 0.05)
 	padding: 0
 	background_color: utils.get_color_from_hex('#004785')
@@ -49,24 +49,22 @@
 	
 <SpinnerOptionsCultura@SpinnerOption>:
 	italic: 0
-	font_size: 20
-	auto_width: False
+	font_size: 18
 	#background_normal: ''
     background_color:  (0,71/255,133/255)
     color: (1,1,1,1)
 	height: 30
 
 <SpinnerOptionsEspecie@SpinnerOption>:
-	italic: 1 
-	font_size: 14
-	auto_width: False
+	italic: 1
+	font_size: 18
 	#background_normal: ''
     background_color:  (0,71/255,133/255)
     color: (1,1,1,1)
 	height: 30
 
 <Spinner>
-	font_size: 22
+	font_size: 18
 	auto_width: False
 	size_hint: (0.2, 0.035)
 	pos_hint: {'x': 0.06, 'y': 0.47}
@@ -139,12 +137,12 @@
 <LabelTime@Label>:
 	font_size: 20
 	size_hint: (0.15, 0.05)
-	pos_hint: {'x': 0.044, 'top': 0.79}
+	pos_hint: {'x': 0.35, 'top': 0.91}
 
 <LabelTime_Numero@Label>
 	font_size: 20
 	size_hint: (0.2, 0.05)
-	pos_hint: {'x': 0.15, 'top': 0.79}
+	pos_hint: {'x': 0.45, 'top': 0.91}
 	color: (1,1,1,1)
 	canvas.before:
 		Color:
@@ -155,8 +153,8 @@
 
 <BotaoID@Button>:
 	font_size: 20
-	size_hint: (0.07, 0.05)
-	pos_hint: {'x': 0.36, 'top': 0.91}
+	size_hint: (0.13, 0.05)
+	pos_hint: {'x': 0.8, 'top': 0.91}
 	background_color: (0,0,0,0)
 	color: (1,1,1,1)
 	background_normal: ''
@@ -167,9 +165,6 @@
 			size: self.size
 			pos: self.pos
 			radius: [10]
-
-
-
 
 
 <MyPopup@Popup>
@@ -226,12 +221,13 @@
 	text: "Cultura"
 	values:"Algodão", "Milho", "Soja"
     option_cls: Factory.get("SpinnerOptionsCultura")
+	font_size: 18
 
 <SpinnerEspecie@Spinner>
 	text: "Espécie"
 	values:"Anticarsia gemmatalis", "Chrysodeixis includens", "Spodoptera frugiperda", "Spodoptera cosmioides", "Spodoptera eridania", "Helicoverpa zea", "Helicoverpa armigera", "Elasmopalpus lignosellus"
     option_cls: Factory.get("SpinnerOptionsEspecie")
-	font_size: 20
+	font_size: 18
 	italic: 0
 
 <TextInputComentarios@TextInput>
@@ -381,7 +377,7 @@ WindowManager:
 
 	BotaoID:
 		text: "Gerar ID"
-		pos_hint: {'x': 0.36, 'top': 0.91}
+		pos_hint: {'x': 0.8, 'top': 0.91}
 		on_release:
 			root.Gera_ID()
 
@@ -389,82 +385,82 @@ WindowManager:
 ##################### COMENTÁRIOS ###################
 	CulturaImage:
 		id: Image_Cultura_A
-		pos_hint: {'x': 0.03, 'y': 0.55}
+		pos_hint: {'x': 0.00, 'y': 0.44}
 	SpinnerCultura:
 		id: Spinner_Cultura_A
-		pos_hint: {'x': 0.06, 'y': 0.50}
+		pos_hint: {'x': 0.09, 'y': 0.56}
 		on_text:
 			Image_Cultura_A.source= 'Assets/'+Spinner_Cultura_A.text+'_frame.png'
 	SpinnerEspecie:
 		id: Spinner_Especie_A
-		pos_hint: {'x': 0.06, 'y': 0.45}
+		pos_hint: {'x': 0.09, 'y': 0.51}
 	TextInputComentarios:
 		id: TextInput_Comentarios_A
-		pos_hint: {'x': 0.06, 'y': 0.40}
+		pos_hint: {'x': 0.16, 'y': 0.46}
 ################################
 	CulturaImage:
 		id: Image_Cultura_B
-		pos_hint: {'x': 0.19, 'y': 0.55}
+		pos_hint: {'x': 0.23, 'y': 0.44}
 	SpinnerCultura:
 		id: Spinner_Cultura_B
-		pos_hint: {'x': 0.217, 'y': 0.50}
+		pos_hint: {'x': 0.32, 'y': 0.56}
 		on_text:
 			Image_Cultura_B.source= 'Assets/'+Spinner_Cultura_B.text+'_frame.png'
 	SpinnerEspecie:
 		id: Spinner_Especie_B
-		pos_hint: {'x': 0.217, 'y': 0.45}
+		pos_hint: {'x': 0.32, 'y': 0.51}
 	TextInputComentarios:
 		id: TextInput_Comentarios_B
-		pos_hint: {'x': 0.217, 'y': 0.40}
+		pos_hint: {'x': 0.217, 'y': 0.46}
 ################################
 	CulturaImage:
 		id: Image_Cultura_C
-		pos_hint: {'x': 0.345, 'y': 0.55}
+		pos_hint: {'x': 0.46, 'y': 0.44}
 	SpinnerCultura:
 		id: Spinner_Cultura_C
-		pos_hint: {'x': 0.373, 'y': 0.50}
+		pos_hint: {'x': 0.373, 'y': 0.56}
 		on_text:
 			Image_Cultura_C.source= 'Assets/'+Spinner_Cultura_C.text+'_frame.png'
 	SpinnerEspecie:
 		id: Spinner_Especie_C
-		pos_hint: {'x': 0.373, 'y': 0.45}
+		pos_hint: {'x': 0.373, 'y': 0.51}
 	TextInputComentarios:
 		id: TextInput_Comentarios_C
-		pos_hint: {'x': 0.373, 'y': 0.40}
+		pos_hint: {'x': 0.373, 'y': 0.46}
 ################################
 	CulturaImage:
 		id: Image_Cultura_D
-		pos_hint: {'x': 0.5, 'y': 0.55}
+		pos_hint: {'x': 0.69, 'y': 0.44}
 	SpinnerCultura:
 		id: Spinner_Cultura_D
-		pos_hint: {'x': 0.529, 'y': 0.50}
+		pos_hint: {'x': 0.529, 'y': 0.56}
 		on_text:
 			Image_Cultura_D.source= 'Assets/'+Spinner_Cultura_D.text+'_frame.png'
 	SpinnerEspecie:
 		id: Spinner_Especie_D
-		pos_hint: {'x': 0.529, 'y': 0.45}
+		pos_hint: {'x': 0.529, 'y': 0.51}
 	TextInputComentarios:
 		id: TextInput_Comentarios_D
-		pos_hint: {'x': 0.529, 'y': 0.40}
+		pos_hint: {'x': 0.529, 'y': 0.46}
 ################################
 	CulturaImage:
 		id: Image_Cultura_E
-		pos_hint: {'x': 0.03, 'y': 0.20}
+		pos_hint: {'x': 0.01, 'y': 0.20}
 	SpinnerCultura:
 		id: Spinner_Cultura_E
-		pos_hint: {'x': 0.06, 'y': 0.15}
+		pos_hint: {'x': 0.09, 'y': 0.15}
 		on_text:
 			Image_Cultura_E.source= 'Assets/'+Spinner_Cultura_E.text+'_frame.png'
 	SpinnerEspecie:
 		id: Spinner_Especie_E
-		pos_hint: {'x': 0.06, 'y': 0.10}
+		pos_hint: {'x': 0.09, 'y': 0.10}
 	TextInputComentarios:
 		id: TextInput_Comentarios_E
-		pos_hint: {'x': 0.06, 'y': 0.05}
+		pos_hint: {'x': 0.16, 'y': 0.05}
 ################################
 	CulturaImage:
 		id: Image_Cultura_F
-		pos_hint: {'x': 0.19, 'y': 0.20}
+		pos_hint: {'x': 0.24, 'y': 0.20}
 	SpinnerCultura:
 		id: Spinner_Cultura_F
 		pos_hint: {'x': 0.217, 'y': 0.15}
@@ -479,7 +475,7 @@ WindowManager:
 ################################
 	CulturaImage:
 		id: Image_Cultura_G
-		pos_hint: {'x': 0.345, 'y': 0.20}
+		pos_hint: {'x': 0.47, 'y': 0.20}
 	SpinnerCultura:
 		id: Spinner_Cultura_G
 		pos_hint: {'x': 0.373, 'y': 0.15}
@@ -494,7 +490,7 @@ WindowManager:
 ################################
 	CulturaImage:
 		id: Image_Cultura_H
-		pos_hint: {'x': 0.5, 'y': 0.20}
+		pos_hint: {'x': 0.70, 'y': 0.20}
 	SpinnerCultura:
 		id: Spinner_Cultura_H
 		pos_hint: {'x': 0.529, 'y': 0.15}
@@ -574,16 +570,15 @@ WindowManager:
 	LabelTime:
 		text: "Término:"
 		size_hint: (0.08, 0.05)
-		pos_hint: {'x': 0.36, 'top': 0.79}
+		pos_hint: {'x': 0.375, 'top': 0.85}
 	LabelTime_Numero:
 		id: termino_date
 		#text: root.current_datetime
-		pos_hint: {'x': 0.44, 'top': 0.79}
+		pos_hint: {'x': 0.45, 'top': 0.85}
 
 	BotaoID:
 		text: "Preencher Dados"
-		size_hint: (0.13, 0.05)
-		pos_hint: {'x': 0.36, 'top': 0.91}
+		pos_hint: {'x': 0.8, 'top': 0.91}
 		on_release:
 			#root.Gera_ID()
 
