@@ -186,8 +186,22 @@ class Etapa1Window(Screen):
 class RealizaEnsaioWindow(Screen):
     pass
 
-class Etapa2Window(Screen):
-    pass
+
+class Etapa2Window(Screen): 
+    def __init__(self, **kwargs):
+        super(Etapa2Window, self).__init__(**kwargs)
+        #Cria um relógio que chamará a função 'atualiza' a cada 1 segundo
+        Clock.schedule_interval(self.atualiza, 1)
+
+        
+    current_datetime = '00:00   00/00/0000'
+
+    #Função para atualizar a data    
+    def atualiza(self, dt):
+        #Coleta a data e hora atual
+        self.current_datetime = datetime.now()
+        #Exibe os dados coletados na tela 
+        self.ids.termino_date.text = self.current_datetime.strftime("%d/%m/%Y     %H:%M:%S")
 
 class HistoricoWindow(Screen):
     pass
