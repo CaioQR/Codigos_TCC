@@ -160,9 +160,9 @@ class Etapa1Window(Screen):
 
         #Cria os diretórios
         path = os.getcwd()+'/SistemaBayer/'
-        os.makedirs(path+'Ensaio_'+str(self.ensaio))
-        os.makedirs(path+'Ensaio_'+str(self.ensaio)+'/Fotos')
-        os.makedirs(path+'Ensaio_'+str(self.ensaio)+'/FotosTemporarias')
+        os.makedirs(path+'/Ensaio_'+str(self.ensaio))
+        os.makedirs(path+'/Ensaio_'+str(self.ensaio)+'/Fotos')
+        os.makedirs(path+'/Ensaio_'+str(self.ensaio)+'/FotosTemporarias')
 
 
         #Converte o data frame para o formato desejado e salva no diretório criado
