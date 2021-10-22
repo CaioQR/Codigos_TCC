@@ -87,7 +87,18 @@
 	allow_stretch:True
 	keep_ratio:False
 
-
+<PlotHistorico@Image>
+	canvas:
+        Color:
+            rgba: 1, 1, 1, 0
+        Rectangle:
+            pos: self.pos
+            size: self.size
+	background_normal:''
+	source: "Assets/plotHistorico.png"
+	size_hint: (0.8,0.8)
+	allow_stretch:True
+	keep_ratio:False
 
 ######################################## Widgtes Cabeçalho
 <LabelID@Label>
@@ -215,6 +226,11 @@
 	size_hint: (0.12, 0.05)
 	pos_hint: {'x': 0.8, 'top': 0.85}
 
+<GerarRelatorio@RoundedButton>:
+	text: "Gerar relatório"
+		font_size: 20
+		size_hint: (0.12, 0.05)
+		pos_hint: {'x': 0.8, 'top': 0.85}
 
 <CulturaImage@Image>:
 	source:"Assets/Cultura_frame.png"
@@ -765,13 +781,4 @@ WindowManager:
 
 		
 ###################### 3 BOTÕES ####################
-	RoundedButton:
-		text: "Botão 1"
-		font_size: 24
-		size_hint: (0.1, 0.075)
-		pos_hint: {'x': 0.73, 'y': 0.1}
-	RoundedButton:
-		text: "Botão 2"
-		font_size: 24
-		size_hint: (0.1, 0.075)
-		pos_hint: {'x': 0.85, 'y': 0.1}
+	GerarRelatorio:
