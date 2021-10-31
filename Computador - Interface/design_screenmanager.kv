@@ -50,7 +50,6 @@
 <SpinnerOptionsCultura@SpinnerOption>:
 	italic: 0
 	font_size: 18
-	#background_normal: ''
     background_color:  (0,71/255,133/255)
     color: (1,1,1,1)
 	height: 30
@@ -58,24 +57,9 @@
 <SpinnerOptionsEspecie@SpinnerOption>:
 	italic: 1
 	font_size: 18
-	#background_normal: ''
     background_color:  (0,71/255,133/255)
     color: (1,1,1,1)
 	height: 30
-
-<LabelCultura2aEtapa@Label>:
-	font_size: 18
-	size_hint: (0.17, 0.035)
-	auto_width: False
-	background_color: (0,71/255,133/255)
-	color: (1,1,1,1)
-
-<LabelEspecie2aEtapa@Label>:
-	font_size: 18
-	size_hint: (0.17, 0.035)
-	auto_width: False
-	background_color: (0,71/255,133/255)
-	color: (1,1,1,1)
 
 <Spinner>
 	font_size: 18
@@ -101,18 +85,7 @@
 	allow_stretch:True
 	keep_ratio:False
 
-<PlotHistorico@Image>
-	canvas:
-        Color:
-            rgba: 1, 1, 1, 0
-        Rectangle:
-            pos: self.pos
-            size: self.size
-	background_normal:''
-	source: "Assets/plotHistorico.png"
-	size_hint: (0.8,0.8)
-	allow_stretch:True
-	keep_ratio:False
+
 
 ######################################## Widgtes Cabeçalho
 <LabelID@Label>
@@ -240,11 +213,6 @@
 	size_hint: (0.12, 0.05)
 	pos_hint: {'x': 0.8, 'top': 0.85}
 
-<GerarRelatorio@RoundedButton>:
-	text: "Gerar relatório"
-		font_size: 20
-		size_hint: (0.12, 0.05)
-		pos_hint: {'x': 0.8, 'top': 0.85}
 
 <CulturaImage@Image>:
 	source:"Assets/Cultura_frame.png"
@@ -256,6 +224,17 @@
     option_cls: Factory.get("SpinnerOptionsCultura")
 	font_size: 18
 
+<Cultura_Texto@Label>
+	font_size: 20
+	size_hint: (0.17, 0.035)
+	color: (1,1,1,1)
+	canvas.before:
+		Color:
+			rgba: (0/255,71/255,133/255,1)
+		Rectangle:
+			size: self.size
+			pos: self.pos
+
 <SpinnerEspecie@Spinner>
 	text: "Espécie"
 	values:"Anticarsia gemmatalis", "Chrysodeixis includens", "Spodoptera frugiperda", "Spodoptera cosmioides", "Spodoptera eridania", "Helicoverpa zea", "Helicoverpa armigera", "Elasmopalpus lignosellus"
@@ -263,10 +242,32 @@
 	font_size: 18
 	italic: 0
 
+<Especie_Texto@Label>
+	font_size: 20
+	size_hint: (0.17, 0.035)
+	color: (1,1,1,1)
+	canvas.before:
+		Color:
+			rgba: (0/255,71/255,133/255,1)
+		Rectangle:
+			size: self.size
+			pos: self.pos
+
 <TextInputComentarios@TextInput>
 	size_hint: (0.17, 0.07)
 	hint_text:" Comentários..."
 	multiline: True
+
+<Comentarios_Texto@Label>
+	font_size: 20
+	size_hint: (0.17, 0.07)
+	color: (1,1,1,1)
+	canvas.before:
+		Color:
+			rgba: (0/255,71/255,133/255,1)
+		Rectangle:
+			size: self.size
+			pos: self.pos
 
 
 <MyGridLayout>
@@ -591,6 +592,7 @@ WindowManager:
 	LabelTecnico:
 	LabelTecnico_Nome:
 		id:tecnico
+		text: ''
 
 	LabelTime:
 		text: "Início:"
@@ -617,119 +619,106 @@ WindowManager:
 	CulturaImage:
 		id: Image_Cultura_A
 		pos_hint: {'x': 0.055, 'y': 0.575}
-	SpinnerCultura:
+	Cultura_Texto:
 		id: Spinner_Cultura_A
 		pos_hint: {'x': 0.06, 'y': 0.525}
-
-	SpinnerEspecie:
+		#on_text:
+		#	Image_Cultura_A.source= 'Assets/'+Spinner_Cultura_A.text+'_frame.png'
+	Especie_Texto:
 		id: Spinner_Especie_A
 		pos_hint: {'x': 0.06, 'y': 0.48}
-	TextInputComentarios:
+	Comentarios_Texto:
 		id: TextInput_Comentarios_A
 		pos_hint: {'x': 0.06, 'y': 0.40}
 ################################
 	CulturaImage:
 		id: Image_Cultura_B
 		pos_hint: {'x': 0.29, 'y': 0.575}
-	SpinnerCultura:
+	Cultura_Texto:
 		id: Spinner_Cultura_B
 		pos_hint: {'x': 0.295, 'y': 0.525}
-		on_text:
-			Image_Cultura_B.source= 'Assets/'+Spinner_Cultura_B.text+'_frame.png'
-	SpinnerEspecie:
+	Especie_Texto:
 		id: Spinner_Especie_B
 		pos_hint: {'x': 0.295, 'y': 0.48}
-	TextInputComentarios:
+	Comentarios_Texto:
 		id: TextInput_Comentarios_B
 		pos_hint: {'x': 0.295, 'y': 0.40}
 ################################
 	CulturaImage:
 		id: Image_Cultura_C
 		pos_hint: {'x': 0.53, 'y': 0.575}
-	SpinnerCultura:
+	Cultura_Texto:
 		id: Spinner_Cultura_C
 		pos_hint: {'x': 0.535, 'y': 0.525}
-		on_text:
-			Image_Cultura_C.source= 'Assets/'+Spinner_Cultura_C.text+'_frame.png'
-	SpinnerEspecie:
+	Especie_Texto:
 		id: Spinner_Especie_C
 		pos_hint: {'x': 0.535, 'y': 0.48}
-	TextInputComentarios:
+	Comentarios_Texto:
 		id: TextInput_Comentarios_C
 		pos_hint: {'x': 0.535, 'y': 0.40}
 ################################
 	CulturaImage:
 		id: Image_Cultura_D
 		pos_hint: {'x': 0.765, 'y': 0.575}
-	SpinnerCultura:
+	Cultura_Texto:
 		id: Spinner_Cultura_D
 		pos_hint: {'x': 0.77, 'y': 0.525}
-		on_text:
-			Image_Cultura_D.source= 'Assets/'+Spinner_Cultura_D.text+'_frame.png'
-	SpinnerEspecie:
+	Especie_Texto:
 		id: Spinner_Especie_D
 		pos_hint: {'x': 0.77, 'y': 0.48}
-	TextInputComentarios:
+	Comentarios_Texto:
 		id: TextInput_Comentarios_D
 		pos_hint: {'x': 0.77, 'y': 0.4}
 ################################
 	CulturaImage:
 		id: Image_Cultura_E
 		pos_hint: {'x': 0.055, 'y': 0.205}
-	SpinnerCultura:
+	Cultura_Texto:
 		id: Spinner_Cultura_E
 		pos_hint: {'x': 0.06, 'y': 0.155}
-		on_text:
-			Image_Cultura_E.source= 'Assets/'+Spinner_Cultura_E.text+'_frame.png'
-	SpinnerEspecie:
+	Especie_Texto:
 		id: Spinner_Especie_E
 		pos_hint: {'x': 0.06, 'y': 0.11}
-	TextInputComentarios:
+	Comentarios_Texto:
 		id: TextInput_Comentarios_E
 		pos_hint: {'x': 0.06, 'y': 0.03}
 ################################
 	CulturaImage:
 		id: Image_Cultura_F
 		pos_hint: {'x': 0.29, 'y': 0.205}
-	SpinnerCultura:
+	Cultura_Texto:
 		id: Spinner_Cultura_F
 		pos_hint: {'x': 0.295, 'y': 0.155}
-		on_text:
-			Image_Cultura_F.source= 'Assets/'+Spinner_Cultura_F.text+'_frame.png'
-	SpinnerEspecie:
+	Especie_Texto:
 		id: Spinner_Especie_F
 		pos_hint: {'x': 0.295, 'y': 0.11}
-	TextInputComentarios:
+	Comentarios_Texto:
 		id: TextInput_Comentarios_F
 		pos_hint: {'x': 0.295, 'y': 0.03}
 ################################
 	CulturaImage:
 		id: Image_Cultura_G
 		pos_hint: {'x': 0.53, 'y': 0.205}
-	SpinnerCultura:
+	Cultura_Texto:
 		id: Spinner_Cultura_G
 		pos_hint: {'x': 0.535, 'y': 0.155}
-		on_text:
-			Image_Cultura_G.source= 'Assets/'+Spinner_Cultura_G.text+'_frame.png'
-	SpinnerEspecie:
+	Especie_Texto:
 		id: Spinner_Especie_G
 		pos_hint: {'x': 0.535, 'y': 0.11}
-	TextInputComentarios:
+	Comentarios_Texto:
 		id: TextInput_Comentarios_G
 		pos_hint: {'x': 0.535, 'y': 0.03}
 ################################
 	CulturaImage:
 		id: Image_Cultura_H
 		pos_hint: {'x': 0.765, 'y': 0.205}
-	SpinnerCultura:
+	Cultura_Texto:
 		id: Spinner_Cultura_H
 		pos_hint: {'x': 0.77, 'y': 0.155}
-		on_text:
-			Image_Cultura_H.source= 'Assets/'+Spinner_Cultura_H.text+'_frame.png'
-	SpinnerEspecie:
+	Especie_Texto:
 		id: Spinner_Especie_H
 		pos_hint: {'x': 0.77, 'y': 0.11}
-	TextInputComentarios:
+	Comentarios_Texto:
 		id: TextInput_Comentarios_H
 		pos_hint: {'x': 0.77, 'y': 0.03}
 ################################
@@ -793,4 +782,13 @@ WindowManager:
 
 		
 ###################### 3 BOTÕES ####################
-	GerarRelatorio:
+	RoundedButton:
+		text: "Botão 1"
+		font_size: 24
+		size_hint: (0.1, 0.075)
+		pos_hint: {'x': 0.73, 'y': 0.1}
+	RoundedButton:
+		text: "Botão 2"
+		font_size: 24
+		size_hint: (0.1, 0.075)
+		pos_hint: {'x': 0.85, 'y': 0.1}
