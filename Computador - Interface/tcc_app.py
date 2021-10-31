@@ -16,8 +16,16 @@ from datetime import datetime
 from kivy.clock import Clock
 from kivy.uix.popup import Popup
 import pandas as pd
+from kivy.garden.matplotlib.backend_kivyagg import FigureCanvasKivyAgg
+import matplotlib.pyplot as plt
 import os
 
+x = [1,2,3,4,5]
+y = [5,12,6,9,15]
+
+plt.plot(x,y)
+plt.xlabel('x axis')
+plt.ylabel('y axis')
 
 # Definir telas
 class WindowManager(ScreenManager):
@@ -203,7 +211,11 @@ class Etapa2Window(Screen):
         #Exibe os dados coletados na tela 
         self.ids.termino_date.text = self.current_datetime.strftime("%d/%m/%Y     %H:%M:%S")
 
-class HistoricoWindow(Screen):
+class HistoricoWindow(App):
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        box = self.ids.box
+        box.add_widget(FigureCanvasKivyAgg(plt.gcf()))
     pass
 
 

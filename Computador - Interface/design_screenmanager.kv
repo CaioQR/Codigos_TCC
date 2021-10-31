@@ -63,6 +63,20 @@
     color: (1,1,1,1)
 	height: 30
 
+<LabelCultura2aEtapa@Label>:
+	font_size: 18
+	size_hint: (0.17, 0.035)
+	auto_width: False
+	background_color: (0,71/255,133/255)
+	color: (1,1,1,1)
+
+<LabelEspecie2aEtapa@Label>:
+	font_size: 18
+	size_hint: (0.17, 0.035)
+	auto_width: False
+	background_color: (0,71/255,133/255)
+	color: (1,1,1,1)
+
 <Spinner>
 	font_size: 18
 	auto_width: False
@@ -561,7 +575,6 @@ WindowManager:
 	LabelTecnico:
 	LabelTecnico_Nome:
 		id:tecnico
-		text: ''
 
 	LabelTime:
 		text: "Início:"
@@ -591,8 +604,7 @@ WindowManager:
 	SpinnerCultura:
 		id: Spinner_Cultura_A
 		pos_hint: {'x': 0.06, 'y': 0.525}
-		on_text:
-			Image_Cultura_A.source= 'Assets/'+Spinner_Cultura_A.text+'_frame.png'
+
 	SpinnerEspecie:
 		id: Spinner_Especie_A
 		pos_hint: {'x': 0.06, 'y': 0.48}
