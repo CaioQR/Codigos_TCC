@@ -264,7 +264,6 @@ class Etapa2Window(Screen):
                 self.lista_especies.append(df_ensaio.loc[i,'Especie'])
                 self.lista_comentarios.append(df_ensaio.loc[i,'Comentarios'])
                 i += 16
-
             #Atualiza a tela
             self.ids.tecnico.text = str(self.tecnico)
             self.ids.inicio_date.text = str(self.inicio_datetime)
@@ -281,32 +280,20 @@ class Etapa2Window(Screen):
                 i += 16
             
 
-
-
-
-         
-        '''
-        #Limpa as variáveis
-        self.ensaio = ''
-        self.tecnico = ''
-        self.inicio_datetime = '00:00   00/00/0000'
-        self.lista_culturas = []
-        self.lista_especies = []
-        self.lista_comentarios = []
+    #Função para salvar os dados preenchidos
+    def save_data(self):
+        #Verifica se o ensaio foi carregado:
+        if self.ensaio=='':
+            #Popup de erro
+            pass
+        else:
+            #Acrescenta a data de término ao arquivo csv
+            
+            #Limpa os campos
+            self.Clear_Data()
+            #Altera a página
+            self.parent.current = 'Ensaio'
         
-        #Limpa os campos da tela
-        self.ids.id_ensaio.text = ''
-        self.ids.tecnico.text = ''
-        self.ids.inicio_date.text = ''
-        for c in range(ord('A'), ord('I')):
-            comand = 'self.ids.Text_Cultura_'+chr(c)+'.text = ""'
-            exec(comand)
-            comand = 'self.ids.Text_Especie_'+chr(c)+'.text = ""'
-            exec(comand)
-            comand = 'self.ids.Text_Comentarios_'+chr(c)+'.text = ""'
-            exec(comand)
-            comand = 'self.ids.Image_Cultura_'+chr(c)+'.source= "Assets/Cultura_frame.png"'
-            exec(comand)'''
 
 
 class EnsaioWindow(Screen):
