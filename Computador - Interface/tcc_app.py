@@ -19,6 +19,7 @@ import pandas as pd
 #from kivy.garden.matplotlib.backend_kivyagg import FigureCanvasKivyAgg
 #import matplotlib.pyplot as plt
 import os
+import shutil ############### REMOVER DA LÓGICA
 
 
 # Definir telas
@@ -130,6 +131,7 @@ class Etapa1Window(Screen):
             #Limpa os campos
             self.Clear_Data()
             #Altera a página
+            self.parent.current = 'Ensaio'
 
 
 
@@ -162,6 +164,8 @@ class Etapa1Window(Screen):
 
         #Cria os diretórios
         path = os.getcwd()+'/SistemaBayer/'
+        if os.path.exists(path+'/Ensaio_'+str(self.ensaio)):
+            shutil.rmtree(path+'/Ensaio_'+str(self.ensaio))
         os.makedirs(path+'/Ensaio_'+str(self.ensaio))
         os.makedirs(path+'/Ensaio_'+str(self.ensaio)+'/Fotos')
         os.makedirs(path+'/Ensaio_'+str(self.ensaio)+'/FotosTemporarias')
@@ -185,7 +189,7 @@ class Etapa1Window(Screen):
 
     
 
-class RealizaEnsaioWindow(Screen):
+class EnsaioWindow(Screen):
     pass
 
 
@@ -217,7 +221,8 @@ Window.minimum_width, Window.minimum_height = (1280, 720)
 
 class MyApp(App):
     def build(self):
+        WindowManager()
         return kv
-        
+
 if __name__ == '__main__':
     MyApp().run()
