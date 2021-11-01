@@ -20,6 +20,7 @@ import pandas as pd
 #import matplotlib.pyplot as plt
 import os
 import shutil ############### REMOVER DA LÓGICA
+import json
 
 
 # Definir telas
@@ -83,9 +84,12 @@ class Etapa1Window(Screen):
             pass
         #Cria um ID único
         else:
-            #https://www.codegrepper.com/code-examples/python/get+list+of+folders+in+directory+python
-            #epochtime+id bandeja
-            self.ensaio = '1234'
+            path = os.getcwd()+'\Computador - Interface\config.json'
+            with open(path, 'r', encoding="utf-8") as config_file:
+                data=config_file.read()
+                config = json.loads(data) 
+                config_file.close()           
+            self.ensaio = str(config['last_bioassay_id']+1)
             self.ids.id_ensaio.text = self.ensaio
 
 
@@ -163,18 +167,21 @@ class Etapa1Window(Screen):
         df['Celula'] = coluna_celula
 
         #Cria os diretórios
-        path = os.getcwd()+'/SistemaBayer/'
-        if os.path.exists(path+'/Ensaio_'+str(self.ensaio)):
-            shutil.rmtree(path+'/Ensaio_'+str(self.ensaio))
-        os.makedirs(path+'/Ensaio_'+str(self.ensaio))
-        os.makedirs(path+'/Ensaio_'+str(self.ensaio)+'/Fotos')
-        os.makedirs(path+'/Ensaio_'+str(self.ensaio)+'/FotosTemporarias')
+        path = os.getcwd()+'\Computador - Interface\config.json'
+        with open(path, 'r', encoding="utf-8") as config_file:
+            data=config_file.read()
+            config = json.loads(data) 
+            config_file.close()           
+        path = config['path']
+        if os.path.exists(path+'\Ensaio_'+str(self.ensaio)):
+            shutil.rmtree(path+'\Ensaio_'+str(self.ensaio))
+        os.makedirs(path+'\Ensaio_'+str(self.ensaio))
+        os.makedirs(path+'\Ensaio_'+str(self.ensaio)+'\Fotos')
+        os.makedirs(path+'\Ensaio_'+str(self.ensaio)+'\FotosTemporarias')
 
 
         #Converte o data frame para o formato desejado e salva no diretório criado
-        #https://stackoverflow.com/questions/27758126/exchanging-variables-between-screens-in-kivy-python
-        #df.to_excel("Ensaio_"+str(self.ensaio)+".xlsx")
-        df.to_csv(path+'Ensaio_'+str(self.ensaio)+"/Resultados_Ensaio_"+str(self.ensaio)+".csv", index=False)
+        df.to_csv(path+'\Ensaio_'+str(self.ensaio)+"\Resultados_Ensaio_"+str(self.ensaio)+".csv", index=False)
 
         #Exibe PopUp avisando que o ensaio foi criado
         box = BoxLayout(orientation='vertical',padding=10,spacing=10)
