@@ -553,6 +553,13 @@ WindowManager:
 	id: my_widget
 	ImageFrame:
 
+	TabsButton:
+		text: "Home"
+		pos_hint: {'x': 0.0045, 'y': 0.942}
+		on_release:
+			app.root.current = "Home"
+			root.manager.transition.direction = "right"
+
 
 ######################################################################################################################
 ######################################################## 2a ETAPA ####################################################
@@ -567,12 +574,14 @@ WindowManager:
 		text: "Home"
 		pos_hint: {'x': 0.0045, 'y': 0.942}
 		on_release:
+			root.Clear_Data()
 			app.root.current = "Home"
 			root.manager.transition.direction = "right"
 	TabsButton:
 		text: "1ª Etapa"
 		pos_hint: {'x': 0.1261, 'y': 0.942}
 		on_release:
+			root.Clear_Data()
 			app.root.current = "1ª Etapa"
 			root.manager.transition.direction = "right"
 	TabsButton:
@@ -583,6 +592,7 @@ WindowManager:
 		text: "Histórico"
 		pos_hint: {'x': 0.369, 'y': 0.942}
 		on_release:
+			root.Clear_Data()
 			app.root.current = "Histórico"
 			root.manager.transition.direction = "left"
 
@@ -614,7 +624,7 @@ WindowManager:
 		text: "Preencher Dados"
 		pos_hint: {'x': 0.8, 'top': 0.91}
 		on_release:
-			#root.Gera_ID()
+			root.Preencher_Dados()
 
 
 
@@ -623,106 +633,106 @@ WindowManager:
 		id: Image_Cultura_A
 		pos_hint: {'x': 0.055, 'y': 0.575}
 	Cultura_Texto:
-		id: Spinner_Cultura_A
+		id: Text_Cultura_A
 		pos_hint: {'x': 0.06, 'y': 0.525}
 		#on_text:
 		#	Image_Cultura_A.source= 'Assets/'+Spinner_Cultura_A.text+'_frame.png'
 	Especie_Texto:
-		id: Spinner_Especie_A
+		id: Text_Especie_A
 		pos_hint: {'x': 0.06, 'y': 0.48}
 	Comentarios_Texto:
-		id: TextInput_Comentarios_A
+		id: Text_Comentarios_A
 		pos_hint: {'x': 0.06, 'y': 0.40}
 ################################
 	CulturaImage:
 		id: Image_Cultura_B
 		pos_hint: {'x': 0.29, 'y': 0.575}
 	Cultura_Texto:
-		id: Spinner_Cultura_B
+		id: Text_Cultura_B
 		pos_hint: {'x': 0.295, 'y': 0.525}
 	Especie_Texto:
-		id: Spinner_Especie_B
+		id: Text_Especie_B
 		pos_hint: {'x': 0.295, 'y': 0.48}
 	Comentarios_Texto:
-		id: TextInput_Comentarios_B
+		id: Text_Comentarios_B
 		pos_hint: {'x': 0.295, 'y': 0.40}
 ################################
 	CulturaImage:
 		id: Image_Cultura_C
 		pos_hint: {'x': 0.53, 'y': 0.575}
 	Cultura_Texto:
-		id: Spinner_Cultura_C
+		id: Text_Cultura_C
 		pos_hint: {'x': 0.535, 'y': 0.525}
 	Especie_Texto:
-		id: Spinner_Especie_C
+		id: Text_Especie_C
 		pos_hint: {'x': 0.535, 'y': 0.48}
 	Comentarios_Texto:
-		id: TextInput_Comentarios_C
+		id: Text_Comentarios_C
 		pos_hint: {'x': 0.535, 'y': 0.40}
 ################################
 	CulturaImage:
 		id: Image_Cultura_D
 		pos_hint: {'x': 0.765, 'y': 0.575}
 	Cultura_Texto:
-		id: Spinner_Cultura_D
+		id: Text_Cultura_D
 		pos_hint: {'x': 0.77, 'y': 0.525}
 	Especie_Texto:
-		id: Spinner_Especie_D
+		id: Text_Especie_D
 		pos_hint: {'x': 0.77, 'y': 0.48}
 	Comentarios_Texto:
-		id: TextInput_Comentarios_D
+		id: Text_Comentarios_D
 		pos_hint: {'x': 0.77, 'y': 0.4}
 ################################
 	CulturaImage:
 		id: Image_Cultura_E
 		pos_hint: {'x': 0.055, 'y': 0.205}
 	Cultura_Texto:
-		id: Spinner_Cultura_E
+		id: Text_Cultura_E
 		pos_hint: {'x': 0.06, 'y': 0.155}
 	Especie_Texto:
-		id: Spinner_Especie_E
+		id: Text_Especie_E
 		pos_hint: {'x': 0.06, 'y': 0.11}
 	Comentarios_Texto:
-		id: TextInput_Comentarios_E
+		id: Text_Comentarios_E
 		pos_hint: {'x': 0.06, 'y': 0.03}
 ################################
 	CulturaImage:
 		id: Image_Cultura_F
 		pos_hint: {'x': 0.29, 'y': 0.205}
 	Cultura_Texto:
-		id: Spinner_Cultura_F
+		id: Text_Cultura_F
 		pos_hint: {'x': 0.295, 'y': 0.155}
 	Especie_Texto:
-		id: Spinner_Especie_F
+		id: Text_Especie_F
 		pos_hint: {'x': 0.295, 'y': 0.11}
 	Comentarios_Texto:
-		id: TextInput_Comentarios_F
+		id: Text_Comentarios_F
 		pos_hint: {'x': 0.295, 'y': 0.03}
 ################################
 	CulturaImage:
 		id: Image_Cultura_G
 		pos_hint: {'x': 0.53, 'y': 0.205}
 	Cultura_Texto:
-		id: Spinner_Cultura_G
+		id: Text_Cultura_G
 		pos_hint: {'x': 0.535, 'y': 0.155}
 	Especie_Texto:
-		id: Spinner_Especie_G
+		id: Text_Especie_G
 		pos_hint: {'x': 0.535, 'y': 0.11}
 	Comentarios_Texto:
-		id: TextInput_Comentarios_G
+		id: Text_Comentarios_G
 		pos_hint: {'x': 0.535, 'y': 0.03}
 ################################
 	CulturaImage:
 		id: Image_Cultura_H
 		pos_hint: {'x': 0.765, 'y': 0.205}
 	Cultura_Texto:
-		id: Spinner_Cultura_H
+		id: Text_Cultura_H
 		pos_hint: {'x': 0.77, 'y': 0.155}
 	Especie_Texto:
-		id: Spinner_Especie_H
+		id: Text_Especie_H
 		pos_hint: {'x': 0.77, 'y': 0.11}
 	Comentarios_Texto:
-		id: TextInput_Comentarios_H
+		id: Text_Comentarios_H
 		pos_hint: {'x': 0.77, 'y': 0.03}
 ################################
 

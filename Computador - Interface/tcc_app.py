@@ -97,7 +97,7 @@ class Etapa1Window(Screen):
     def save_data(self):
         #Atualiza as informações
         agora = datetime.now()
-        self.datetime = agora.strftime("%d/%m/%Y %H:%M")
+        self.datetime = agora.strftime("%d/%m/%Y %H:%M:%S")
         self.ensaio = self.ids.id_ensaio.text
         self.tecnico = self.ids.tecnico.text
         for c in range(ord('A'), ord('I')):
@@ -194,20 +194,20 @@ class Etapa1Window(Screen):
 
         
 
-    
-
-class EnsaioWindow(Screen):
-    pass
-
-
 class Etapa2Window(Screen): 
     def __init__(self, **kwargs):
         super(Etapa2Window, self).__init__(**kwargs)
         #Cria um relógio que chamará a função 'atualiza' a cada 1 segundo
         Clock.schedule_interval(self.atualiza, 1)
 
-        
+    #Variáveis
+    ensaio = ''
+    tecnico = ''
+    inicio_datetime = '00:00   00/00/0000'
     current_datetime = '00:00   00/00/0000'
+    lista_culturas = []
+    lista_especies = []
+    lista_comentarios = []
 
     #Função para atualizar a data    
     def atualiza(self, dt):
@@ -215,6 +215,104 @@ class Etapa2Window(Screen):
         self.current_datetime = datetime.now()
         #Exibe os dados coletados na tela 
         self.ids.termino_date.text = self.current_datetime.strftime("%d/%m/%Y     %H:%M:%S")
+
+    #Função para limpar os dados preenchidos na tela
+    def Clear_Data(self):
+        #Limpa as variáveis
+        self.ensaio = ''
+        self.tecnico = ''
+        self.inicio_datetime = '00:00   00/00/0000'
+        self.lista_culturas = []
+        self.lista_especies = []
+        self.lista_comentarios = []
+        
+        #Limpa os campos da tela
+        self.ids.id_ensaio.text = ''
+        self.ids.tecnico.text = ''
+        self.ids.inicio_date.text = ''
+        for c in range(ord('A'), ord('I')):
+            comand = 'self.ids.Text_Cultura_'+chr(c)+'.text = ""'
+            exec(comand)
+            comand = 'self.ids.Text_Especie_'+chr(c)+'.text = ""'
+            exec(comand)
+            comand = 'self.ids.Text_Comentarios_'+chr(c)+'.text = ""'
+            exec(comand)
+            comand = 'self.ids.Image_Cultura_'+chr(c)+'.source= "Assets/Cultura_frame.png"'
+            exec(comand)
+
+    #Função para preencher os dados na tela
+    def Preencher_Dados(self):
+        #Verificar ensaio solicitado
+        path = os.getcwd()+'\Computador - Interface\config.json'
+        with open(path, 'r', encoding="utf-8") as config_file:
+            data=config_file.read()
+            config = json.loads(data) 
+            config_file.close()           
+        path = config['path']+'\Ensaio_'+self.ids.id_ensaio.text
+        if not(os.path.exists(path)):
+            #Popup de erro
+            pass
+        else:
+            #Importar CSV 
+            df_ensaio = pd.read_csv(path+'\Resultados_Ensaio_'+self.ids.id_ensaio.text+'.csv')
+            #Preenche as variáveis
+            self.ensaio = df_ensaio.loc[0,'ID_Ensaio']
+            self.tecnico = df_ensaio.loc[0,'Tecnico']
+            self.inicio_datetime = df_ensaio.loc[0,'Inicio']
+            for i in range(128):
+                self.lista_culturas.append(df_ensaio.loc[i,'Cultura'])
+                self.lista_especies.append(df_ensaio.loc[i,'Especie'])
+                self.lista_comentarios.append(df_ensaio.loc[i,'Comentarios'])
+                i += 16
+
+            #Atualiza a tela
+            self.ids.tecnico.text = str(self.tecnico)
+            self.ids.inicio_date.text = str(self.inicio_datetime)
+            i = 0
+            for c in range(ord('A'), ord('I')):
+                comand = 'self.ids.Text_Cultura_'+chr(c)+'.text = str(self.lista_culturas[i])'
+                exec(comand)
+                comand = 'self.ids.Text_Especie_'+chr(c)+'.text = str(self.lista_especies[i])'
+                exec(comand)
+                comand = 'self.ids.Text_Comentarios_'+chr(c)+'.text = str(self.lista_comentarios[i])'
+                exec(comand)
+                comand = 'self.ids.Image_Cultura_'+chr(c)+'.source= "Assets/"+str(self.lista_culturas[i])+"_frame.png"'
+                exec(comand)
+                i += 16
+            
+
+
+
+
+         
+        '''
+        #Limpa as variáveis
+        self.ensaio = ''
+        self.tecnico = ''
+        self.inicio_datetime = '00:00   00/00/0000'
+        self.lista_culturas = []
+        self.lista_especies = []
+        self.lista_comentarios = []
+        
+        #Limpa os campos da tela
+        self.ids.id_ensaio.text = ''
+        self.ids.tecnico.text = ''
+        self.ids.inicio_date.text = ''
+        for c in range(ord('A'), ord('I')):
+            comand = 'self.ids.Text_Cultura_'+chr(c)+'.text = ""'
+            exec(comand)
+            comand = 'self.ids.Text_Especie_'+chr(c)+'.text = ""'
+            exec(comand)
+            comand = 'self.ids.Text_Comentarios_'+chr(c)+'.text = ""'
+            exec(comand)
+            comand = 'self.ids.Image_Cultura_'+chr(c)+'.source= "Assets/Cultura_frame.png"'
+            exec(comand)'''
+
+
+class EnsaioWindow(Screen):
+    pass
+
+
 
 class HistoricoWindow(Screen):
     pass
@@ -225,6 +323,7 @@ kv = Builder.load_file('design_screenmanager.kv')
 Window.clearcolor = (1, 1, 1, 1)
 Window.size = (1280, 720)
 Window.minimum_width, Window.minimum_height = (1280, 720)
+#Window.fullscreen = 'auto'
 
 class MyApp(App):
     def build(self):
