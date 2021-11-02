@@ -157,14 +157,20 @@ class Etapa1Window(Screen):
 
         #Cria o dataframe
         df = pd.DataFrame()
-        df['DiscoFoliar'] = range(1,129)
+        df['Disco_Foliar'] = range(1,129)
         df['ID_Ensaio'] = self.ensaio
-        df['Tecnico'] = self.tecnico
-        df['Inicio'] = self.datetime
+        df['Técnico'] = self.tecnico
+        df['Data_Inicial'] = self.datetime
+        df['Data_Final'] = 0
+        df['Célula'] = coluna_celula
         df['Cultura'] = coluna_cultura
-        df['Especie'] = coluna_especie
-        df['Comentarios'] = coluna_comentarios
-        df['Celula'] = coluna_celula
+        df['Espécie'] = coluna_especie
+        df['Comentários'] = coluna_comentarios
+        df['Área_Inicial'] = 0
+        df['Área_Final'] = 0
+        df['Redução_(%)'] = 0
+        df['Classificação'] = 0
+        
 
         #Cria os diretórios
         path = os.getcwd()+'\Computador - Interface\config.json'
@@ -254,31 +260,35 @@ class Etapa2Window(Screen):
             pass
         else:
             #Importar CSV 
-            df_ensaio = pd.read_csv(path+'\Resultados_Ensaio_'+self.ids.id_ensaio.text+'.csv')
-            #Preenche as variáveis
-            self.ensaio = df_ensaio.loc[0,'ID_Ensaio']
-            self.tecnico = df_ensaio.loc[0,'Tecnico']
-            self.inicio_datetime = df_ensaio.loc[0,'Inicio']
-            for i in range(128):
-                self.lista_culturas.append(df_ensaio.loc[i,'Cultura'])
-                self.lista_especies.append(df_ensaio.loc[i,'Especie'])
-                self.lista_comentarios.append(df_ensaio.loc[i,'Comentarios'])
-                i += 16
-            #Atualiza a tela
-            self.ids.tecnico.text = str(self.tecnico)
-            self.ids.inicio_date.text = str(self.inicio_datetime)
-            i = 0
-            for c in range(ord('A'), ord('I')):
-                comand = 'self.ids.Text_Cultura_'+chr(c)+'.text = str(self.lista_culturas[i])'
-                exec(comand)
-                comand = 'self.ids.Text_Especie_'+chr(c)+'.text = str(self.lista_especies[i])'
-                exec(comand)
-                comand = 'self.ids.Text_Comentarios_'+chr(c)+'.text = str(self.lista_comentarios[i])'
-                exec(comand)
-                comand = 'self.ids.Image_Cultura_'+chr(c)+'.source= "Assets/"+str(self.lista_culturas[i])+"_frame.png"'
-                exec(comand)
-                i += 16
-            
+            self.df_ensaio = pd.read_csv(path+'\Resultados_Ensaio_'+self.ids.id_ensaio.text+'.csv')
+            #Verifica se o teste já foi finalizado
+            if (self.df_ensaio.loc[0,'Data_Final'] != 0):
+                #Popup de erro
+                pass
+            else:
+                #Preenche as variáveis
+                self.ensaio = self.df_ensaio.loc[0,'ID_Ensaio']
+                self.tecnico = self.df_ensaio.loc[0,'Técnico']
+                self.inicio_datetime = self.df_ensaio.loc[0,'Data_Inicial']
+                for i in range(128):
+                    self.lista_culturas.append(self.df_ensaio.loc[i,'Cultura'])
+                    self.lista_especies.append(self.df_ensaio.loc[i,'Espécie'])
+                    self.lista_comentarios.append(self.df_ensaio.loc[i,'Comentários'])
+                    i += 16
+                #Atualiza a tela
+                self.ids.tecnico.text = str(self.tecnico)
+                self.ids.inicio_date.text = str(self.inicio_datetime).replace(" ", "     ")
+                i = 0
+                for c in range(ord('A'), ord('I')):
+                    comand = 'self.ids.Text_Cultura_'+chr(c)+'.text = str(self.lista_culturas[i])'
+                    exec(comand)
+                    comand = 'self.ids.Text_Especie_'+chr(c)+'.text = str(self.lista_especies[i])'
+                    exec(comand)
+                    comand = 'self.ids.Text_Comentarios_'+chr(c)+'.text = str(self.lista_comentarios[i])'
+                    exec(comand)
+                    comand = 'self.ids.Image_Cultura_'+chr(c)+'.source= "Assets/"+str(self.lista_culturas[i])+"_frame.png"'
+                    exec(comand)
+                    i += 16
 
     #Função para salvar os dados preenchidos
     def save_data(self):
@@ -287,13 +297,27 @@ class Etapa2Window(Screen):
             #Popup de erro
             pass
         else:
-            #Acrescenta a data de término ao arquivo csv
-            
+            #Acrescenta a data de término ao dataframe
+            agora = datetime.now()
+            self.datetime = agora.strftime("%d/%m/%Y %H:%M:%S")
+            self.df_ensaio['Data_Final'] = self.datetime
+            #Atualiza o arquivo CSV
+            path = os.getcwd()+'\Computador - Interface\config.json'
+            with open(path, 'r', encoding="utf-8") as config_file:
+                data=config_file.read()
+                config = json.loads(data) 
+                config_file.close()           
+            path = config['path']+'\Ensaio_'+str(self.ensaio)
+            self.df_ensaio.to_csv(path+"\Resultados_Ensaio_"+str(self.ensaio)+".csv", index=False)
             #Limpa os campos
             self.Clear_Data()
             #Altera a página
             self.parent.current = 'Ensaio'
         
+
+
+
+
 
 
 class EnsaioWindow(Screen):

@@ -1,129 +1,129 @@
-DiscoFoliar,ID_Ensaio,Tecnico,Inicio,Cultura,Especie,Comentarios,Celula
-1,1,Henrique,01/11/2021 15:42:13,Algodão,Anticarsia gemmatalis,A,A1
-2,1,Henrique,01/11/2021 15:42:13,Algodão,Anticarsia gemmatalis,A,A2
-3,1,Henrique,01/11/2021 15:42:13,Algodão,Anticarsia gemmatalis,A,A3
-4,1,Henrique,01/11/2021 15:42:13,Algodão,Anticarsia gemmatalis,A,A4
-5,1,Henrique,01/11/2021 15:42:13,Algodão,Anticarsia gemmatalis,A,A5
-6,1,Henrique,01/11/2021 15:42:13,Algodão,Anticarsia gemmatalis,A,A6
-7,1,Henrique,01/11/2021 15:42:13,Algodão,Anticarsia gemmatalis,A,A7
-8,1,Henrique,01/11/2021 15:42:13,Algodão,Anticarsia gemmatalis,A,A8
-9,1,Henrique,01/11/2021 15:42:13,Algodão,Anticarsia gemmatalis,A,A9
-10,1,Henrique,01/11/2021 15:42:13,Algodão,Anticarsia gemmatalis,A,A10
-11,1,Henrique,01/11/2021 15:42:13,Algodão,Anticarsia gemmatalis,A,A11
-12,1,Henrique,01/11/2021 15:42:13,Algodão,Anticarsia gemmatalis,A,A12
-13,1,Henrique,01/11/2021 15:42:13,Algodão,Anticarsia gemmatalis,A,A13
-14,1,Henrique,01/11/2021 15:42:13,Algodão,Anticarsia gemmatalis,A,A14
-15,1,Henrique,01/11/2021 15:42:13,Algodão,Anticarsia gemmatalis,A,A15
-16,1,Henrique,01/11/2021 15:42:13,Algodão,Anticarsia gemmatalis,A,A16
-17,1,Henrique,01/11/2021 15:42:13,Milho,Chrysodeixis includens,B,B1
-18,1,Henrique,01/11/2021 15:42:13,Milho,Chrysodeixis includens,B,B2
-19,1,Henrique,01/11/2021 15:42:13,Milho,Chrysodeixis includens,B,B3
-20,1,Henrique,01/11/2021 15:42:13,Milho,Chrysodeixis includens,B,B4
-21,1,Henrique,01/11/2021 15:42:13,Milho,Chrysodeixis includens,B,B5
-22,1,Henrique,01/11/2021 15:42:13,Milho,Chrysodeixis includens,B,B6
-23,1,Henrique,01/11/2021 15:42:13,Milho,Chrysodeixis includens,B,B7
-24,1,Henrique,01/11/2021 15:42:13,Milho,Chrysodeixis includens,B,B8
-25,1,Henrique,01/11/2021 15:42:13,Milho,Chrysodeixis includens,B,B9
-26,1,Henrique,01/11/2021 15:42:13,Milho,Chrysodeixis includens,B,B10
-27,1,Henrique,01/11/2021 15:42:13,Milho,Chrysodeixis includens,B,B11
-28,1,Henrique,01/11/2021 15:42:13,Milho,Chrysodeixis includens,B,B12
-29,1,Henrique,01/11/2021 15:42:13,Milho,Chrysodeixis includens,B,B13
-30,1,Henrique,01/11/2021 15:42:13,Milho,Chrysodeixis includens,B,B14
-31,1,Henrique,01/11/2021 15:42:13,Milho,Chrysodeixis includens,B,B15
-32,1,Henrique,01/11/2021 15:42:13,Milho,Chrysodeixis includens,B,B16
-33,1,Henrique,01/11/2021 15:42:13,Soja,Spodoptera frugiperda,C,C1
-34,1,Henrique,01/11/2021 15:42:13,Soja,Spodoptera frugiperda,C,C2
-35,1,Henrique,01/11/2021 15:42:13,Soja,Spodoptera frugiperda,C,C3
-36,1,Henrique,01/11/2021 15:42:13,Soja,Spodoptera frugiperda,C,C4
-37,1,Henrique,01/11/2021 15:42:13,Soja,Spodoptera frugiperda,C,C5
-38,1,Henrique,01/11/2021 15:42:13,Soja,Spodoptera frugiperda,C,C6
-39,1,Henrique,01/11/2021 15:42:13,Soja,Spodoptera frugiperda,C,C7
-40,1,Henrique,01/11/2021 15:42:13,Soja,Spodoptera frugiperda,C,C8
-41,1,Henrique,01/11/2021 15:42:13,Soja,Spodoptera frugiperda,C,C9
-42,1,Henrique,01/11/2021 15:42:13,Soja,Spodoptera frugiperda,C,C10
-43,1,Henrique,01/11/2021 15:42:13,Soja,Spodoptera frugiperda,C,C11
-44,1,Henrique,01/11/2021 15:42:13,Soja,Spodoptera frugiperda,C,C12
-45,1,Henrique,01/11/2021 15:42:13,Soja,Spodoptera frugiperda,C,C13
-46,1,Henrique,01/11/2021 15:42:13,Soja,Spodoptera frugiperda,C,C14
-47,1,Henrique,01/11/2021 15:42:13,Soja,Spodoptera frugiperda,C,C15
-48,1,Henrique,01/11/2021 15:42:13,Soja,Spodoptera frugiperda,C,C16
-49,1,Henrique,01/11/2021 15:42:13,Algodão,Spodoptera cosmioides,D,D1
-50,1,Henrique,01/11/2021 15:42:13,Algodão,Spodoptera cosmioides,D,D2
-51,1,Henrique,01/11/2021 15:42:13,Algodão,Spodoptera cosmioides,D,D3
-52,1,Henrique,01/11/2021 15:42:13,Algodão,Spodoptera cosmioides,D,D4
-53,1,Henrique,01/11/2021 15:42:13,Algodão,Spodoptera cosmioides,D,D5
-54,1,Henrique,01/11/2021 15:42:13,Algodão,Spodoptera cosmioides,D,D6
-55,1,Henrique,01/11/2021 15:42:13,Algodão,Spodoptera cosmioides,D,D7
-56,1,Henrique,01/11/2021 15:42:13,Algodão,Spodoptera cosmioides,D,D8
-57,1,Henrique,01/11/2021 15:42:13,Algodão,Spodoptera cosmioides,D,D9
-58,1,Henrique,01/11/2021 15:42:13,Algodão,Spodoptera cosmioides,D,D10
-59,1,Henrique,01/11/2021 15:42:13,Algodão,Spodoptera cosmioides,D,D11
-60,1,Henrique,01/11/2021 15:42:13,Algodão,Spodoptera cosmioides,D,D12
-61,1,Henrique,01/11/2021 15:42:13,Algodão,Spodoptera cosmioides,D,D13
-62,1,Henrique,01/11/2021 15:42:13,Algodão,Spodoptera cosmioides,D,D14
-63,1,Henrique,01/11/2021 15:42:13,Algodão,Spodoptera cosmioides,D,D15
-64,1,Henrique,01/11/2021 15:42:13,Algodão,Spodoptera cosmioides,D,D16
-65,1,Henrique,01/11/2021 15:42:13,Milho,Spodoptera eridania,E,E1
-66,1,Henrique,01/11/2021 15:42:13,Milho,Spodoptera eridania,E,E2
-67,1,Henrique,01/11/2021 15:42:13,Milho,Spodoptera eridania,E,E3
-68,1,Henrique,01/11/2021 15:42:13,Milho,Spodoptera eridania,E,E4
-69,1,Henrique,01/11/2021 15:42:13,Milho,Spodoptera eridania,E,E5
-70,1,Henrique,01/11/2021 15:42:13,Milho,Spodoptera eridania,E,E6
-71,1,Henrique,01/11/2021 15:42:13,Milho,Spodoptera eridania,E,E7
-72,1,Henrique,01/11/2021 15:42:13,Milho,Spodoptera eridania,E,E8
-73,1,Henrique,01/11/2021 15:42:13,Milho,Spodoptera eridania,E,E9
-74,1,Henrique,01/11/2021 15:42:13,Milho,Spodoptera eridania,E,E10
-75,1,Henrique,01/11/2021 15:42:13,Milho,Spodoptera eridania,E,E11
-76,1,Henrique,01/11/2021 15:42:13,Milho,Spodoptera eridania,E,E12
-77,1,Henrique,01/11/2021 15:42:13,Milho,Spodoptera eridania,E,E13
-78,1,Henrique,01/11/2021 15:42:13,Milho,Spodoptera eridania,E,E14
-79,1,Henrique,01/11/2021 15:42:13,Milho,Spodoptera eridania,E,E15
-80,1,Henrique,01/11/2021 15:42:13,Milho,Spodoptera eridania,E,E16
-81,1,Henrique,01/11/2021 15:42:13,Soja,Helicoverpa zea,F,F1
-82,1,Henrique,01/11/2021 15:42:13,Soja,Helicoverpa zea,F,F2
-83,1,Henrique,01/11/2021 15:42:13,Soja,Helicoverpa zea,F,F3
-84,1,Henrique,01/11/2021 15:42:13,Soja,Helicoverpa zea,F,F4
-85,1,Henrique,01/11/2021 15:42:13,Soja,Helicoverpa zea,F,F5
-86,1,Henrique,01/11/2021 15:42:13,Soja,Helicoverpa zea,F,F6
-87,1,Henrique,01/11/2021 15:42:13,Soja,Helicoverpa zea,F,F7
-88,1,Henrique,01/11/2021 15:42:13,Soja,Helicoverpa zea,F,F8
-89,1,Henrique,01/11/2021 15:42:13,Soja,Helicoverpa zea,F,F9
-90,1,Henrique,01/11/2021 15:42:13,Soja,Helicoverpa zea,F,F10
-91,1,Henrique,01/11/2021 15:42:13,Soja,Helicoverpa zea,F,F11
-92,1,Henrique,01/11/2021 15:42:13,Soja,Helicoverpa zea,F,F12
-93,1,Henrique,01/11/2021 15:42:13,Soja,Helicoverpa zea,F,F13
-94,1,Henrique,01/11/2021 15:42:13,Soja,Helicoverpa zea,F,F14
-95,1,Henrique,01/11/2021 15:42:13,Soja,Helicoverpa zea,F,F15
-96,1,Henrique,01/11/2021 15:42:13,Soja,Helicoverpa zea,F,F16
-97,1,Henrique,01/11/2021 15:42:13,Algodão,Helicoverpa armigera,G,G1
-98,1,Henrique,01/11/2021 15:42:13,Algodão,Helicoverpa armigera,G,G2
-99,1,Henrique,01/11/2021 15:42:13,Algodão,Helicoverpa armigera,G,G3
-100,1,Henrique,01/11/2021 15:42:13,Algodão,Helicoverpa armigera,G,G4
-101,1,Henrique,01/11/2021 15:42:13,Algodão,Helicoverpa armigera,G,G5
-102,1,Henrique,01/11/2021 15:42:13,Algodão,Helicoverpa armigera,G,G6
-103,1,Henrique,01/11/2021 15:42:13,Algodão,Helicoverpa armigera,G,G7
-104,1,Henrique,01/11/2021 15:42:13,Algodão,Helicoverpa armigera,G,G8
-105,1,Henrique,01/11/2021 15:42:13,Algodão,Helicoverpa armigera,G,G9
-106,1,Henrique,01/11/2021 15:42:13,Algodão,Helicoverpa armigera,G,G10
-107,1,Henrique,01/11/2021 15:42:13,Algodão,Helicoverpa armigera,G,G11
-108,1,Henrique,01/11/2021 15:42:13,Algodão,Helicoverpa armigera,G,G12
-109,1,Henrique,01/11/2021 15:42:13,Algodão,Helicoverpa armigera,G,G13
-110,1,Henrique,01/11/2021 15:42:13,Algodão,Helicoverpa armigera,G,G14
-111,1,Henrique,01/11/2021 15:42:13,Algodão,Helicoverpa armigera,G,G15
-112,1,Henrique,01/11/2021 15:42:13,Algodão,Helicoverpa armigera,G,G16
-113,1,Henrique,01/11/2021 15:42:13,Milho,Elasmopalpus lignosellus,H,H1
-114,1,Henrique,01/11/2021 15:42:13,Milho,Elasmopalpus lignosellus,H,H2
-115,1,Henrique,01/11/2021 15:42:13,Milho,Elasmopalpus lignosellus,H,H3
-116,1,Henrique,01/11/2021 15:42:13,Milho,Elasmopalpus lignosellus,H,H4
-117,1,Henrique,01/11/2021 15:42:13,Milho,Elasmopalpus lignosellus,H,H5
-118,1,Henrique,01/11/2021 15:42:13,Milho,Elasmopalpus lignosellus,H,H6
-119,1,Henrique,01/11/2021 15:42:13,Milho,Elasmopalpus lignosellus,H,H7
-120,1,Henrique,01/11/2021 15:42:13,Milho,Elasmopalpus lignosellus,H,H8
-121,1,Henrique,01/11/2021 15:42:13,Milho,Elasmopalpus lignosellus,H,H9
-122,1,Henrique,01/11/2021 15:42:13,Milho,Elasmopalpus lignosellus,H,H10
-123,1,Henrique,01/11/2021 15:42:13,Milho,Elasmopalpus lignosellus,H,H11
-124,1,Henrique,01/11/2021 15:42:13,Milho,Elasmopalpus lignosellus,H,H12
-125,1,Henrique,01/11/2021 15:42:13,Milho,Elasmopalpus lignosellus,H,H13
-126,1,Henrique,01/11/2021 15:42:13,Milho,Elasmopalpus lignosellus,H,H14
-127,1,Henrique,01/11/2021 15:42:13,Milho,Elasmopalpus lignosellus,H,H15
-128,1,Henrique,01/11/2021 15:42:13,Milho,Elasmopalpus lignosellus,H,H16
+Disco_Foliar,ID_Ensaio,Técnico,Data_Inicial,Data_Final,Célula,Cultura,Espécie,Comentários,Área_Inicial,Área_Final,Redução_(%),Classificação
+1,1,Teste3,02/11/2021 20:01:18,02/11/2021 20:12:49,A1,Algodão,Anticarsia gemmatalis,1,0,0,0,0
+2,1,Teste3,02/11/2021 20:01:18,02/11/2021 20:12:49,A2,Algodão,Anticarsia gemmatalis,1,0,0,0,0
+3,1,Teste3,02/11/2021 20:01:18,02/11/2021 20:12:49,A3,Algodão,Anticarsia gemmatalis,1,0,0,0,0
+4,1,Teste3,02/11/2021 20:01:18,02/11/2021 20:12:49,A4,Algodão,Anticarsia gemmatalis,1,0,0,0,0
+5,1,Teste3,02/11/2021 20:01:18,02/11/2021 20:12:49,A5,Algodão,Anticarsia gemmatalis,1,0,0,0,0
+6,1,Teste3,02/11/2021 20:01:18,02/11/2021 20:12:49,A6,Algodão,Anticarsia gemmatalis,1,0,0,0,0
+7,1,Teste3,02/11/2021 20:01:18,02/11/2021 20:12:49,A7,Algodão,Anticarsia gemmatalis,1,0,0,0,0
+8,1,Teste3,02/11/2021 20:01:18,02/11/2021 20:12:49,A8,Algodão,Anticarsia gemmatalis,1,0,0,0,0
+9,1,Teste3,02/11/2021 20:01:18,02/11/2021 20:12:49,A9,Algodão,Anticarsia gemmatalis,1,0,0,0,0
+10,1,Teste3,02/11/2021 20:01:18,02/11/2021 20:12:49,A10,Algodão,Anticarsia gemmatalis,1,0,0,0,0
+11,1,Teste3,02/11/2021 20:01:18,02/11/2021 20:12:49,A11,Algodão,Anticarsia gemmatalis,1,0,0,0,0
+12,1,Teste3,02/11/2021 20:01:18,02/11/2021 20:12:49,A12,Algodão,Anticarsia gemmatalis,1,0,0,0,0
+13,1,Teste3,02/11/2021 20:01:18,02/11/2021 20:12:49,A13,Algodão,Anticarsia gemmatalis,1,0,0,0,0
+14,1,Teste3,02/11/2021 20:01:18,02/11/2021 20:12:49,A14,Algodão,Anticarsia gemmatalis,1,0,0,0,0
+15,1,Teste3,02/11/2021 20:01:18,02/11/2021 20:12:49,A15,Algodão,Anticarsia gemmatalis,1,0,0,0,0
+16,1,Teste3,02/11/2021 20:01:18,02/11/2021 20:12:49,A16,Algodão,Anticarsia gemmatalis,1,0,0,0,0
+17,1,Teste3,02/11/2021 20:01:18,02/11/2021 20:12:49,B1,Milho,Chrysodeixis includens,2,0,0,0,0
+18,1,Teste3,02/11/2021 20:01:18,02/11/2021 20:12:49,B2,Milho,Chrysodeixis includens,2,0,0,0,0
+19,1,Teste3,02/11/2021 20:01:18,02/11/2021 20:12:49,B3,Milho,Chrysodeixis includens,2,0,0,0,0
+20,1,Teste3,02/11/2021 20:01:18,02/11/2021 20:12:49,B4,Milho,Chrysodeixis includens,2,0,0,0,0
+21,1,Teste3,02/11/2021 20:01:18,02/11/2021 20:12:49,B5,Milho,Chrysodeixis includens,2,0,0,0,0
+22,1,Teste3,02/11/2021 20:01:18,02/11/2021 20:12:49,B6,Milho,Chrysodeixis includens,2,0,0,0,0
+23,1,Teste3,02/11/2021 20:01:18,02/11/2021 20:12:49,B7,Milho,Chrysodeixis includens,2,0,0,0,0
+24,1,Teste3,02/11/2021 20:01:18,02/11/2021 20:12:49,B8,Milho,Chrysodeixis includens,2,0,0,0,0
+25,1,Teste3,02/11/2021 20:01:18,02/11/2021 20:12:49,B9,Milho,Chrysodeixis includens,2,0,0,0,0
+26,1,Teste3,02/11/2021 20:01:18,02/11/2021 20:12:49,B10,Milho,Chrysodeixis includens,2,0,0,0,0
+27,1,Teste3,02/11/2021 20:01:18,02/11/2021 20:12:49,B11,Milho,Chrysodeixis includens,2,0,0,0,0
+28,1,Teste3,02/11/2021 20:01:18,02/11/2021 20:12:49,B12,Milho,Chrysodeixis includens,2,0,0,0,0
+29,1,Teste3,02/11/2021 20:01:18,02/11/2021 20:12:49,B13,Milho,Chrysodeixis includens,2,0,0,0,0
+30,1,Teste3,02/11/2021 20:01:18,02/11/2021 20:12:49,B14,Milho,Chrysodeixis includens,2,0,0,0,0
+31,1,Teste3,02/11/2021 20:01:18,02/11/2021 20:12:49,B15,Milho,Chrysodeixis includens,2,0,0,0,0
+32,1,Teste3,02/11/2021 20:01:18,02/11/2021 20:12:49,B16,Milho,Chrysodeixis includens,2,0,0,0,0
+33,1,Teste3,02/11/2021 20:01:18,02/11/2021 20:12:49,C1,Soja,Spodoptera frugiperda,3,0,0,0,0
+34,1,Teste3,02/11/2021 20:01:18,02/11/2021 20:12:49,C2,Soja,Spodoptera frugiperda,3,0,0,0,0
+35,1,Teste3,02/11/2021 20:01:18,02/11/2021 20:12:49,C3,Soja,Spodoptera frugiperda,3,0,0,0,0
+36,1,Teste3,02/11/2021 20:01:18,02/11/2021 20:12:49,C4,Soja,Spodoptera frugiperda,3,0,0,0,0
+37,1,Teste3,02/11/2021 20:01:18,02/11/2021 20:12:49,C5,Soja,Spodoptera frugiperda,3,0,0,0,0
+38,1,Teste3,02/11/2021 20:01:18,02/11/2021 20:12:49,C6,Soja,Spodoptera frugiperda,3,0,0,0,0
+39,1,Teste3,02/11/2021 20:01:18,02/11/2021 20:12:49,C7,Soja,Spodoptera frugiperda,3,0,0,0,0
+40,1,Teste3,02/11/2021 20:01:18,02/11/2021 20:12:49,C8,Soja,Spodoptera frugiperda,3,0,0,0,0
+41,1,Teste3,02/11/2021 20:01:18,02/11/2021 20:12:49,C9,Soja,Spodoptera frugiperda,3,0,0,0,0
+42,1,Teste3,02/11/2021 20:01:18,02/11/2021 20:12:49,C10,Soja,Spodoptera frugiperda,3,0,0,0,0
+43,1,Teste3,02/11/2021 20:01:18,02/11/2021 20:12:49,C11,Soja,Spodoptera frugiperda,3,0,0,0,0
+44,1,Teste3,02/11/2021 20:01:18,02/11/2021 20:12:49,C12,Soja,Spodoptera frugiperda,3,0,0,0,0
+45,1,Teste3,02/11/2021 20:01:18,02/11/2021 20:12:49,C13,Soja,Spodoptera frugiperda,3,0,0,0,0
+46,1,Teste3,02/11/2021 20:01:18,02/11/2021 20:12:49,C14,Soja,Spodoptera frugiperda,3,0,0,0,0
+47,1,Teste3,02/11/2021 20:01:18,02/11/2021 20:12:49,C15,Soja,Spodoptera frugiperda,3,0,0,0,0
+48,1,Teste3,02/11/2021 20:01:18,02/11/2021 20:12:49,C16,Soja,Spodoptera frugiperda,3,0,0,0,0
+49,1,Teste3,02/11/2021 20:01:18,02/11/2021 20:12:49,D1,Algodão,Spodoptera cosmioides,4,0,0,0,0
+50,1,Teste3,02/11/2021 20:01:18,02/11/2021 20:12:49,D2,Algodão,Spodoptera cosmioides,4,0,0,0,0
+51,1,Teste3,02/11/2021 20:01:18,02/11/2021 20:12:49,D3,Algodão,Spodoptera cosmioides,4,0,0,0,0
+52,1,Teste3,02/11/2021 20:01:18,02/11/2021 20:12:49,D4,Algodão,Spodoptera cosmioides,4,0,0,0,0
+53,1,Teste3,02/11/2021 20:01:18,02/11/2021 20:12:49,D5,Algodão,Spodoptera cosmioides,4,0,0,0,0
+54,1,Teste3,02/11/2021 20:01:18,02/11/2021 20:12:49,D6,Algodão,Spodoptera cosmioides,4,0,0,0,0
+55,1,Teste3,02/11/2021 20:01:18,02/11/2021 20:12:49,D7,Algodão,Spodoptera cosmioides,4,0,0,0,0
+56,1,Teste3,02/11/2021 20:01:18,02/11/2021 20:12:49,D8,Algodão,Spodoptera cosmioides,4,0,0,0,0
+57,1,Teste3,02/11/2021 20:01:18,02/11/2021 20:12:49,D9,Algodão,Spodoptera cosmioides,4,0,0,0,0
+58,1,Teste3,02/11/2021 20:01:18,02/11/2021 20:12:49,D10,Algodão,Spodoptera cosmioides,4,0,0,0,0
+59,1,Teste3,02/11/2021 20:01:18,02/11/2021 20:12:49,D11,Algodão,Spodoptera cosmioides,4,0,0,0,0
+60,1,Teste3,02/11/2021 20:01:18,02/11/2021 20:12:49,D12,Algodão,Spodoptera cosmioides,4,0,0,0,0
+61,1,Teste3,02/11/2021 20:01:18,02/11/2021 20:12:49,D13,Algodão,Spodoptera cosmioides,4,0,0,0,0
+62,1,Teste3,02/11/2021 20:01:18,02/11/2021 20:12:49,D14,Algodão,Spodoptera cosmioides,4,0,0,0,0
+63,1,Teste3,02/11/2021 20:01:18,02/11/2021 20:12:49,D15,Algodão,Spodoptera cosmioides,4,0,0,0,0
+64,1,Teste3,02/11/2021 20:01:18,02/11/2021 20:12:49,D16,Algodão,Spodoptera cosmioides,4,0,0,0,0
+65,1,Teste3,02/11/2021 20:01:18,02/11/2021 20:12:49,E1,Milho,Spodoptera eridania,5,0,0,0,0
+66,1,Teste3,02/11/2021 20:01:18,02/11/2021 20:12:49,E2,Milho,Spodoptera eridania,5,0,0,0,0
+67,1,Teste3,02/11/2021 20:01:18,02/11/2021 20:12:49,E3,Milho,Spodoptera eridania,5,0,0,0,0
+68,1,Teste3,02/11/2021 20:01:18,02/11/2021 20:12:49,E4,Milho,Spodoptera eridania,5,0,0,0,0
+69,1,Teste3,02/11/2021 20:01:18,02/11/2021 20:12:49,E5,Milho,Spodoptera eridania,5,0,0,0,0
+70,1,Teste3,02/11/2021 20:01:18,02/11/2021 20:12:49,E6,Milho,Spodoptera eridania,5,0,0,0,0
+71,1,Teste3,02/11/2021 20:01:18,02/11/2021 20:12:49,E7,Milho,Spodoptera eridania,5,0,0,0,0
+72,1,Teste3,02/11/2021 20:01:18,02/11/2021 20:12:49,E8,Milho,Spodoptera eridania,5,0,0,0,0
+73,1,Teste3,02/11/2021 20:01:18,02/11/2021 20:12:49,E9,Milho,Spodoptera eridania,5,0,0,0,0
+74,1,Teste3,02/11/2021 20:01:18,02/11/2021 20:12:49,E10,Milho,Spodoptera eridania,5,0,0,0,0
+75,1,Teste3,02/11/2021 20:01:18,02/11/2021 20:12:49,E11,Milho,Spodoptera eridania,5,0,0,0,0
+76,1,Teste3,02/11/2021 20:01:18,02/11/2021 20:12:49,E12,Milho,Spodoptera eridania,5,0,0,0,0
+77,1,Teste3,02/11/2021 20:01:18,02/11/2021 20:12:49,E13,Milho,Spodoptera eridania,5,0,0,0,0
+78,1,Teste3,02/11/2021 20:01:18,02/11/2021 20:12:49,E14,Milho,Spodoptera eridania,5,0,0,0,0
+79,1,Teste3,02/11/2021 20:01:18,02/11/2021 20:12:49,E15,Milho,Spodoptera eridania,5,0,0,0,0
+80,1,Teste3,02/11/2021 20:01:18,02/11/2021 20:12:49,E16,Milho,Spodoptera eridania,5,0,0,0,0
+81,1,Teste3,02/11/2021 20:01:18,02/11/2021 20:12:49,F1,Soja,Helicoverpa zea,6,0,0,0,0
+82,1,Teste3,02/11/2021 20:01:18,02/11/2021 20:12:49,F2,Soja,Helicoverpa zea,6,0,0,0,0
+83,1,Teste3,02/11/2021 20:01:18,02/11/2021 20:12:49,F3,Soja,Helicoverpa zea,6,0,0,0,0
+84,1,Teste3,02/11/2021 20:01:18,02/11/2021 20:12:49,F4,Soja,Helicoverpa zea,6,0,0,0,0
+85,1,Teste3,02/11/2021 20:01:18,02/11/2021 20:12:49,F5,Soja,Helicoverpa zea,6,0,0,0,0
+86,1,Teste3,02/11/2021 20:01:18,02/11/2021 20:12:49,F6,Soja,Helicoverpa zea,6,0,0,0,0
+87,1,Teste3,02/11/2021 20:01:18,02/11/2021 20:12:49,F7,Soja,Helicoverpa zea,6,0,0,0,0
+88,1,Teste3,02/11/2021 20:01:18,02/11/2021 20:12:49,F8,Soja,Helicoverpa zea,6,0,0,0,0
+89,1,Teste3,02/11/2021 20:01:18,02/11/2021 20:12:49,F9,Soja,Helicoverpa zea,6,0,0,0,0
+90,1,Teste3,02/11/2021 20:01:18,02/11/2021 20:12:49,F10,Soja,Helicoverpa zea,6,0,0,0,0
+91,1,Teste3,02/11/2021 20:01:18,02/11/2021 20:12:49,F11,Soja,Helicoverpa zea,6,0,0,0,0
+92,1,Teste3,02/11/2021 20:01:18,02/11/2021 20:12:49,F12,Soja,Helicoverpa zea,6,0,0,0,0
+93,1,Teste3,02/11/2021 20:01:18,02/11/2021 20:12:49,F13,Soja,Helicoverpa zea,6,0,0,0,0
+94,1,Teste3,02/11/2021 20:01:18,02/11/2021 20:12:49,F14,Soja,Helicoverpa zea,6,0,0,0,0
+95,1,Teste3,02/11/2021 20:01:18,02/11/2021 20:12:49,F15,Soja,Helicoverpa zea,6,0,0,0,0
+96,1,Teste3,02/11/2021 20:01:18,02/11/2021 20:12:49,F16,Soja,Helicoverpa zea,6,0,0,0,0
+97,1,Teste3,02/11/2021 20:01:18,02/11/2021 20:12:49,G1,Algodão,Helicoverpa armigera,7,0,0,0,0
+98,1,Teste3,02/11/2021 20:01:18,02/11/2021 20:12:49,G2,Algodão,Helicoverpa armigera,7,0,0,0,0
+99,1,Teste3,02/11/2021 20:01:18,02/11/2021 20:12:49,G3,Algodão,Helicoverpa armigera,7,0,0,0,0
+100,1,Teste3,02/11/2021 20:01:18,02/11/2021 20:12:49,G4,Algodão,Helicoverpa armigera,7,0,0,0,0
+101,1,Teste3,02/11/2021 20:01:18,02/11/2021 20:12:49,G5,Algodão,Helicoverpa armigera,7,0,0,0,0
+102,1,Teste3,02/11/2021 20:01:18,02/11/2021 20:12:49,G6,Algodão,Helicoverpa armigera,7,0,0,0,0
+103,1,Teste3,02/11/2021 20:01:18,02/11/2021 20:12:49,G7,Algodão,Helicoverpa armigera,7,0,0,0,0
+104,1,Teste3,02/11/2021 20:01:18,02/11/2021 20:12:49,G8,Algodão,Helicoverpa armigera,7,0,0,0,0
+105,1,Teste3,02/11/2021 20:01:18,02/11/2021 20:12:49,G9,Algodão,Helicoverpa armigera,7,0,0,0,0
+106,1,Teste3,02/11/2021 20:01:18,02/11/2021 20:12:49,G10,Algodão,Helicoverpa armigera,7,0,0,0,0
+107,1,Teste3,02/11/2021 20:01:18,02/11/2021 20:12:49,G11,Algodão,Helicoverpa armigera,7,0,0,0,0
+108,1,Teste3,02/11/2021 20:01:18,02/11/2021 20:12:49,G12,Algodão,Helicoverpa armigera,7,0,0,0,0
+109,1,Teste3,02/11/2021 20:01:18,02/11/2021 20:12:49,G13,Algodão,Helicoverpa armigera,7,0,0,0,0
+110,1,Teste3,02/11/2021 20:01:18,02/11/2021 20:12:49,G14,Algodão,Helicoverpa armigera,7,0,0,0,0
+111,1,Teste3,02/11/2021 20:01:18,02/11/2021 20:12:49,G15,Algodão,Helicoverpa armigera,7,0,0,0,0
+112,1,Teste3,02/11/2021 20:01:18,02/11/2021 20:12:49,G16,Algodão,Helicoverpa armigera,7,0,0,0,0
+113,1,Teste3,02/11/2021 20:01:18,02/11/2021 20:12:49,H1,Milho,Spodoptera eridania,8,0,0,0,0
+114,1,Teste3,02/11/2021 20:01:18,02/11/2021 20:12:49,H2,Milho,Spodoptera eridania,8,0,0,0,0
+115,1,Teste3,02/11/2021 20:01:18,02/11/2021 20:12:49,H3,Milho,Spodoptera eridania,8,0,0,0,0
+116,1,Teste3,02/11/2021 20:01:18,02/11/2021 20:12:49,H4,Milho,Spodoptera eridania,8,0,0,0,0
+117,1,Teste3,02/11/2021 20:01:18,02/11/2021 20:12:49,H5,Milho,Spodoptera eridania,8,0,0,0,0
+118,1,Teste3,02/11/2021 20:01:18,02/11/2021 20:12:49,H6,Milho,Spodoptera eridania,8,0,0,0,0
+119,1,Teste3,02/11/2021 20:01:18,02/11/2021 20:12:49,H7,Milho,Spodoptera eridania,8,0,0,0,0
+120,1,Teste3,02/11/2021 20:01:18,02/11/2021 20:12:49,H8,Milho,Spodoptera eridania,8,0,0,0,0
+121,1,Teste3,02/11/2021 20:01:18,02/11/2021 20:12:49,H9,Milho,Spodoptera eridania,8,0,0,0,0
+122,1,Teste3,02/11/2021 20:01:18,02/11/2021 20:12:49,H10,Milho,Spodoptera eridania,8,0,0,0,0
+123,1,Teste3,02/11/2021 20:01:18,02/11/2021 20:12:49,H11,Milho,Spodoptera eridania,8,0,0,0,0
+124,1,Teste3,02/11/2021 20:01:18,02/11/2021 20:12:49,H12,Milho,Spodoptera eridania,8,0,0,0,0
+125,1,Teste3,02/11/2021 20:01:18,02/11/2021 20:12:49,H13,Milho,Spodoptera eridania,8,0,0,0,0
+126,1,Teste3,02/11/2021 20:01:18,02/11/2021 20:12:49,H14,Milho,Spodoptera eridania,8,0,0,0,0
+127,1,Teste3,02/11/2021 20:01:18,02/11/2021 20:12:49,H15,Milho,Spodoptera eridania,8,0,0,0,0
+128,1,Teste3,02/11/2021 20:01:18,02/11/2021 20:12:49,H16,Milho,Spodoptera eridania,8,0,0,0,0
