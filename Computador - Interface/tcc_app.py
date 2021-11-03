@@ -16,8 +16,8 @@ from datetime import datetime
 from kivy.clock import Clock
 from kivy.uix.popup import Popup
 import pandas as pd
-#from kivy.garden.matplotlib.backend_kivyagg import FigureCanvasKivyAgg
-#import matplotlib.pyplot as plt
+from kivy.garden.matplotlib.backend_kivyagg import FigureCanvasKivyAgg
+import matplotlib.pyplot as plt
 import os
 import shutil ############### REMOVER DA LÓGICA
 import json
@@ -367,12 +367,18 @@ class HistoricoWindow(Screen):
         self.lista_areafinal = []
         self.lista_reducao = []
         self.lista_classificacao = []
-        
         #Limpa os campos da tela
         self.ids.id_ensaio.text = ''
         self.ids.tecnico.text = ''
         self.ids.inicio_date.text = ''
         self.ids.termino_date.text = ''
+        #Limpa o gráfico
+        self.Clear_Graph()
+
+    #Função para limpar o gráfico preenchido na tela
+    def Clear_Graph(self):
+        plt.cla()
+        self.box.clear_widgets()
 
     #Função para preencher os dados na tela
     def Preencher_Dados(self):
@@ -416,9 +422,28 @@ class HistoricoWindow(Screen):
             self.ids.tecnico.text = str(self.tecnico)
             self.ids.inicio_date.text = str(self.inicio_datetime).replace(" ", "     ")
             self.ids.termino_date.text = str(self.termino_datetime).replace(" ", "     ")
+            #Exibe o gráfico
+            self.ExibeGrafico()
 
-            
+    #Função para exibir o gráfico na tela
+    def ExibeGrafico(self):
 
+        x = [2,4,6,8,10]
+        y = [6,7,8,2,4]
+
+        x2 = [1,3,5,7,9]
+        y2 = [7,8,2,4,2]
+
+        plt.bar(x,y, label='Bars1', color='blue')
+        plt.bar(x2,y2, label='Bars2', color='c')
+
+        plt.xlabel('x')
+        plt.ylabel('y')
+        plt.title('Interesting Graph\nCheck It out')
+        plt.legend()
+
+        self.box = self.ids.box
+        self.box.add_widget(FigureCanvasKivyAgg(plt.gcf()))
 
 
 
