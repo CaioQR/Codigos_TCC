@@ -743,6 +743,9 @@ WindowManager:
 		text: "Criar Ensaio"
 		on_release:
 			root.save_data()
+
+
+
 ######################################################################################################################
 ######################################################## HISTÓRICO ###################################################
 ######################################################################################################################
@@ -754,6 +757,7 @@ WindowManager:
 		text: "Home"
 		pos_hint: {'x': 0.0045, 'y': 0.942}
 		on_release:
+			root.Clear_Data()
 			app.root.current = "Home"
 			root.manager.transition.direction = "right"
 
@@ -761,6 +765,7 @@ WindowManager:
 		text: "1ª Etapa"
 		pos_hint: {'x': 0.1261, 'y': 0.942}
 		on_release:
+			root.Clear_Data()
 			app.root.current = "1ª Etapa"
 			root.manager.transition.direction = "right"
 
@@ -768,6 +773,7 @@ WindowManager:
 		text: "2ª Etapa"
 		pos_hint: {'x': 0.2478, 'y': 0.942}
 		on_release:
+			root.Clear_Data()
 			app.root.current = "2ª Etapa"
 			root.manager.transition.direction = "right"
 		
@@ -780,28 +786,36 @@ WindowManager:
 	LabelID:
 	TextInputID:
 		id:id_ensaio
+
 	LabelTecnico:
-	TextInputTecnico:
+	LabelTecnico_Nome:
 		id:tecnico
+		text: ''
+
 	LabelTime:
 		text: "Início:"
+	LabelTime_Numero:
+		id: inicio_date
+	LabelTime:
+		text: "Término:"
+		size_hint: (0.08, 0.05)
+		pos_hint: {'x': 0.385, 'top': 0.85}
+	LabelTime_Numero:
+		id: termino_date
+		pos_hint: {'x': 0.46, 'top': 0.85}
 
-	# ButtonPreencherDados:
-	# LabelTermino:
-	# TextInputTermino:
+	BotaoID:
+		text: "Preencher Dados"
+		pos_hint: {'x': 0.8, 'top': 0.91}
+		on_release:
+			root.Preencher_Dados()
 
 ##################### COMENTÁRIOS ###################
 
 
 		
 ###################### 3 BOTÕES ####################
-	RoundedButton:
-		text: "Botão 1"
-		font_size: 24
-		size_hint: (0.1, 0.075)
-		pos_hint: {'x': 0.73, 'y': 0.1}
-	RoundedButton:
-		text: "Botão 2"
-		font_size: 24
-		size_hint: (0.1, 0.075)
-		pos_hint: {'x': 0.85, 'y': 0.1}
+	CriarEnsaio:
+		text: "Gerar relatório"
+		on_release:
+			root.save_data()

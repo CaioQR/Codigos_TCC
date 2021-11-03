@@ -256,15 +256,27 @@ class Etapa2Window(Screen):
             config_file.close()           
         path = config['path']+'\Ensaio_'+self.ids.id_ensaio.text
         if not(os.path.exists(path)):
-            #Popup de erro
-            pass
+            #Exibe PopUp avisando que o ensaio não existe
+            box = BoxLayout(orientation='vertical',padding=10,spacing=10)
+            popup = Popup(title='Ensaio Inválido', content=box, auto_dismiss=False, size_hint=(0.4,0.3))
+            texto = Label(text='O ensaio '+str(self.ids.id_ensaio.text)+' não existe')
+            botao = Button(text='ok',on_release=popup.dismiss)
+            box.add_widget(texto)
+            box.add_widget(botao)
+            popup.open()
         else:
             #Importar CSV 
             self.df_ensaio = pd.read_csv(path+'\Resultados_Ensaio_'+self.ids.id_ensaio.text+'.csv')
             #Verifica se o teste já foi finalizado
             if (self.df_ensaio.loc[0,'Data_Final'] != 0):
-                #Popup de erro
-                pass
+                #Exibe PopUp avisando que o ensaio já está finalizado
+                box = BoxLayout(orientation='vertical',padding=10,spacing=10)
+                popup = Popup(title='Ensaio Finalizado', content=box, auto_dismiss=False, size_hint=(0.4,0.3))
+                texto = Label(text='O ensaio '+str(self.ids.id_ensaio.text)+' está finalizado')
+                botao = Button(text='ok',on_release=popup.dismiss)
+                box.add_widget(texto)
+                box.add_widget(botao)
+                popup.open()
             else:
                 #Preenche as variáveis
                 self.ensaio = self.df_ensaio.loc[0,'ID_Ensaio']
@@ -274,7 +286,6 @@ class Etapa2Window(Screen):
                     self.lista_culturas.append(self.df_ensaio.loc[i,'Cultura'])
                     self.lista_especies.append(self.df_ensaio.loc[i,'Espécie'])
                     self.lista_comentarios.append(self.df_ensaio.loc[i,'Comentários'])
-                    i += 16
                 #Atualiza a tela
                 self.ids.tecnico.text = str(self.tecnico)
                 self.ids.inicio_date.text = str(self.inicio_datetime).replace(" ", "     ")
@@ -325,8 +336,90 @@ class EnsaioWindow(Screen):
 
 
 
-class HistoricoWindow(Screen):
-    pass
+class HistoricoWindow(Screen): 
+    def __init__(self, **kwargs):
+        super(HistoricoWindow, self).__init__(**kwargs)
+
+    #Variáveis
+    ensaio = ''
+    tecnico = ''
+    inicio_datetime = '00:00   00/00/0000'
+    current_datetime = '00:00   00/00/0000'
+    lista_culturas = []
+    lista_especies = []
+    lista_comentarios = []
+    lista_areainicial = []
+    lista_areafinal = []
+    lista_reducao = []
+    lista_classificacao = []
+
+    #Função para limpar os dados preenchidos na tela
+    def Clear_Data(self):
+        #Limpa as variáveis
+        self.ensaio = ''
+        self.tecnico = ''
+        self.inicio_datetime = '00:00   00/00/0000'
+        self.termino_datetime = '00:00   00/00/0000'
+        self.lista_culturas = []
+        self.lista_especies = []
+        self.lista_comentarios = []
+        self.lista_areainicial = []
+        self.lista_areafinal = []
+        self.lista_reducao = []
+        self.lista_classificacao = []
+        
+        #Limpa os campos da tela
+        self.ids.id_ensaio.text = ''
+        self.ids.tecnico.text = ''
+        self.ids.inicio_date.text = ''
+        self.ids.termino_date.text = ''
+
+    #Função para preencher os dados na tela
+    def Preencher_Dados(self):
+        #Verificar ensaio solicitado
+        path = os.getcwd()+'\Computador - Interface\config.json'
+        with open(path, 'r', encoding="utf-8") as config_file:
+            data=config_file.read()
+            config = json.loads(data) 
+            config_file.close()           
+        path = config['path']+'\Ensaio_'+self.ids.id_ensaio.text
+        if not(os.path.exists(path)):
+            #Exibe PopUp avisando que o ensaio não existe
+            box = BoxLayout(orientation='vertical',padding=10,spacing=10)
+            popup = Popup(title='Ensaio Inválido', content=box, auto_dismiss=False, size_hint=(0.4,0.3))
+            texto = Label(text='O ensaio '+str(self.ids.id_ensaio.text)+' não existe')
+            botao = Button(text='ok',on_release=popup.dismiss)
+            box.add_widget(texto)
+            box.add_widget(botao)
+            popup.open()
+            self.Clear_Data()
+        else:
+            #Importar CSV 
+            self.df_ensaio = pd.read_csv(path+'\Resultados_Ensaio_'+self.ids.id_ensaio.text+'.csv')
+            #Preenche as variáveis
+            self.ensaio = self.df_ensaio.loc[0,'ID_Ensaio']
+            self.tecnico = self.df_ensaio.loc[0,'Técnico']
+            self.inicio_datetime = self.df_ensaio.loc[0,'Data_Inicial']
+            self.termino_datetime = self.df_ensaio.loc[0,'Data_Final']
+            i = 0
+            for j in range(8):
+                self.lista_culturas.append(self.df_ensaio.loc[i,'Cultura'])
+                self.lista_especies.append(self.df_ensaio.loc[i,'Espécie'])
+                self.lista_comentarios.append(self.df_ensaio.loc[i,'Comentários'])
+                i += 16
+            for i in range(128):
+                self.lista_areainicial.append(self.df_ensaio.loc[i,'Área_Inicial'])
+                self.lista_areafinal.append(self.df_ensaio.loc[i,'Área_Final'])
+                self.lista_reducao.append(self.df_ensaio.loc[i,'Redução_(%)'])
+                self.lista_classificacao.append(self.df_ensaio.loc[i,'Classificação'])
+            #Atualiza a tela
+            self.ids.tecnico.text = str(self.tecnico)
+            self.ids.inicio_date.text = str(self.inicio_datetime).replace(" ", "     ")
+            self.ids.termino_date.text = str(self.termino_datetime).replace(" ", "     ")
+
+            
+
+
 
 
 kv = Builder.load_file('design_screenmanager.kv')
