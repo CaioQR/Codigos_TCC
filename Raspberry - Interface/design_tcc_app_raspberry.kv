@@ -1,0 +1,95 @@
+#:kivy 2.0
+#:import utils kivy.utils
+#:import Factory kivy.factory.Factory
+
+WindowManager:
+	HomeWindow:
+	EnsaioWindow:
+
+######################################################################################################################
+##################################################### DEFINIÇÕES #####################################################
+######################################################################################################################
+
+######################################## Widgtes Background
+<ImageFrame@Image>
+	canvas:
+        Color:
+            rgba: 1, 1, 1, 0
+        Rectangle:
+            pos: self.pos
+            size: self.size
+	background_normal:''
+	source: "Assets/frame.png"
+	size_hint: (1,1)
+    pos_hint: {'center_x': .5, 'center_y': .5}
+	allow_stretch:True
+	keep_ratio:False
+
+<ButtonWifi@Button>
+    color: (1, 1, 1, 1)
+	background_normal: "Assets/Wifi_Icon.png"
+	size_hint: (0.05,0.05)
+    pos_hint: {'x': 0.02, 'top': 0.975}
+	border: (0, 0, 0, 0)
+
+<LabelIP@Label>
+	font_size: 15
+    color: (0, 0, 0)
+	size_hint: (0.15, 0.04)
+	pos_hint: {'x': 0.83, 'top': 0.98}
+
+<LabelRede@Label>
+	font_size: 15
+    color: (0, 0, 0)
+	size_hint: (0.15, 0.05)
+	pos_hint: {'x': 0.03, 'top': 0.98}
+
+######################################################################################################################
+######################################################## HOME ########################################################
+######################################################################################################################
+
+<HomeWindow>
+	name:"Home"
+	ImageFrame:
+
+    ButtonWifi:
+		on_release:
+			root.Abrir_Configuracoes()
+
+    LabelIP:
+        id: labelIP
+    
+    LabelRede:
+        id: labelRede
+	
+	GridLayout:
+		cols:1
+		size: root.width, root.height
+		spacing: 50
+		padding: 50
+		GridLayout:
+			cols:2
+			Image:
+				source: 'Assets/Logo_Bayer.png'
+				allow_stretch: True
+				keep_ratio: True
+			Image:
+				source: 'Assets/logo_maua_redondo.png'
+		GridLayout:
+			cols:1
+			Label:
+				text: "DESENVOLVIMENTO DE SISTEMAS AUTOMATIZADOS\nPARA COLETA E ANÁLISES DE AMOSTRAS DE TECIDO FOLIAR"
+                color: (0, 0, 0)
+				font_size: 25
+				halign: "center"
+
+
+
+######################################################################################################################
+####################################################### ENSAIO #######################################################
+######################################################################################################################
+
+<EnsaioWindow>
+	name:"Ensaio"
+	ImageFrame:
+        pos_hint: {'center_x': .5, 'center_y': .5}
