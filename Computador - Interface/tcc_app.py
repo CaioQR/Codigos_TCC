@@ -21,6 +21,7 @@ import matplotlib.pyplot as plt
 import os
 import shutil ############### REMOVER DA LÓGICA
 import json
+import numpy as np
 
 
 # Definir telas
@@ -305,8 +306,14 @@ class Etapa2Window(Screen):
     def save_data(self):
         #Verifica se o ensaio foi carregado:
         if self.ensaio=='':
-            #Popup de erro
-            pass
+            #Exibe PopUp avisando que não há ensaio carregado
+            box = BoxLayout(orientation='vertical',padding=10,spacing=10)
+            popup = Popup(title='Ensaio não inserido', content=box, auto_dismiss=False, size_hint=(0.4,0.3))
+            texto = Label(text='Não há ensaio selecionado')
+            botao = Button(text='ok',on_release=popup.dismiss)
+            box.add_widget(texto)
+            box.add_widget(botao)
+            popup.open()
         else:
             #Acrescenta a data de término ao dataframe
             agora = datetime.now()
@@ -325,15 +332,6 @@ class Etapa2Window(Screen):
             #Altera a página
             self.parent.current = 'Ensaio'
         
-
-
-
-
-
-
-class EnsaioWindow(Screen):
-    pass
-
 
 
 class HistoricoWindow(Screen): 
@@ -407,43 +405,50 @@ class HistoricoWindow(Screen):
             self.tecnico = self.df_ensaio.loc[0,'Técnico']
             self.inicio_datetime = self.df_ensaio.loc[0,'Data_Inicial']
             self.termino_datetime = self.df_ensaio.loc[0,'Data_Final']
-            i = 0
-            for j in range(8):
-                self.lista_culturas.append(self.df_ensaio.loc[i,'Cultura'])
-                self.lista_especies.append(self.df_ensaio.loc[i,'Espécie'])
-                self.lista_comentarios.append(self.df_ensaio.loc[i,'Comentários'])
-                i += 16
-            for i in range(128):
-                self.lista_areainicial.append(self.df_ensaio.loc[i,'Área_Inicial'])
-                self.lista_areafinal.append(self.df_ensaio.loc[i,'Área_Final'])
-                self.lista_reducao.append(self.df_ensaio.loc[i,'Redução_(%)'])
-                self.lista_classificacao.append(self.df_ensaio.loc[i,'Classificação'])
             #Atualiza a tela
             self.ids.tecnico.text = str(self.tecnico)
             self.ids.inicio_date.text = str(self.inicio_datetime).replace(" ", "     ")
             self.ids.termino_date.text = str(self.termino_datetime).replace(" ", "     ")
             #Exibe o gráfico
-            self.ExibeGrafico()
+            self.ExibeGrafico(self.df_ensaio)
 
     #Função para exibir o gráfico na tela
-    def ExibeGrafico(self):
-
-        x = [2,4,6,8,10]
-        y = [6,7,8,2,4]
-
-        x2 = [1,3,5,7,9]
-        y2 = [7,8,2,4,2]
-
-        plt.bar(x,y, label='Bars1', color='blue')
-        plt.bar(x2,y2, label='Bars2', color='c')
-
-        plt.xlabel('x')
-        plt.ylabel('y')
-        plt.title('Interesting Graph\nCheck It out')
-        plt.legend()
+    def ExibeGrafico(self, df):
+        # set width of bar
+        barWidth = 0.25
+        fig = plt.subplots(figsize =(20, 12))
+        
+        # set height of bar
+        soja = list(df.loc[df['Cultura'] == 'Soja', 'Quantidade'])
+        milho = list(df.loc[df['Cultura'] == 'Milho', 'Quantidade'])
+        algodao = list(df.loc[df['Cultura'] == 'Algodão', 'Quantidade'])
+        
+        # Set position of bar on X axis
+        br1 = np.arange(len(soja))
+        br2 = [x + barWidth for x in br1]
+        br3 = [x + barWidth for x in br2]
+        
+        # Make the plot
+        plt.bar(br1, soja, color ='seagreen', width = barWidth, edgecolor ='grey', label ='Soja')
+        plt.bar(br2, milho, color ='gold', width = barWidth, edgecolor ='grey', label ='Milho')
+        plt.bar(br3, algodao, color ='dodgerblue', width = barWidth, edgecolor ='grey', label ='Algodão')
+        
+        # Adding Xticks
+        plt.xlabel('Escala (%)', fontweight ='bold', fontsize = 18)
+        plt.ylabel('Quantidade', fontweight ='bold', fontsize = 18)
+        plt.xticks([r + barWidth for r in range(len(soja))],
+                ['0 - 10 %','11 - 20 %','21 - 30 %','31 - 40 %','41 - 50 %','51 - 60 %','61 - 70 %','71 - 80 %','81 - 90 %','91 - 100 %'])
+        plt.title("Consumo de cultura", fontsize= 24)
+        
+        plt.legend(fontsize=15)
 
         self.box = self.ids.box
         self.box.add_widget(FigureCanvasKivyAgg(plt.gcf()))
+
+
+
+class EnsaioWindow(Screen):
+    pass
 
 
 
