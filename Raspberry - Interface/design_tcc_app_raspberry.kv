@@ -32,6 +32,20 @@ WindowManager:
     pos_hint: {'x': 0.02, 'top': 0.975}
 	border: (0, 0, 0, 0)
 
+<RoundedButton@Button>
+	background_color: (0,0,0,0)
+	color: (1,1,1,1)
+	font_size: 20
+	size_hint: (0.12, 0.05)
+	background_normal: ''
+	canvas.before:
+		Color:
+			rgba: (0/255,71/255,133/255,1)
+		RoundedRectangle:
+			size: self.size
+			pos: self.pos
+			radius: [10]
+
 <LabelIP@Label>
 	font_size: 15
     color: (0, 0, 0)
@@ -43,6 +57,29 @@ WindowManager:
     color: (0, 0, 0)
 	size_hint: (0.15, 0.05)
 	pos_hint: {'x': 0.03, 'top': 0.98}
+
+<TextInfo@Label>
+	font_size: 15
+	size_hint: (0.2, 0.05)
+	color: (1,1,1,1)
+	canvas.before:
+		Color:
+			rgba: (0/255,71/255,133/255,1)
+		Rectangle:
+			size: self.size
+			pos: self.pos
+
+<Logs@Label>
+	font_size: 20
+	size_hint: (0.8, 0.05)
+    pos_hint: {'center_x': .5, 'center_y': .3}
+	color: (1,1,1,1)
+	canvas.before:
+		Color:
+			rgba: (0/255,71/255,133/255,1)
+		Rectangle:
+			size: self.size
+			pos: self.pos
 
 ######################################################################################################################
 ######################################################## HOME ########################################################
@@ -93,3 +130,36 @@ WindowManager:
 	name:"Ensaio"
 	ImageFrame:
         pos_hint: {'center_x': .5, 'center_y': .5}
+
+	TextInfo:
+		id: Ensaio_ID
+		pos_hint: {'x': 0.1, 'top': 0.75}
+		text: "Ensaio ID"
+
+	TextInfo:
+		id: Etapa
+		pos_hint: {'x': 0.1, 'top': 0.55}
+		text: "Etapa"
+
+	Logs:
+		id: Logs
+		text: "Caixa de texto para os logs"
+	
+	RoundedButton:
+		id: IniciaEnsaio
+		text: "Iniciar"
+		pos_hint: {'x': 0.85, 'top': 0.10}
+		on_release:
+			root.RealizaEnsaio()
+
+	RoundedButton:
+		id: FinalizaEnsaio
+		text: "Finalizar"
+		pos_hint: {'x': 0.85, 'top': 0.20}
+		on_release:
+			root.FinalizaEnsaio()
+
+
+
+
+
