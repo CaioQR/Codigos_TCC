@@ -34,9 +34,11 @@ WindowManager:
 
 <RoundedButton@Button>
 	background_color: (0,0,0,0)
-	color: (1,1,1,1)
-	font_size: 20
-	size_hint: (0.12, 0.05)
+	color: (0,0,0,1)
+	bold: True
+	font_size: 25
+	size_hint: (0.15, 0.1)
+	pos_hint: {'center_x': .5, 'center_y': .1}
 	background_normal: ''
 	canvas.before:
 		Color:
@@ -58,6 +60,26 @@ WindowManager:
 	size_hint: (0.15, 0.05)
 	pos_hint: {'x': 0.03, 'top': 0.98}
 
+<TitleCategoria@Label>
+	font_size: 20
+	size_hint: (0.2, 0.05)
+	bold: True
+	color: (1,1,1,1)
+	canvas.before:
+		Color:
+			rgba: (137/255,211/255,41/255,1)
+		Rectangle:
+			size: self.size
+			pos: self.pos
+
+<TitleInfo@Label>
+	font_size: 20
+	size_hint: (0.2, 0.05)
+	text_size:self.size
+	halign:'left'
+	valign:'middle'
+	color: (0,0,0,1)
+
 <TextInfo@Label>
 	font_size: 15
 	size_hint: (0.2, 0.05)
@@ -70,9 +92,9 @@ WindowManager:
 			pos: self.pos
 
 <Logs@Label>
-	font_size: 20
-	size_hint: (0.8, 0.05)
-    pos_hint: {'center_x': .5, 'center_y': .3}
+	font_size: 15
+	size_hint: (0.6, 0.55)
+    pos_hint: {'x': 0.35, 'top': 0.74}
 	color: (1,1,1,1)
 	canvas.before:
 		Color:
@@ -127,37 +149,89 @@ WindowManager:
 ######################################################################################################################
 
 <EnsaioWindow>
-	name:"Ensaio"
+	name:"Ensaio"		
 	ImageFrame:
         pos_hint: {'center_x': .5, 'center_y': .5}
 
+	GridLayout:
+		cols:2
+		size_hint: (0.2, 0.15)
+        pos_hint: {'center_x': .89, 'center_y': .9}
+		spacing: 5
+		padding: 5
+		Image:
+			source: 'Assets/Logo_Bayer.png'
+			allow_stretch: True
+			keep_ratio: True
+		Image:
+			source: 'Assets/logo_maua_redondo.png'
+
+	TitleCategoria:
+		pos_hint: {'x': 0.05, 'top': 0.85}
+		text: "Dados do Ensaio"
+
+	TitleCategoria:
+		size_hint: (0.1, 0.05)
+		pos_hint: {'x': 0.35, 'top': 0.85}
+		text: "Status"
+
+	TitleInfo:
+		pos_hint: {'x': 0.05, 'top': 0.74}
+		text: "Ensaio ID"
+		
+	TitleInfo:
+		pos_hint: {'x': 0.05, 'top': 0.62}
+		text: "Técnico"
+
+	TitleInfo:
+		pos_hint: {'x': 0.05, 'top': 0.50}
+		text: "Etapa"
+	
 	TextInfo:
 		id: Ensaio_ID
-		pos_hint: {'x': 0.1, 'top': 0.75}
+		pos_hint: {'x': 0.05, 'top': 0.69}
 		text: "Ensaio ID"
 
 	TextInfo:
+		id: Tecnico
+		pos_hint: {'x': 0.05, 'top': 0.57}
+		text: "Técnico"
+
+	TextInfo:
 		id: Etapa
-		pos_hint: {'x': 0.1, 'top': 0.55}
+		pos_hint: {'x': 0.05, 'top': 0.45}
 		text: "Etapa"
 
 	Logs:
 		id: Logs
 		text: "Caixa de texto para os logs"
-	
-	RoundedButton:
-		id: IniciaEnsaio
-		text: "Iniciar"
-		pos_hint: {'x': 0.85, 'top': 0.10}
-		on_release:
-			root.RealizaEnsaio()
 
 	RoundedButton:
 		id: FinalizaEnsaio
 		text: "Finalizar"
-		pos_hint: {'x': 0.85, 'top': 0.20}
+		canvas.before:
+			Color:
+				rgba: (1,0,0,1)
+			RoundedRectangle:
+				size: self.size
+				pos: self.pos
+				radius: [10]
 		on_release:
 			root.FinalizaEnsaio()
+
+	RoundedButton:
+		id: IniciaEnsaio
+		text: "Iniciar"
+		canvas.before:
+			Color:
+				rgba: (0,1,0,1)
+			RoundedRectangle:
+				size: self.size
+				pos: self.pos
+				radius: [10]
+		on_release:
+			root.RealizaEnsaio()
+
 
 
 

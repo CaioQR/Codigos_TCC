@@ -39,7 +39,7 @@ class HomeWindow(Screen):
         #Exibe o IP na tela
         self.ids.labelIP.text = "IP: " + str(socket.gethostbyname(socket.gethostname()))       
         #Carrega O arquivo Json
-        path = os.getcwd()+'\\Raspberry - Interface\\Comunication\\to_pi.json'
+        path = os.getcwd()+'/Comunication/to_pi.json'
         with open(path, 'r', encoding="utf-8") as config_file:
             data=config_file.read()
             JsonToPi = json.loads(data) 
@@ -60,13 +60,16 @@ class HomeWindow(Screen):
 
 
 
-
 class EnsaioWindow(Screen):
     def __init__(self, **kwargs):
         super(EnsaioWindow, self).__init__(**kwargs)
         self.Init()
         #Cria um relógio que chamará a função 'Atualiza' a cada 10 segundos
         Clock.schedule_interval(self.Atualiza, 5)
+
+
+    #Define a variável auxiliar
+    running_ensaio = False
 
     #Função de inicialização 
     def Init(self):
@@ -96,18 +99,23 @@ class EnsaioWindow(Screen):
     #Função para atualizar as informações    
     def Atualiza(self, dt):
         #Carrega O arquivo Json
-        path = os.getcwd()+'\\Raspberry - Interface\\Comunication\\to_pi.json'
+        path = os.getcwd()+'/Comunication/to_pi.json'
         with open(path, 'r', encoding="utf-8") as config_file:
             data=config_file.read()
             JsonToPi = json.loads(data) 
             config_file.close()    
         #Verifica o status
         tela = JsonToPi['status']
+        #Atualiza a tela
+        self.ids.Ensaio_ID.text = JsonToPi['ensaio_id']
+        self.ids.Tecnico.text = JsonToPi['tecnico']
+        self.ids.Etapa.text = JsonToPi['etapa']
         #Aletera o widget
-        if (tela == 'sleeping'):
+        if (tela == 'sleeping' and self.running_ensaio == True):
             try:
                 #Exibe widget botão finalizar
                 self.add_widget(self.ids.FinalizaEnsaio)
+                self.running_ensaio = False
             except:
                 pass
     
@@ -117,6 +125,7 @@ class EnsaioWindow(Screen):
             GPIO.output(self.led_superior_pin, True)
         else:
             GPIO.output(self.led_superior_pin, False)
+        self.Update_Logs("Status leds inferiores: "+str(status))
 
     #Função para controle do led inferior
     def led_inferior(self, status):
@@ -124,15 +133,16 @@ class EnsaioWindow(Screen):
             GPIO.output(self.led_inferior_pin, True)
         else:
             GPIO.output(self.led_inferior_pin, False)
+        self.Update_Logs("Status leds inferiores: "+str(status))
 
     #Função para controle do motor
     def move_motor (self, posicao):
         if posicao == 1:
             pin = self.posicao1_pin
-            GPIO.output (self.mot_dir, True)
+            GPIO.output (self.mot_dir, False)
         else:
             pin = self.posicao2_pin
-            GPIO.output(self.mot_dir, False)
+            GPIO.output(self.mot_dir, True)
         GPIO.output(self.mot_disable, False)
         n_steps = 24000
         step = 0 
@@ -143,9 +153,10 @@ class EnsaioWindow(Screen):
             time.sleep(500/1000000)
             step += 1
         GPIO.output(self.mot_disable, True)
+        self.Update_Logs("Posição das câmeras: "+str(posicao))
 
     #Função para listar câmeras disponíveis
-    def list_cameras():
+    def list_cameras(self):
         cameras = []
         for camera in glob.glob("/dev/video?"):
             try:
@@ -156,30 +167,33 @@ class EnsaioWindow(Screen):
                     cameras.append(camera)
             except:
                 pass
-        if len(cameras) == 3:
+        if len(cameras) == 1:
+            self.Update_Logs("Câmeras disponíveis: "+str(len(cameras)))
             return cameras
         else:
-            print ("Error")
+            self.Update_Logs("Erro ao encontrar as câmeras")
             return 0
 
     #Função para configurar os endereço USB das câmeras disponíveis
-    def address_cameras(camera_list):
+    def address_cameras(self, camera_list):
         cameras = []
         for camera in camera_list:
             output = os.popen("udevadm info --query=path --name="+camera).read()
             usb_index = int(output.split(':')[0][-1])-1
             cameras.append([usb_index, camera])
         cameras.sort()
+        self.Update_Logs("Câmeras ordenadas")
         return cameras
 
     #Função para configurar as câmeras disponíveis
     def setup_cameras(self):
         camera_list = self.list_cameras()
         cameras = self.address_cameras(camera_list)
+        self.Update_Logs("Setup das câmeras finalizado")
         return cameras
 
     #Função para coletar as imagens
-    def get_images(cameras, position):
+    def get_images(self, cameras, position):
         images = []
         for usb_index, camera in cameras:
             if position == 1:
@@ -193,29 +207,45 @@ class EnsaioWindow(Screen):
                 r, frame = cam.read()
             cam.release
             images.append([filename, frame])
+        self.Update_Logs("Captura de imagens "+str(position)+" finalizada")
         return images
 
     #Função para salvar as imagens
-    def save_images(images, path, extension):
+    def save_images(self, images, path, extension):
         for filename, image in images:
             cv2.imwrite(path+filename+extension, image)
+        self.Update_Logs("Imagens salvas")
 
     #Função para ler json
-    def read_json(path, filename):
+    def read_json(self, path, filename):
         file = open(path+filename, "r")
         data = json.load(file)
         file.close()
         return data
 
     #Função para escrever json
-    def write_json(path, filename, ensaio_id, status):
+    def write_json(self, path, filename, ensaio_id, status):
         data = {'status':status, 'ensaio_id':ensaio_id} #status -> running, sleeping, error, success
         file = open(path+filename, "w")
         json.dump(data, file)
         file.close()
+    
+    #Função para atualizar logs
+    def Update_Logs(self, NewLog):
+        self.Lista_Logs.append(NewLog)
+    
+    #Função para exibir logs
+    def Show_Logs(self):
+        text = ''
+        for log in self.Lista_Logs:
+            text += log
+            text += '\n'
+        self.ids.Logs.text = text
 
     #Função para realizar o ensaio
     def RealizaEnsaio(self):
+        #Limpa os logs
+        self.Lista_Logs = []
         #Verificar se a porta está aberta:
         if (GPIO.input(self.porta_pin) == 1):
             #PopUp avisando que a porta está aberta
@@ -227,76 +257,62 @@ class EnsaioWindow(Screen):
             box.add_widget(botao)
             popup.open()
         else:
+            #Inicia o ensaio
+            self.Update_Logs("Ensaio iniciado")
+            self.running_ensaio = True
             #Remove widget botão iniciar
             self.remove_widget(self.ids.IniciaEnsaio)
             #Exibe widget botão finalizar
             self.remove_widget(self.ids.FinalizaEnsaio)
             #Atualiza o json "to_pc"
-            data = self.read_json('/home/pi/Documents/bayer_project/comunication/', 'to_pi.json')
-            self.write_json('/home/pi/Documents/bayer_project/comunication/', 'to_pc.json', data['ensaio_id'], 'running')
+            data = self.read_json('/home/pi/Documents/bayer_project/Comunication/', 'to_pi.json')
+            self.write_json('/home/pi/Documents/bayer_project/Comunication/', 'to_pc.json', data['ensaio_id'], 'running')
             #Acende leds inferiores
-            self.ids.Logs.text = "Ligando Leds inferiores"
             self.led_inferior('On')
             #Acende leds superiores
-            self.ids.Logs.text = "Ligando Leds superiores"
             self.led_superior('On')
             #Setup das câmeras
             cameras = self.setup_cameras()
             #Retorna a barra para P1
-            self.ids.Logs.text = "Levando cameras para P1"
             self.move_motor(1)
             time.sleep(1) 
             #Captura as 4 primeiras fotos
-            self.ids.Logs.text = "Tirando fotos A-B-C-D"
             images = self.get_images(cameras, 1)
             #Avança a barra para P2
-            self.ids.Logs.text = "Levando cameras para P2"
             self.move_motor(2)
             time.sleep(1)
             #Captura as 4 últimas fotos
-            self.ids.Logs.text = "Tirando fotos E-F-G-H"
             images += self.get_images(cameras, 2)
             #Salva as imagens
-            self.save_images(images, '/home/pi/Documents/bayer_project/images/', '.jpg')
+            self.save_images(images, '/home/pi/Documents/bayer_project/Images/', '.jpg')
             #Apaga leds inferiores
-            self.ids.Logs.text = "Desligando Leds inferiores"
             self.led_inferior('Off')
             #Apaga leds superiores
-            self.ids.Logs.text = "Desligando Leds superiores"
             self.led_superior('Off')
             #Atualiza o json "to_pc"
-            self.write_json('/home/pi/Documents/bayer_project/comunication/', 'to_pc.json', data[ensaio_id], 'success')
+            self.write_json('/home/pi/Documents/bayer_project/Comunication/', 'to_pc.json', data['ensaio_id'], 'success')
+            #Finaliza ensaio e exibe logs
+            self.Update_Logs("Ensaio finalizado")
+            self.Show_Logs()
 
     #Função para finalizar ensaio           
     def FinalizaEnsaio(self):
+        #Atualiza Logs
+        self.ids.Logs.text = "Realizando Ensaio"
+        #Exibe widget botão finalizar
+        self.remove_widget(self.ids.FinalizaEnsaio)	
         #Exibe widget botão iniciar
         self.add_widget(self.ids.IniciaEnsaio)
-        #Remove widget botão finalizar
-        self.remove_widget(self.ids.FinalizaEnsaio)
         #Aletera a tela
         self.parent.current = 'Home'
 
-    '''PC - manda por a bandeja e dar ok 
-    ok do pc altera json
-    ao entrar na nova tela o rasp pergunta se o ensaio esta certo, bandeja posicionada e verifica porta
-    roda a rotina de teste
-    altera json e aguarda na tela de finalizado
-    pc verifica json e coleta as fotos
-    pc altera json do rasp que volta pra tela home '''
     
-
-
-
-
-
-
-
 
 kv = Builder.load_file('design_tcc_app_raspberry.kv')
 
 Window.clearcolor = (1, 1, 1, 1)
 Window.size = (800, 480)
-#Window.fullscreen = 'auto'
+Window.fullscreen = 'auto'
 
 class MyApp(App):
     def build(self):
