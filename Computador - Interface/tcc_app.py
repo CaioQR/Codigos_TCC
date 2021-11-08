@@ -690,12 +690,16 @@ class EnsaioWindow(Screen):
                     #Calcula a área
                     self.Calcular_Areas()
                     #Atualiza o arquivo CSV
-                    #Finaliza o ensaio
+                    #Verifica se é a 2ªEtapa
+                        #Calcula as reduções e classifica
+                    #Atualiza o arquivo config.json
+                    #Deleta as imagens temporárias
+                    #Renomeia as imagens da primeira etapa
+                    for c in range(ord('A'), ord('I')):
+                        path = self.local_images_path
+                        os.rename(path+chr(c)+'.jpg', path+"Ensaio"+self.ids.Ensaio_ID.text+"_Grupo"+chr(c)+"_"+self.ids.Etapa.text+".jpg")
         #Exibe os logs
         self.Show_Logs()
-
-
-
 
 
 
@@ -703,7 +707,7 @@ class EnsaioWindow(Screen):
     def FinalizaEnsaio(self):
         #Atualiza Logs
         self.ids.Logs.text = ""
-        #Exibe widget botão finalizar
+        #Remove widget botão finalizar
         self.remove_widget(self.ids.FinalizaEnsaio)	
         #Exibe widget botão iniciar
         self.add_widget(self.ids.IniciaEnsaio)
