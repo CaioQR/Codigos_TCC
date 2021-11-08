@@ -171,7 +171,8 @@ class EnsaioWindow(Screen):
             self.Update_Logs("Câmeras disponíveis: "+str(len(cameras)))
             return cameras
         else:
-            self.Update_Logs("Erro ao encontrar as câmeras")
+            self.Update_Logs("Erro ao localizar as câmeras")
+            self.exito = False
             return 0
 
     #Função para configurar os endereço USB das câmeras disponíveis
@@ -236,7 +237,7 @@ class EnsaioWindow(Screen):
     
     #Função para exibir logs
     def Show_Logs(self):
-        text = ''
+        text = '\n'
         for log in self.Lista_Logs:
             text += log
             text += '\n'
@@ -260,6 +261,7 @@ class EnsaioWindow(Screen):
             #Inicia o ensaio
             self.Update_Logs("Ensaio iniciado")
             self.running_ensaio = True
+            self.exito = True
             #Remove widget botão iniciar
             self.remove_widget(self.ids.IniciaEnsaio)
             #Exibe widget botão finalizar
@@ -290,9 +292,13 @@ class EnsaioWindow(Screen):
             #Apaga leds superiores
             self.led_superior('Off')
             #Atualiza o json "to_pc"
-            self.write_json('/home/pi/Documents/bayer_project/Comunication/', 'to_pc.json', data['ensaio_id'], 'success')
+            if (self.exito == True):
+                self.write_json('/home/pi/Documents/bayer_project/Comunication/', 'to_pc.json', data['ensaio_id'], 'success')
+                self.Update_Logs("Ensaio finalizado com êxito")
+            else:
+                self.write_json('/home/pi/Documents/bayer_project/Comunication/', 'to_pc.json', data['ensaio_id'], 'error')
+                self.Update_Logs("O ensaio falhou")
             #Finaliza ensaio e exibe logs
-            self.Update_Logs("Ensaio finalizado")
             self.Show_Logs()
 
     #Função para finalizar ensaio           
