@@ -690,14 +690,18 @@ class EnsaioWindow(Screen):
                     #Calcula a área
                     self.Calcular_Areas()
                     #Atualiza o arquivo CSV
-                    #Verifica se é a 2ªEtapa
+                    #Verifica a etapa
+                    if (self.ids.Etapa.text == "Etapa 2"):
+                        Etapa = "2"
                         #Calcula as reduções e classifica
+                    else:
+                        Etapa = "1"
                     #Atualiza o arquivo config.json
                     #Deleta as imagens temporárias
                     #Renomeia as imagens da primeira etapa
                     for c in range(ord('A'), ord('I')):
                         path = self.local_images_path
-                        os.rename(path+chr(c)+'.jpg', path+"Ensaio"+self.ids.Ensaio_ID.text+"_Grupo"+chr(c)+"_"+self.ids.Etapa.text+".jpg")
+                        os.rename(path+chr(c)+'.jpg', path+"Ensaio"+self.ids.Ensaio_ID.text+"_Grupo"+chr(c)+"_Etapa"+Etapa+".jpg")
         #Exibe os logs
         self.Show_Logs()
 
