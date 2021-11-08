@@ -22,6 +22,7 @@ import os
 import shutil ############### REMOVER DA LÓGICA
 import json
 import numpy as np
+from paramiko import SSHClient, AutoAddPolicy
 
 
 # Definir telas
@@ -376,8 +377,10 @@ class HistoricoWindow(Screen):
     #Função para limpar o gráfico preenchido na tela
     def Clear_Graph(self):
         plt.cla()
-        self.box.clear_widgets()
-
+        try:
+            self.box.clear_widgets()
+        except:
+            pass
     #Função para preencher os dados na tela
     def Preencher_Dados(self):
         #Verificar ensaio solicitado
@@ -448,7 +451,274 @@ class HistoricoWindow(Screen):
 
 
 class EnsaioWindow(Screen):
-    pass
+    def __init__(self, **kwargs):
+        super(EnsaioWindow, self).__init__(**kwargs)
+        self.Init()
+        #Cria um relógio que chamará a função 'Atualiza' a cada 1 segundo
+        Clock.schedule_interval(self.Atualiza, 1)
+
+    #Define a variável auxiliar
+    running_ensaio = False
+
+    #Função de inicialização    
+    def Init(self):
+        #Carrega o arquivo config.json
+        path = os.getcwd()+'\\Computador - Interface\\config.json'
+        with open(path, 'r', encoding="utf-8") as config_file:
+            data=config_file.read()
+            config = json.loads(data) 
+            config_file.close() 
+        #Load Raspberry pi credentials and network info
+        self.host = config['IP_maquina']
+        self.port = config['port']
+        self.username = config['username']
+        self.password = config['password']
+        #Json Data
+        path = "bayer_project"
+        self.pi_json_path = config['pi_json_path']
+        self.pi_images_path = config['pi_images_path']
+
+    #connect to Raspberry pi through SSH
+    def setup_ssh(self, host, port, username, password):
+        try:
+            ssh = SSHClient()
+            ssh.set_missing_host_key_policy(AutoAddPolicy())
+            ssh.connect(host, port, username, password)
+            self.Update_Logs("Conexão estabelecida com sucesso")
+            return ssh
+        except:
+            self.Update_Logs("Falha na conexão")
+            return 0
+
+    #Read raspberry Json
+    def read_rasp_json(self, ssh, filename, path):
+        try:
+            sftp = ssh.open_sftp()
+            with sftp.open(path+"/"+filename, 'r') as json_file:
+                json_data = json.load(json_file)
+                json_file.close()
+            return json_data
+        except:
+            self.Update_Logs("Falha na leitura dos dados remotos")
+            return 0
+
+    #Replace Json
+    def replace_json(self, ssh, json_data, filename, path):
+        try:
+            sftp = ssh.open_sftp()
+            with sftp.open(path+"/"+filename, 'w') as json_file:
+                aux=json.loads(json_data)
+                json.dump(aux, json_file)
+                json_file.close()
+            self.Update_Logs("Atualização do json remoto concluída")
+            return 1
+        except:
+            self.Update_Logs("Falha na atualização do json remoto")
+            return 0
+       
+    #retreives images through SSH for a given path
+    def get_images(self, ssh, remote_path, local_path):
+        try:
+            sftp = ssh.open_sftp()
+            for file in sftp.listdir(remote_path):
+                file_remote = remote_path + file
+                file_local = local_path + file
+                #print(file_remote + '>>>' + file_local)
+                sftp.get(file_remote, file_local)
+            self.Update_Logs("Coleta das imagens concluída")
+            return 1
+        except:
+            self.Update_Logs("Falha na coleta das imagens")
+            return 0
+
+
+    #Função para atualizar as informações    
+    def Atualiza(self, dt):
+        #Carrega o arquivo config.json
+        path = os.getcwd()+'\\Computador - Interface\\config.json'
+        with open(path, 'r', encoding="utf-8") as config_file:
+            data=config_file.read()
+            config = json.loads(data) 
+            config_file.close()    
+        #Importa o csv atual
+        currentID = str(config['last_bioassay_id']+1)
+        self.RaspberryIP = config['IP_maquina']
+        path = config['path']+'\Ensaio_'+currentID
+        try:
+            self.df_ensaio = pd.read_csv(path+'\Resultados_Ensaio_'+currentID+'.csv')
+            self.local_images_path = os.getcwd()+'\\SistemaBayer\\Ensaio_'+currentID+'\\Fotos\\'
+            #Atualiza a tela
+            self.ids.Ensaio_ID.text = currentID
+            self.ids.Tecnico.text = self.df_ensaio.loc[0,'Técnico']
+            self.ids.RaspIP.text = self.RaspberryIP
+            if (self.df_ensaio.loc[0,'Área_Inicial']==0):
+                self.ids.Etapa.text = 'Etapa 1'
+            else:
+                self.ids.Etapa.text = 'Etapa 2'
+            if (self.running_ensaio == True):
+                #Verifica a conexão com a máquina
+                try:
+                    ssh = SSHClient()
+                    ssh.set_missing_host_key_policy(AutoAddPolicy())
+                    ssh.connect(self.host, self.port, self.username, self.password)
+                except:
+                    pass
+                if (ssh == 0):
+                    pass
+                else:
+                    #Carrega o arquivo JsonToPc
+                    try:
+                        sftp = ssh.open_sftp()
+                        with sftp.open(self.pi_json_path+"/"+'to_pi,json', 'r') as json_file:
+                            JsonToPc = json.load(json_file)
+                            json_file.close()
+                    except:
+                        pass
+                    #Verifica o status
+                    tela = JsonToPc['status']
+                    #Aletera o widget
+                    if (tela == 'sleeping' and self.running_ensaio == True):
+                        try:
+                            #Exibe widget botão finalizar
+                            self.add_widget(self.ids.FinalizaEnsaio)
+                            self.running_ensaio = False
+                        except:
+                            pass
+        except:
+            pass
+
+    #Função para cortar imagens
+    def Cortar_Imagens(self):
+        self.Update_Logs("Corte das imagens concluído")
+        
+    #Função para calcular áreas
+    def Calcular_Areas(self):
+        self.Update_Logs("Cálculo das áreas concluído")
+
+    #Função para ler json
+    def read_json(self, path, filename):
+        file = open(path+filename, "r")
+        data = json.load(file)
+        file.close()
+        return data
+
+    #Função para escrever json
+    def write_json(self, path, filename, ensaio_id, status):
+        data = {'status':status, 'ensaio_id':ensaio_id} #status -> running, sleeping, error, success
+        file = open(path+filename, "w")
+        json.dump(data, file)
+        file.close()
+    
+    #Função para atualizar logs
+    def Update_Logs(self, NewLog):
+        self.Lista_Logs.append(NewLog)
+    
+    #Função para exibir logs
+    def Show_Logs(self):
+        text = '\n'
+        for log in self.Lista_Logs:
+            text += log
+            text += '\n'
+        self.ids.Logs.text = text
+
+    #Função para realizar o ensaio
+    def RealizaEnsaio(self):
+        #Remove widget botão iniciar
+        #self.remove_widget(self.ids.IniciaEnsaio)
+        #Limpa os logs
+        self.Lista_Logs = []
+        #Conecta com a máquina
+        ssh = self.setup_ssh(self.host, self.port, self.username, self.password)
+        if (ssh == 0):
+            #Exibe PopUp avisando que a conexão falhou
+            box = BoxLayout(orientation='vertical',padding=10,spacing=10)
+            popup = Popup(title='Falha de Conexão', content=box, auto_dismiss=False, size_hint=(0.4,0.3))
+            texto = Label(text='A conexão não pode ser estabelecida')
+            botao = Button(text='Tentar novamente',on_release=popup.dismiss)
+            box.add_widget(texto)
+            box.add_widget(botao)
+            popup.open()
+        else:
+            #Atualiza o status em JsonToPi
+            json_data = '{"status": "running","ensaio_id": "'+self.ids.Ensaio_ID.text+'","tecnico": "'+self.ids.Tecnico.text+'","etapa": "'+self.ids.Etapa.text+'"}'
+            self.replace_json(ssh, json_data, 'to_pi.json', self.pi_json_path)
+            #Aguarda o término da rotina de ensaio na máquina (Loop verificando JsonToPc)
+            StatusMaquina = "running"
+            while (StatusMaquina == "running" or StatusMaquina == "sleeping"):
+                JsonToPc = self.read_rasp_json(ssh, 'to_pc.json', self.pi_json_path)
+                StatusMaquina = JsonToPc['status']
+            self.Update_Logs("Leitura dos dados remotos concluída")
+            #Atualiza o status em JsonToPi
+            json_data = '{"status": "sleeping","ensaio_id": "'+self.ids.Ensaio_ID.text+'","tecnico": "'+self.ids.Tecnico.text+'","etapa": "'+self.ids.Etapa.text+'"}'
+            self.replace_json(ssh, json_data, 'to_pi.json', self.pi_json_path)
+            if (StatusMaquina == "error"): 
+                #Exibe PopUp avisando que o ensaio falhou
+                box = BoxLayout(orientation='vertical',padding=10,spacing=10)
+                popup = Popup(title='Falha no Ensaio', content=box, auto_dismiss=False, size_hint=(0.4,0.3))
+                texto = Label(text='Ocorreu uma falha durante o ensaio')
+                botao = Button(text='Tentar novamente',on_release=popup.dismiss)
+                box.add_widget(texto)
+                box.add_widget(botao)
+                popup.open()
+                #Rotina para reiniciar o ensaio
+
+            elif (StatusMaquina == "success"):
+                #Coleta as imagens
+                coleta = self.get_images(ssh, self.pi_images_path, self.local_images_path)
+                if (coleta == 0):
+                    #Exibe PopUp avisando que a coleta de imagens falhou
+                    box = BoxLayout(orientation='vertical',padding=10,spacing=10)
+                    popup = Popup(title='Falha na coleta de imagens', content=box, auto_dismiss=False, size_hint=(0.4,0.3))
+                    texto = Label(text='Imagens não coletadas, tente novamente')
+                    botao = Button(text='tentar novamente',on_release=popup.dismiss)
+                    box.add_widget(texto)
+                    box.add_widget(botao)
+                    popup.open()
+                    #Rotina para reiniciar o ensaio
+                    
+                elif(coleta == 1):
+                    #Exibe PopUp avisando que a coleta de imagens foi finalizada
+                    box = BoxLayout(orientation='vertical',padding=10,spacing=10)
+                    popup = Popup(title='Coleta de imagens finalizada', content=box, auto_dismiss=False, size_hint=(0.4,0.3))
+                    texto = Label(text='Imagens coletadas, aguarde a análise')
+                    botao = Button(text='ok',on_release=popup.dismiss)
+                    box.add_widget(texto)
+                    box.add_widget(botao)
+                    popup.open()
+                    #Corta as imagens
+                    self.Cortar_Imagens()
+                    #Calcula a área
+                    self.Calcular_Areas()
+                    #Atualiza o arquivo CSV
+                    #Finaliza o ensaio
+        #Exibe os logs
+        self.Show_Logs()
+
+
+
+
+
+
+    #Função para finalizar ensaio           
+    def FinalizaEnsaio(self):
+        #Atualiza Logs
+        self.ids.Logs.text = ""
+        #Exibe widget botão finalizar
+        self.remove_widget(self.ids.FinalizaEnsaio)	
+        #Exibe widget botão iniciar
+        self.add_widget(self.ids.IniciaEnsaio)
+        #Aletera a tela
+        self.parent.current = 'Home'
+
+
+
+
+
+
+
+
+
+
 
 
 

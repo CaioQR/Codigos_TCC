@@ -1,6 +1,6 @@
 {
-	"status": "running", 
+	"status": "sleeping", 
 	"ensaio_id": "4567",
-	"tecnico": "joao",
+	"tecnico": "João",
 	"etapa": "Etapa 1"
 }

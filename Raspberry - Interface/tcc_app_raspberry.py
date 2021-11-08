@@ -64,9 +64,8 @@ class EnsaioWindow(Screen):
     def __init__(self, **kwargs):
         super(EnsaioWindow, self).__init__(**kwargs)
         self.Init()
-        #Cria um relógio que chamará a função 'Atualiza' a cada 10 segundos
+        #Cria um relógio que chamará a função 'Atualiza' a cada 5 segundos
         Clock.schedule_interval(self.Atualiza, 5)
-
 
     #Define a variável auxiliar
     running_ensaio = False
@@ -304,7 +303,7 @@ class EnsaioWindow(Screen):
     #Função para finalizar ensaio           
     def FinalizaEnsaio(self):
         #Atualiza Logs
-        self.ids.Logs.text = "Realizando Ensaio"
+        self.ids.Logs.text = ""
         #Exibe widget botão finalizar
         self.remove_widget(self.ids.FinalizaEnsaio)	
         #Exibe widget botão iniciar

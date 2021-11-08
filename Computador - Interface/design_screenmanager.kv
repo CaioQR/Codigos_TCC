@@ -279,12 +279,63 @@
 			size: self.size
 
 
+<TitleCategoria@Label>
+	font_size: 35
+	size_hint: (0.2, 0.05)
+	bold: True
+	color: (1,1,1,1)
+	canvas.before:
+		Color:
+			rgba: (137/255,211/255,41/255,1)
+		Rectangle:
+			size: self.size
+			pos: self.pos
+
+<TitleInfo@Label>
+	font_size: 25
+	size_hint: (0.2, 0.05)
+	text_size:self.size
+	halign:'left'
+	valign:'middle'
+	color: (0,0,0,1)
+
+<TextInfo@Label>
+	font_size: 20
+	size_hint: (0.2, 0.05)
+	color: (1,1,1,1)
+	canvas.before:
+		Color:
+			rgba: (0/255,71/255,133/255,1)
+		Rectangle:
+			size: self.size
+			pos: self.pos
+
+<Logs@Label>
+	font_size: 20
+	size_hint: (0.6, 0.55)
+    pos_hint: {'x': 0.35, 'top': 0.74}
+	color: (1,1,1,1)
+	canvas.before:
+		Color:
+			rgba: (0/255,71/255,133/255,1)
+		Rectangle:
+			size: self.size
+			pos: self.pos	
+
+<ButtonWifi@Button>
+    color: (1, 1, 1, 1)
+	background_normal: "Assets/Wifi_Icon.png"
+	size_hint: (0.05,0.05)
+    pos_hint: {'x': 0.02, 'top': 0.975}
+	border: (0, 0, 0, 0)		
+
+
 
 WindowManager:
 	HomeWindow:
 	Etapa1Window:
-	EnsaioWindow:
 	Etapa2Window:
+	EnsaioWindow:
 	HistoricoWindow:
 
 ######################################################################################################################
@@ -549,16 +600,111 @@ WindowManager:
 ####################################################### Ensaio #######################################################
 ######################################################################################################################
 <EnsaioWindow>
-	name:"Ensaio"
-	id: my_widget
+	name:"Ensaio"		
 	ImageFrame:
 
-	TabsButton:
-		text: "Home"
-		pos_hint: {'x': 0.0045, 'y': 0.942}
+	GridLayout:
+		cols:2
+		size_hint: (0.2, 0.15)
+        pos_hint: {'center_x': .89, 'center_y': .85}
+		spacing: 5
+		padding: 5
+		Image:
+			source: 'Assets/Logo_Bayer.png'
+			allow_stretch: True
+			keep_ratio: True
+		Image:
+			source: 'Assets/logo_maua_redondo.png'
+
+	TitleCategoria:
+		pos_hint: {'x': 0.05, 'top': 0.85}
+		text: "Dados do Ensaio"
+
+	TitleCategoria:
+		size_hint: (0.1, 0.05)
+		pos_hint: {'x': 0.35, 'top': 0.85}
+		text: "Status"
+
+	TitleInfo:
+		pos_hint: {'x': 0.05, 'top': 0.74}
+		text: "Ensaio ID"
+		
+	TitleInfo:
+		pos_hint: {'x': 0.05, 'top': 0.62}
+		text: "Técnico"
+
+	TitleInfo:
+		pos_hint: {'x': 0.05, 'top': 0.50}
+		text: "Etapa"
+
+	TitleInfo:
+		pos_hint: {'x': 0.05, 'top': 0.38}
+		text: "IP - Raspberry"
+
+	TextInfo:
+		id: Ensaio_ID
+		pos_hint: {'x': 0.05, 'top': 0.69}
+		text: "Ensaio ID"
+
+	TextInfo:
+		id: Tecnico
+		pos_hint: {'x': 0.05, 'top': 0.57}
+		text: "Técnico"
+
+	TextInfo:
+		id: Etapa
+		pos_hint: {'x': 0.05, 'top': 0.45}
+		text: "Etapa"
+
+	TextInfo:
+		id: RaspIP
+		pos_hint: {'x': 0.05, 'top': 0.33}
+		text: "RaspIP"
+
+	Logs:
+		id: Logs
+		text: ""
+
+	RoundedButton:
+		id: FinalizaEnsaio
+		text: "Finalizar"
+		background_color: (0,0,0,0)
+		color: (0,0,0,1)
+		bold: True
+		font_size: 25
+		size_hint: (0.15, 0.1)
+		pos_hint: {'center_x': .5, 'center_y': .11}
+		background_normal: ''
+		canvas.before:
+			Color:
+				rgba: (1,0,0,1)
+			RoundedRectangle:
+				size: self.size
+				pos: self.pos
+				radius: [10]
 		on_release:
-			app.root.current = "Home"
-			root.manager.transition.direction = "right"
+			root.FinalizaEnsaio()
+
+	RoundedButton:
+		id: IniciaEnsaio
+		text: "Iniciar"
+		background_color: (0,0,0,0)
+		color: (0,0,0,1)
+		bold: True
+		font_size: 25
+		size_hint: (0.15, 0.1)
+		pos_hint: {'center_x': .5, 'center_y': .11}
+		background_normal: ''
+		canvas.before:
+			Color:
+				rgba: (0,1,0,1)
+			RoundedRectangle:
+				size: self.size
+				pos: self.pos
+				radius: [10]
+		on_release:
+			root.RealizaEnsaio()
+
 
 
 ######################################################################################################################
