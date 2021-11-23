@@ -1,6 +1,1 @@
-{
-	"status": "sleeping", 
-	"ensaio_id": "4567",
-	"tecnico": "João",
-	"etapa": "Etapa 1"
-}
+{"status": "sleeping", "ensaio_id": "1", "tecnico": "Teste 1", "etapa": "Etapa 1"}

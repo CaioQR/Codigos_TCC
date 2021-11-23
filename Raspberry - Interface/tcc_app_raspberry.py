@@ -64,8 +64,9 @@ class EnsaioWindow(Screen):
     def __init__(self, **kwargs):
         super(EnsaioWindow, self).__init__(**kwargs)
         self.Init()
-        #Cria um relógio que chamará a função 'Atualiza' a cada 5 segundos
+        #Cria um relógio que chamará a função 'Atualiza' a cada 10 segundos
         Clock.schedule_interval(self.Atualiza, 5)
+
 
     #Define a variável auxiliar
     running_ensaio = False
@@ -109,6 +110,10 @@ class EnsaioWindow(Screen):
         self.ids.Ensaio_ID.text = JsonToPi['ensaio_id']
         self.ids.Tecnico.text = JsonToPi['tecnico']
         self.ids.Etapa.text = JsonToPi['etapa']
+        #Atualiza o json "to_pc"
+        if (tela == 'sleeping'):
+            data = self.read_json('/home/pi/Documents/bayer_project/Comunication/', 'to_pi.json')
+            self.write_json('/home/pi/Documents/bayer_project/Comunication/', 'to_pc.json', data['ensaio_id'], 'sleeping')
         #Aletera o widget
         if (tela == 'sleeping' and self.running_ensaio == True):
             try:
@@ -166,7 +171,7 @@ class EnsaioWindow(Screen):
                     cameras.append(camera)
             except:
                 pass
-        if len(cameras) == 1:
+        if len(cameras) == 2:
             self.Update_Logs("Câmeras disponíveis: "+str(len(cameras)))
             return cameras
         else:
@@ -303,7 +308,7 @@ class EnsaioWindow(Screen):
     #Função para finalizar ensaio           
     def FinalizaEnsaio(self):
         #Atualiza Logs
-        self.ids.Logs.text = ""
+        self.ids.Logs.text = "Realizando Ensaio"
         #Exibe widget botão finalizar
         self.remove_widget(self.ids.FinalizaEnsaio)	
         #Exibe widget botão iniciar

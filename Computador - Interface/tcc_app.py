@@ -422,9 +422,9 @@ class HistoricoWindow(Screen):
         fig = plt.subplots(figsize =(20, 12))
         
         # set height of bar
-        soja = list(df.loc[df['Cultura'] == 'Soja', 'Quantidade'])
-        milho = list(df.loc[df['Cultura'] == 'Milho', 'Quantidade'])
-        algodao = list(df.loc[df['Cultura'] == 'Algodão', 'Quantidade'])
+        soja = list(df.loc[df['Cultura'] == 'Soja', 'Classificação'])
+        milho = list(df.loc[df['Cultura'] == 'Milho', 'Classificação'])
+        algodao = list(df.loc[df['Cultura'] == 'Algodão', 'Classificação'])
         
         # Set position of bar on X axis
         br1 = np.arange(len(soja))
@@ -589,11 +589,11 @@ class EnsaioWindow(Screen):
             pass
 
     #Função para cortar imagens
-    def Cortar_Imagens(self):
+    def Cortar_Imagens(self, path_local, path_temp):
         self.Update_Logs("Corte das imagens concluído")
         
     #Função para calcular áreas
-    def Calcular_Areas(self):
+    def Calcular_Areas(self, path_temp):
         self.Update_Logs("Cálculo das áreas concluído")
 
     #Função para ler json
