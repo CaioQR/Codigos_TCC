@@ -547,6 +547,7 @@ class EnsaioWindow(Screen):
         try:
             self.df_ensaio = pd.read_csv(path+'\Resultados_Ensaio_'+currentID+'.csv')
             self.local_images_path = os.getcwd()+'\\SistemaBayer\\Ensaio_'+currentID+'\\Fotos\\'
+            self.local_temp_images_path = os.getcwd()+'\\SistemaBayer\\Ensaio_'+currentID+'\\FotosTemporarias\\'
             #Atualiza a tela
             self.ids.Ensaio_ID.text = currentID
             self.ids.Tecnico.text = self.df_ensaio.loc[0,'Técnico']
@@ -625,6 +626,15 @@ class EnsaioWindow(Screen):
     def RealizaEnsaio(self):
         #Remove widget botão iniciar
         #self.remove_widget(self.ids.IniciaEnsaio)
+        #Verificar ensaio solicitado
+        path = os.getcwd()+'\Computador - Interface\config.json'
+        with open(path, 'r', encoding="utf-8") as config_file:
+            data=config_file.read()
+            config = json.loads(data) 
+            config_file.close()           
+        path = config['path']+'\Ensaio_'+self.ids.Ensaio_ID.text
+        #Importar CSV 
+        self.df_ensaio = pd.read_csv(path+'\Resultados_Ensaio_'+self.ids.Ensaio_ID.text+'.csv')
         #Limpa os logs
         self.Lista_Logs = []
         #Conecta com a máquina
@@ -660,8 +670,8 @@ class EnsaioWindow(Screen):
                 box.add_widget(texto)
                 box.add_widget(botao)
                 popup.open()
-                #Rotina para reiniciar o ensaio
-
+                #Rotina para reiniciar o ensaio - exibe widget botão iniciar
+                self.add_widget(self.ids.IniciaEnsaio)
             elif (StatusMaquina == "success"):
                 #Coleta as imagens
                 coleta = self.get_images(ssh, self.pi_images_path, self.local_images_path)
@@ -674,8 +684,8 @@ class EnsaioWindow(Screen):
                     box.add_widget(texto)
                     box.add_widget(botao)
                     popup.open()
-                    #Rotina para reiniciar o ensaio
-                    
+                    #Rotina para reiniciar o ensaio - exibe widget botão iniciar
+                    self.add_widget(self.ids.IniciaEnsaio)
                 elif(coleta == 1):
                     #Exibe PopUp avisando que a coleta de imagens foi finalizada
                     box = BoxLayout(orientation='vertical',padding=10,spacing=10)
@@ -686,26 +696,81 @@ class EnsaioWindow(Screen):
                     box.add_widget(botao)
                     popup.open()
                     #Corta as imagens
-                    self.Cortar_Imagens()
+                    self.Cortar_Imagens(self.local_images_path, self.local_temp_images_path)
                     #Calcula a área
-                    self.Calcular_Areas()
-                    #Atualiza o arquivo CSV
-                    #Verifica a etapa
+                    areas = self.Calcular_Areas(self.local_temp_images_path)
+                    #Deleta as imagens temporárias
+                    path = os.getcwd()+'\\SistemaBayer\\Ensaio_'+self.ids.Ensaio_ID.text+'\\FotosTemporárias\\'
+                    for c in range(ord('A'), ord('I')):
+                        for i in range(1,17):
+                            os.remove(path+chr(c)+str(i)+'.jpg') 
+                    #Verifica a etapa e atualiza o dataframe
                     if (self.ids.Etapa.text == "Etapa 2"):
                         Etapa = "2"
-                        #Calcula as reduções e classifica
+                        self.df_ensaio['Área_Final'] = areas
+                        #Deleta a pasta de imagens temporárias                  
+                        os.rmdir(os.getcwd()+'\\SistemaBayer\\Ensaio_'+self.ids.Ensaio_ID.text+'\\FotosTemporárias')
+                        #Calcula as reduções
+                        reducoes = []
+                        for i in range(0,128):
+                            reducoes.append(100-((100*self.df_ensaio.loc[i,'Área_Final'])/self.df_ensaio.loc[i,'Área_Inicial']))
+                        self.df_ensaio['Redução_(%)'] = reducoes
+                        #Classifica as reduções
+                        classificacoes = []
+                        for cell in reducoes:
+                            if (cell >= 51):
+                                classificacoes.append("11")
+                            elif ((cell >=46) and (cell<51)):
+                                classificacoes.append("10")
+                            elif ((cell >=41) and (cell<46)):
+                                classificacoes.append("9")
+                            elif ((cell >=36) and (cell<41)):
+                                classificacoes.append("8")
+                            elif ((cell >=31) and (cell<36)):
+                                classificacoes.append("7")
+                            elif ((cell >=26) and (cell<31)):
+                                classificacoes.append("6")
+                            elif ((cell >=21) and (cell<26)):
+                                classificacoes.append("5")
+                            elif ((cell >=16) and (cell<21)):
+                                classificacoes.append("4")
+                            elif ((cell >=11) and (cell<16)):
+                                classificacoes.append("3")
+                            elif ((cell >=6) and (cell<11)):
+                                classificacoes.append("2")
+                            elif ((cell >=1) and (cell<6)):
+                                classificacoes.append("1")
+                            elif (cell<1):
+                                classificacoes.append("0")
+                        self.df_ensaio['Classificação'] = classificacoes
                     else:
                         Etapa = "1"
-                    #Atualiza o arquivo config.json
-                    #Deleta as imagens temporárias
+                        self.df_ensaio['Área_Inicial'] = areas
                     #Renomeia as imagens da primeira etapa
+                    path = self.local_images_path
                     for c in range(ord('A'), ord('I')):
-                        path = self.local_images_path
                         os.rename(path+chr(c)+'.jpg', path+"Ensaio"+self.ids.Ensaio_ID.text+"_Grupo"+chr(c)+"_Etapa"+Etapa+".jpg")
+                    #Atualiza o arquivo CSV
+                    path = os.getcwd()+'\Computador - Interface\config.json'
+                    with open(path, 'r', encoding="utf-8") as config_file:
+                        data=config_file.read()
+                        config = json.loads(data) 
+                        config_file.close()           
+                    path = config['path']+'\Ensaio_'+self.ids.Ensaio_ID.text
+                    self.df_ensaio.to_csv(path+"\Resultados_Ensaio_"+self.ids.Ensaio_ID.text+".csv", index=False)
+                    #Atualiza o arquivo config.json
+                    config_path = os.getcwd()+'\\Computador - Interface\\config.json'
+                    arquivo = open(config_path, "r")
+                    conteudo = json.load(arquivo)
+                    arquivo.close()
+                    conteudo['last_bioassay_id'] +=1                
+                    arquivo = open(config_path, "w")
+                    json.dump(conteudo, arquivo)
+                    arquivo.close()
+                    #Exibe widget botão finalizar
+                    self.add_widget(self.ids.FinalizaEnsaio)
         #Exibe os logs
         self.Show_Logs()
-
-
 
     #Função para finalizar ensaio           
     def FinalizaEnsaio(self):
@@ -717,17 +782,6 @@ class EnsaioWindow(Screen):
         self.add_widget(self.ids.IniciaEnsaio)
         #Aletera a tela
         self.parent.current = 'Home'
-
-
-
-
-
-
-
-
-
-
-
 
 
 kv = Builder.load_file('design_screenmanager.kv')
