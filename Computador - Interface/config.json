@@ -1,10 +1,1 @@
-{
-    "path": "C:\\Users\\Henrique\\Documents\\Mauá\\5º Ano\\Trabalho de Conclusão de Curso\\Programação\\Codigos_TCC\\SistemaBayer",
-    "last_bioassay_id": 0,
-    "IP_maquina": "10.33.162.137",
-    "port": 22,
-    "username": "pi",
-    "password": "bayer",
-    "pi_images_path": "/home/pi/Documents/bayer_project/Images/",
-    "pi_json_path": "/home/pi/Documents/bayer_project/Comunication/"
-} 
+{"path": "C:\\Users\\Henrique\\Documents\\Mauá\\5º Ano\\Trabalho de Conclusão de Curso\\Programação\\Codigos_TCC\\SistemaBayer", "current_bioassay_id": "5", "last_bioassay_id": 0, "IP_maquina": "10.33.162.137", "port": 22, "username": "pi", "password": "bayer", "pi_images_path": "/home/pi/Documents/bayer_project/Images/", "pi_json_path": "/home/pi/Documents/bayer_project/Comunication/"}

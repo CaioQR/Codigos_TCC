@@ -144,6 +144,15 @@ class Etapa1Window(Screen):
         else:
             #Função Criar Ensaio CSV
             self.Cria_Ensaio_CSV()
+            #Atualiza o arquivo config.json
+            config_path = os.getcwd()+'\\Computador - Interface\\config.json'
+            arquivo = open(config_path, "r", encoding="utf-8")
+            conteudo = json.load(arquivo)
+            arquivo.close()
+            conteudo['current_bioassay_id'] = self.ensaio                
+            arquivo = open(config_path, "w", encoding="utf-8")
+            json.dump(conteudo, arquivo, ensure_ascii=False)
+            arquivo.close()
             #Limpa os campos
             self.Clear_Data()
             #Altera a página
@@ -338,6 +347,15 @@ class Etapa2Window(Screen):
                 config_file.close()           
             path = config['path']+'\Ensaio_'+str(self.ensaio)
             self.df_ensaio.to_csv(path+"\Resultados_Ensaio_"+str(self.ensaio)+".csv", index=False)
+            #Atualiza o arquivo config.json
+            config_path = os.getcwd()+'\\Computador - Interface\\config.json'
+            arquivo = open(config_path, "r", encoding="utf-8")
+            conteudo = json.load(arquivo)
+            arquivo.close()
+            conteudo['current_bioassay_id'] = str(self.ensaio)                
+            arquivo = open(config_path, "w", encoding="utf-8")
+            json.dump(conteudo, arquivo, ensure_ascii=False)
+            arquivo.close()
             #Limpa os campos
             self.Clear_Data()
             #Altera a página
@@ -427,34 +445,38 @@ class HistoricoWindow(Screen):
 
     #Função para exibir o gráfico na tela
     def ExibeGrafico(self, df):
-        # set width of bar
-        barWidth = 0.25
-        fig = plt.subplots(figsize =(20, 12))
-        
-        # set height of bar
-        soja = list(df.loc[df['Cultura'] == 'Soja', 'Classificação'])
-        milho = list(df.loc[df['Cultura'] == 'Milho', 'Classificação'])
-        algodao = list(df.loc[df['Cultura'] == 'Algodão', 'Classificação'])
-        
-        # Set position of bar on X axis
-        br1 = np.arange(len(soja))
-        br2 = [x + barWidth for x in br1]
-        br3 = [x + barWidth for x in br2]
-        
-        # Make the plot
-        plt.bar(br1, soja, color ='seagreen', width = barWidth, edgecolor ='grey', label ='Soja')
-        plt.bar(br2, milho, color ='gold', width = barWidth, edgecolor ='grey', label ='Milho')
-        plt.bar(br3, algodao, color ='dodgerblue', width = barWidth, edgecolor ='grey', label ='Algodão')
-        
-        # Adding Xticks
-        plt.xlabel('Escala (%)', fontweight ='bold', fontsize = 18)
-        plt.ylabel('Quantidade', fontweight ='bold', fontsize = 18)
-        plt.xticks([r + barWidth for r in range(len(soja))],
-                ['0 - 10 %','11 - 20 %','21 - 30 %','31 - 40 %','41 - 50 %','51 - 60 %','61 - 70 %','71 - 80 %','81 - 90 %','91 - 100 %'])
-        plt.title("Consumo de cultura", fontsize= 24)
-        
-        plt.legend(fontsize=15)
+        df['Grupo'] = df['Célula'].str[0]
+        df['Redução'] = df['Redução_(%)']
+        x = df.groupby(['Grupo'])['Redução'].sum()
+        x = x.index.to_list()
+        y = df.groupby(['Grupo'])['Redução'].sum().to_list()
 
+        legenda = df.groupby(['Grupo'])['Cultura'].unique()
+
+        import matplotlib.patches as mpatches
+        fig = plt.figure()
+        fig = plt.subplots(figsize =(20, 12))
+        teste = []
+        for i in legenda:
+            if i== ['Algodão']:
+                teste.append(1)
+            elif i== ['Milho']:
+                teste.append(2)
+            else:
+                teste.append(3)
+
+        colors = ["dodgerblue" if i == 1 else 'gold' if i == 2 else 'seagreen' for i in teste]
+        plt.bar(x, y, color = colors, edgecolor ='grey', width=0.6)
+
+        plt.xlabel('Quadrantes', fontweight ='bold', fontsize = 14)
+        plt.ylabel('Redução (%)', fontweight ='bold', fontsize = 14)
+        plt.title("Consumo de cultura", fontsize= 20)
+
+        algodao = mpatches.Patch(color="dodgerblue", label='Algodão')
+        milho = mpatches.Patch(color='gold', label='Milho')
+        soja = mpatches.Patch(color='seagreen', label='Soja')
+        plt.legend(handles=[algodao, milho, soja], fontsize=14)
+        
         self.box = self.ids.box
         self.box.add_widget(FigureCanvasKivyAgg(plt.gcf()))
 
@@ -551,7 +573,7 @@ class EnsaioWindow(Screen):
             config = json.loads(data) 
             config_file.close()    
         #Importa o csv atual
-        currentID = str(config['last_bioassay_id']+1)
+        currentID = str(config['current_bioassay_id'])
         self.RaspberryIP = config['IP_maquina']
         path = config['path']+'\Ensaio_'+currentID
         try:
@@ -684,20 +706,45 @@ class EnsaioWindow(Screen):
         ########################################## RECORTAR CÍRCULOS ######################################
             i = 0
             for index, row in df.iterrows():
-                # crop image
-                image = src1[(df.y[index]-35):(df.y[index]+35),(df.x[index]-35):(df.x[index]+35)]
-                # NOME E PATH DAS 16 IMAGENS
-                image_name = path_temp+str(df.group_index[index])+str(df.cell_index[index])+'.jpg'
-                print(image_name)
-                is_success, im_buf_arr = cv.imencode(".jpg", image)
-                im_buf_arr.tofile(image_name)
-                i+=1
+                try:
+                    # crop image
+                    image = src1[(df.y[index]-35):(df.y[index]+35),(df.x[index]-35):(df.x[index]+35)]
+                    # NOME E PATH DAS 16 IMAGENS
+                    image_name = path_temp+str(df.group_index[index])+str(df.cell_index[index])+'.jpg'
+                    is_success, im_buf_arr = cv.imencode(".jpg", image)
+                    im_buf_arr.tofile(image_name)
+                    i+=1
+                except:
+                    pass
         self.Update_Logs("Corte das imagens concluído")
         
     #Função para calcular áreas
     def Calcular_Areas(self, path_temp):
+        folha_lista = []
+        #Percorre os paths de fotos dos grupos
+        for c in range(ord('A'), ord('I')):
+            #Percorre os paths de fotos das folhas cortadas
+            for i in range(1,17):                
+                ImgFile = path_temp+chr(c)+str(i)+'.jpg'
+                # IMAGEM
+                try:
+                    image = cv.imdecode(np.fromfile(ImgFile, dtype=np.uint8), 1)
+                    image_gray = cv.imdecode(np.fromfile(ImgFile, dtype=np.uint8), 0)
+                    # Threshold
+                    threshold = threshold_otsu(image_gray)
+                    thresholded_img = image < threshold
+                    # Labels
+                    label_image = measure.label(thresholded_img, connectivity = image.ndim)
+                    all_props = measure.regionprops(label_image, image)
+                    for j in all_props:
+                        props_folha = measure.regionprops_table(label_image, image, properties=['label', 'area'])
+                    props_folha['Célula_ID'] = i
+                    folha_lista.append(props_folha['area'].sum())
+                except:
+                    folha_lista.append(0)
         self.Update_Logs("Cálculo das áreas concluído")
-
+        return folha_lista
+        
     #Função para ler json
     def read_json(self, path, filename):
         file = open(path+filename, "r")
@@ -726,8 +773,6 @@ class EnsaioWindow(Screen):
 
     #Função para realizar o ensaio
     def RealizaEnsaio(self):
-        #Remove widget botão iniciar
-        #self.remove_widget(self.ids.IniciaEnsaio)
         #Verificar ensaio solicitado
         path = os.getcwd()+'\Computador - Interface\config.json'
         with open(path, 'r', encoding="utf-8") as config_file:
@@ -799,24 +844,21 @@ class EnsaioWindow(Screen):
                     popup.open()
                     #Corta as imagens
                     self.Cortar_Imagens(self.local_images_path, self.local_temp_images_path)
-                    '''#Calcula a área
+                    #Calcula a área
                     areas = self.Calcular_Areas(self.local_temp_images_path)
-                    #Deleta as imagens temporárias
-                    path = os.getcwd()+'\\SistemaBayer\\Ensaio_'+self.ids.Ensaio_ID.text+'\\FotosTemporárias\\'
-                    for c in range(ord('A'), ord('I')):
-                        for i in range(1,17):
-                            os.remove(path+chr(c)+str(i)+'.jpg') 
                     #Verifica a etapa e atualiza o dataframe
                     if (self.ids.Etapa.text == "Etapa 2"):
                         Etapa = "2"
                         self.df_ensaio['Área_Final'] = areas
                         #Deleta a pasta de imagens temporárias                  
-                        os.rmdir(os.getcwd()+'\\SistemaBayer\\Ensaio_'+self.ids.Ensaio_ID.text+'\\FotosTemporárias')
+                        shutil.rmtree(os.getcwd()+'\\SistemaBayer\\Ensaio_'+self.ids.Ensaio_ID.text+'\\FotosTemporarias')
+                        self.Update_Logs("Limpeza do diretório concluído") 
                         #Calcula as reduções
                         reducoes = []
                         for i in range(0,128):
                             reducoes.append(100-((100*self.df_ensaio.loc[i,'Área_Final'])/self.df_ensaio.loc[i,'Área_Inicial']))
                         self.df_ensaio['Redução_(%)'] = reducoes
+                        self.Update_Logs("Cálculo das reduções concluído") 
                         #Classifica as reduções
                         classificacoes = []
                         for cell in reducoes:
@@ -844,14 +886,21 @@ class EnsaioWindow(Screen):
                                 classificacoes.append("1")
                             elif (cell<1):
                                 classificacoes.append("0")
+                        print(len(reducoes))
+                        print(len(classificacoes))
                         self.df_ensaio['Classificação'] = classificacoes
-                    else:
+                        self.Update_Logs("Classsificação dos resultados concluída") 
+                    elif(self.ids.Etapa.text == "Etapa 1"):
                         Etapa = "1"
                         self.df_ensaio['Área_Inicial'] = areas
                     #Renomeia as imagens da primeira etapa
                     path = self.local_images_path
                     for c in range(ord('A'), ord('I')):
-                        os.rename(path+chr(c)+'.jpg', path+"Ensaio"+self.ids.Ensaio_ID.text+"_Grupo"+chr(c)+"_Etapa"+Etapa+".jpg")
+                        try:
+                            os.rename(path+chr(c)+'.jpg', path+"Ensaio"+self.ids.Ensaio_ID.text+"_Grupo"+chr(c)+"_Etapa"+Etapa+".jpg")
+                        except:
+                            pass
+                    self.Update_Logs("Imagens renomeadas") 
                     #Atualiza o arquivo CSV
                     path = os.getcwd()+'\Computador - Interface\config.json'
                     with open(path, 'r', encoding="utf-8") as config_file:
@@ -860,17 +909,25 @@ class EnsaioWindow(Screen):
                         config_file.close()           
                     path = config['path']+'\Ensaio_'+self.ids.Ensaio_ID.text
                     self.df_ensaio.to_csv(path+"\Resultados_Ensaio_"+self.ids.Ensaio_ID.text+".csv", index=False)
+                    self.Update_Logs("Arquivo CSV atualizado") 
                     #Atualiza o arquivo config.json
                     config_path = os.getcwd()+'\\Computador - Interface\\config.json'
-                    arquivo = open(config_path, "r")
+                    arquivo = open(config_path, "r", encoding="utf-8")
                     conteudo = json.load(arquivo)
                     arquivo.close()
-                    conteudo['last_bioassay_id'] +=1                
-                    arquivo = open(config_path, "w")
-                    json.dump(conteudo, arquivo)
-                    arquivo.close()'''
+                    conteudo['last_bioassay_id'] += 1                
+                    arquivo = open(config_path, "w", encoding="utf-8")
+                    json.dump(conteudo, arquivo, ensure_ascii=False)
+                    arquivo.close()
+                    self.Update_Logs("Arquivo Json atualizado")
+                    self.Update_Logs("Ensaio finalizado com êxito")
+                    #Remove widget botão iniciar
+                    self.remove_widget(self.ids.IniciaEnsaio)
                     #Exibe widget botão finalizar
-                    self.add_widget(self.ids.FinalizaEnsaio)
+                    try:
+                        self.add_widget(self.ids.FinalizaEnsaio)
+                    except:
+                        pass
         #Exibe os logs
         self.Show_Logs()
 
